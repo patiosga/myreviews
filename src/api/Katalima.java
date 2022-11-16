@@ -1,25 +1,17 @@
 package api;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Katalima {
     private String name;
     private String description;
     private String stayType; //ξενοδοχείο, διαμέρισμα, μεζονέτα --> hotel, apartment, maisonette
-    //private Topothesia place; για οταν δημιουργηθεί αντίστοιχη κλάση
-    //private ArrayList<Axiologiseis> listAxiologiseis;
+    //private Location place; για όταν δημιουργηθεί αντίστοιχη κλάση
+    //private ArrayList<Evaluation> listEvaluations;
 
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
-    private HashSet<String> view;
-    private HashSet<String> bathUtilities;
-    private HashSet<String> clothWashing;
-    private HashSet<String> entertainment;
-    private HashSet<String> temperatureControl;
-    private HashSet<String> internet;
-    private HashSet<String> kitchenStuff;
-    private HashSet<String> outsideSpace;
-    private HashSet<String> parkingSpace;
+    private ArrayList<Utilities> typesOfUtilities;
+
 
     private int numOfRatings;
 
@@ -28,15 +20,7 @@ public class Katalima {
         this.description = description;
         this.stayType = stayType;
         numOfRatings = 0;
-        view = new HashSet<>();
-        bathUtilities = new HashSet<>();
-        clothWashing = new HashSet<>();
-        entertainment = new HashSet<>();
-        temperatureControl = new HashSet<>();
-        internet = new HashSet<>();
-        kitchenStuff = new HashSet<>();
-        outsideSpace = new HashSet<>();
-        parkingSpace = new HashSet<>();
+        typesOfUtilities = new ArrayList<>();
     }
 
     //public float getAverageOfRatings() {}!!!!!!!!
@@ -74,19 +58,19 @@ public class Katalima {
         this.stayType = stayType;
     }
 
-    public void addView(String extraView) {
-        view.add(extraView);
-    }
-    public void removeView(String extraView) {
-        view.remove(extraView);
+    public boolean addUtilityType(Utilities objUtil) { //για να μπορούν να προστεθούν και άλλα types στο μέλλον, π.χ. δωμάτιο σπα
+        if (!typesOfUtilities.contains(objUtil)) {
+            typesOfUtilities.add(objUtil);
+            return true;
+        }
+        return false;
     }
 
-    public void addBathUtility(String extraBathUtility) {
-        bathUtilities.add(extraBathUtility);
+    public void display() {
+        //όνομα, τύπος, τοποθεσία, μέσος όρος
     }
-    public void removeBathUtility(String extraBathUtility) {
-        bathUtilities.remove(extraBathUtility);
-    }
+
+
 
 
 }
