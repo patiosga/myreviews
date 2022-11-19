@@ -1,7 +1,7 @@
 package api;
 
 public class User {
-
+    //εδώ ίσως το αλλάξουμε ώστε να έχουμε και τα όνομα, επίθετο σε ξεχωριστές μεταβλητές αλλά μπορεί και να μη χρειαστεί αν υπάρχει καλή μέθοδος parsing για string
     protected String userName;
     protected String password;
     protected String type;

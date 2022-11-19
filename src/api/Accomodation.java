@@ -98,6 +98,7 @@ public class Accomodation {
                 return false;
         }
         evaluations.add(rating);
+        numOfRatings++;
         return true;
     }
 
@@ -105,6 +106,7 @@ public class Accomodation {
         for (Evaluation evaluation : evaluations) {
             if (rating.getUser().getUserName() == evaluation.getUser().getUserName()) {
                 evaluations.remove(rating);
+                numOfRatings--;
                 return true;
             }
         }
