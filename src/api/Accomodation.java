@@ -3,30 +3,32 @@ package api;
 import java.util.ArrayList;
 
 public class Accomodation {
+    private int singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
+    private final Provider provider;
     private String name;
     private String description;
     private String stayType; //ξενοδοχείο, διαμέρισμα, μεζονέτα --> hotel, apartment, maisonette
     private Location place;
-    private ArrayList<Evaluation> evaluations;
+    //private ArrayList<Evaluation> evaluations;
 
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
     private ArrayList<Utilities> typesOfUtilities;
-
-
     private int numOfRatings;
 
-    public Accomodation(String name, String description, String stayType, Location location) {
+    public Accomodation(String name, String description, String stayType, Location location, Provider provider) {
         this.name = name;
         this.description = description;
         this.stayType = stayType;
         numOfRatings = 0;
         place = location;
+        this.provider = provider;
+        singularId = provider.getUserName().hashCode() + name.hashCode(); //αποκλείουμε το γεγονός ο ίδιος πάροχος να έχει δύο καταλύματα με το ίδιο όνομα οπότε το id του καταλύματος είναι μοναδικό
+
         typesOfUtilities = new ArrayList<>();
-        evaluations = new ArrayList<>();
     }
 
 
-    public float getAverageOfRatings() {
+    /*public float getAverageOfRatings() {
         if (getNumOfRatings() == 0)
             return 0;
         float totalGrades = 0;
@@ -34,7 +36,7 @@ public class Accomodation {
             totalGrades += evaluation.getGrade();
         }
         return totalGrades/getNumOfRatings();
-    }
+    }*/
 
 
     public int getNumOfRatings() {
@@ -77,6 +79,14 @@ public class Accomodation {
         this.place = place;
     }
 
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public int getSingularId() {
+        return singularId;
+    }
+
     /**
      * Για να μπορούν να προστεθούν και άλλα types στο μέλλον, π.χ. δωμάτιο σπα. Δεν πρόκειται να χρειαστεί η
      * αφαίρεση π.χ. της παροχής view οπότε για την ώρα δεν υλοποιείται μέθοδος remove
@@ -91,7 +101,7 @@ public class Accomodation {
         return false;
     }
 
-    public boolean addEvaluation(Evaluation rating) {
+    /*public boolean addEvaluation(Evaluation rating) {
         //Έλεγχος αν ο ίδιος χρήστης έχει αξιολογήσει ξανά αυτό το κατάλυμα αξιοποιώντας τη μοναδικότητα του username του
         for (Evaluation evaluation : evaluations) {
             if (rating.getUser().getUserName() == evaluation.getUser().getUserName())
@@ -111,7 +121,7 @@ public class Accomodation {
             }
         }
         return false;
-    }
+    } */
 
 
 
