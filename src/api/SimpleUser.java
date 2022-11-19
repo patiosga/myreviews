@@ -3,18 +3,34 @@ package api;
 import java.util.ArrayList;
 
 public class SimpleUser extends User{
-
-    //private ArrayList<Evaluation> listEvaluations;
+    private ArrayList<Evaluation> personalEvaluations;
 
 
     public SimpleUser(String userName, String password, String type) {
         super(userName, password, type);
     }
 
-    //public float getAverageOfRatings() {
-    // }!!!!!!!!
+    public float getAverageOfRatings() {
+        if (personalEvaluations.size() == 0)
+            return 0;
+        float totalGrades = 0;
+        for (Evaluation evaluation : personalEvaluations) {
+            totalGrades += evaluation.getGrade();
+        }
+        return totalGrades/personalEvaluations.size();
+    }
 
-    public void display(){
-        //probolh katalimatwn
+    public boolean addPersonalEvaluation(Evaluation rating) {
+
+    }
+
+    public boolean removePersonalEvaluation(Evaluation rating) {
+        //πρέπει να διαγράφεται ταυτόχρονα και από τη λίστα με τις αξιολογήσεις του αντίστοιχου καταλύματος
+        //καλύτερα να γίνεται αυτόματα από εδώ και το δεύτερο καλώντας την αντίστοιχη μέθοδο
+        //!!! περιπλέκεται αρκετά αν ο πάροχος αφαιρέσει το κατάλυμα αλλα βλέπουμε
+    }
+
+    public void display() {
+        //προβολή προσωπικών αξιολογήσεων στο dashboard
     }
 }
