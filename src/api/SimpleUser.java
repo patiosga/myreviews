@@ -1,38 +1,43 @@
 package api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleUser extends User{
-    private ArrayList<Evaluation> personalEvaluations;
-
+    private float avgRating; //πρέπει να ενημερώνεται κάθε φορά που κάνει ο χρήστης νέα αξιολόγηση ή αφαιρείται μια παλιά του
 
     public SimpleUser(String userName, String password, String type) {
-
         super(userName, password, type);
+        avgRating = 0;
     }
 
-    public float getAverageOfRatings() {
-        if (personalEvaluations.size() == 0)
-            return 0;
-        float totalGrades = 0;
-        for (Evaluation evaluation : personalEvaluations) {
-            totalGrades += evaluation.getGrade();
+    public void updateAvgRatingOfUser(List<Evaluation> evaluations) {
+        if (evaluations.size() == 0) {
+            avgRating = 0;
+            return;
         }
-        return totalGrades/personalEvaluations.size();
+        float totalSum = 0;
+        int numOfEvaluations = 0;
+        for (Evaluation evaluation : evaluations) {
+            if (evaluation.getUser().getUserName() == this.getUserName()) {
+                totalSum += evaluation.getGrade();
+                numOfEvaluations++;
+            }
+        }
+        if (numOfEvaluations == 0) {
+            avgRating = 0;
+            return;
+        }
+        avgRating = totalSum / numOfEvaluations;
+    }
+    public float getAvgRating() {
+        return avgRating;
     }
 
-    public boolean addPersonalEvaluation(Evaluation rating) {
 
-    }
 
-    public boolean removePersonalEvaluation(Evaluation rating) {
-        //πρέπει να διαγράφεται ταυτόχρονα και από τη λίστα με τις αξιολογήσεις του αντίστοιχου καταλύματος
-        //καλύτερα να γίνεται αυτόματα από εδώ και το δεύτερο καλώντας την αντίστοιχη μέθοδο
-        //!!! περιπλέκεται αρκετά αν ο πάροχος αφαιρέσει το κατάλυμα αλλα βλέπουμε
-    }
 
-    //μέθοδοι επεξεργασίας της αξιολόγησης και του βαθμού
-    //ΜΑΛΛΟΝ ΘΑ ΕΧΟΥΜΕ ΜΙΑ ΛΙΣΤΑ ΑΠΟ ΑΞΙΟΛΟΓΗΣΕΙΣ ΚΑΠΟΥ ΑΛΛΟΥ ΜΑΛΛΟΝ γιατι τώρα ότι αλλαγές γίνονται πρεπει να γίνονται δύο φορές
+
 
     public void display() {
         //προβολή προσωπικών αξιολογήσεων στο dashboard

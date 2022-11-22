@@ -1,11 +1,14 @@
 package api;
 
+import java.text.*;
+import java.util.Calendar;
+
 public class Evaluation {
-    //πρέπει να προστεθεί ημερομηνία!!!
+    private String currentDate;
     private final SimpleUser user;
     private final Accomodation accomodation;
     private String evaluationText;
-    private float grade;
+    private float grade; //1 έως 5 --> μάλλον χρειάζεται κάτι σε exception αλλά θα δούμε μήπως απλά περιορίσουμε τις επιλογές στο gui
 
 
     public Evaluation(String evaluationText, float grade, SimpleUser user, Accomodation accomodation) {
@@ -13,6 +16,12 @@ public class Evaluation {
         this.grade = grade;
         this.user = user;
         this.accomodation = accomodation;
+
+        //Ορισμός της ημερομηνίας που προστίθεται η αξιολόγηση
+        DateFormat Date = DateFormat.getDateInstance();
+        Calendar cals = Calendar.getInstance();
+        currentDate = Date.format(cals.getTime());
+
     }
 
     public String getEvaluationText() {
@@ -38,6 +47,15 @@ public class Evaluation {
     public Accomodation getAccomodation() {
         return accomodation;
     }
+
+    public String getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
+    }
+
 
     public void display() {
         //

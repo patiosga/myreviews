@@ -1,15 +1,17 @@
 package api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Accomodation {
-    private int singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
+    private float avgRating;
+    private int totalEvaluations; //avgRating και totalEvaluations αλλάζουν κάθε φορά που προστίθεται αξιολόγηση στο κατάλυμα
+    private final int singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
     private final Provider provider;
     private String name;
     private String description;
     private String stayType; //ξενοδοχείο, διαμέρισμα, μεζονέτα --> hotel, apartment, maisonette
     private Location place;
-    //private ArrayList<Evaluation> evaluations;
 
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
     private ArrayList<Utilities> typesOfUtilities;
@@ -23,21 +25,10 @@ public class Accomodation {
         place = location;
         this.provider = provider;
         singularId = provider.getUserName().hashCode() + name.hashCode(); //αποκλείουμε το γεγονός ο ίδιος πάροχος να έχει δύο καταλύματα με το ίδιο όνομα οπότε το id του καταλύματος είναι μοναδικό
+        avgRating = 0;
 
         typesOfUtilities = new ArrayList<>();
     }
-
-
-    /*public float getAverageOfRatings() {
-        if (getNumOfRatings() == 0)
-            return 0;
-        float totalGrades = 0;
-        for (Evaluation evaluation : evaluations) {
-            totalGrades += evaluation.getGrade();
-        }
-        return totalGrades/getNumOfRatings();
-    }*/
-
 
     public int getNumOfRatings() {
         return numOfRatings;
@@ -87,6 +78,43 @@ public class Accomodation {
         return singularId;
     }
 
+    public float getAvgRating() {
+        return avgRating;
+    }
+
+    public int getTotalEvaluations() {
+        return totalEvaluations;
+    }
+
+    public void setTotalEvaluations(int totalEvaluations) {
+        this.totalEvaluations = totalEvaluations;
+    }
+
+    public void updateAvgRatingOfAccomodation(List<Evaluation> evaluations) {
+        if (evaluations.size() == 0) {
+            avgRating = 0;
+            return;
+        }
+        float totalSum = 0;
+        int numOfEvaluations = 0;
+        for (Evaluation evaluation : evaluations) {
+            if (evaluation.getAccomodation().getSingularId() == this.singularId) {
+                totalSum += evaluation.getGrade();
+                numOfEvaluations++;
+            }
+        }
+        if (numOfEvaluations == 0) {
+            avgRating = 0;
+            totalEvaluations = 0;
+            return;
+        }
+        totalEvaluations = numOfEvaluations;
+        avgRating = totalSum / numOfEvaluations;
+    }
+
+
+
+
     /**
      * Για να μπορούν να προστεθούν και άλλα types στο μέλλον, π.χ. δωμάτιο σπα. Δεν πρόκειται να χρειαστεί η
      * αφαίρεση π.χ. της παροχής view οπότε για την ώρα δεν υλοποιείται μέθοδος remove
@@ -100,28 +128,6 @@ public class Accomodation {
         }
         return false;
     }
-
-    /*public boolean addEvaluation(Evaluation rating) {
-        //Έλεγχος αν ο ίδιος χρήστης έχει αξιολογήσει ξανά αυτό το κατάλυμα αξιοποιώντας τη μοναδικότητα του username του
-        for (Evaluation evaluation : evaluations) {
-            if (rating.getUser().getUserName() == evaluation.getUser().getUserName())
-                return false;
-        }
-        evaluations.add(rating);
-        numOfRatings++;
-        return true;
-    }
-
-    public boolean removeEvaluation(Evaluation rating) {
-        for (Evaluation evaluation : evaluations) {
-            if (rating.getUser().getUserName() == evaluation.getUser().getUserName()) {
-                evaluations.remove(rating);
-                numOfRatings--;
-                return true;
-            }
-        }
-        return false;
-    } */
 
 
 
