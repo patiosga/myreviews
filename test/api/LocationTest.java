@@ -1,3 +1,5 @@
+package api;
+
 import api.Location;
 import org.junit.*;
 
