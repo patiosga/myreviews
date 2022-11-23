@@ -6,8 +6,8 @@ import java.util.List;
 public class SimpleUser extends User{
     private float avgRating; //πρέπει να ενημερώνεται κάθε φορά που κάνει ο χρήστης νέα αξιολόγηση ή αφαιρείται μια παλιά του
 
-    public SimpleUser(String userName, String password, String type) {
-        super(userName, password, type);
+    public SimpleUser(String firstName, String lastName ,String userName, String password, String type) {
+        super(firstName,lastName, userName, password, type);
         avgRating = 0;
     }
 
@@ -39,7 +39,7 @@ public class SimpleUser extends User{
 
 
 
-    public void display() {
-        //προβολή προσωπικών αξιολογήσεων στο dashboard
+    public void display(){
+    //προβολή προσωπικών αξιολογήσεων στο dashboard
     }
 }

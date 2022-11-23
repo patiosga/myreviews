@@ -6,8 +6,8 @@ public class Provider extends User {
     private int totalRatings; //πρέπει να ενημερώνεται κάθε φορά που προστίθεται ή αφαιρείται αξιολόγηση
     private float avgRatingOfAllAccom;
 
-    public Provider(String userName, String password, String type) {
-        super(userName, password, type);
+    public Provider(String firstName,String lastName,String userName, String password, String type) {
+        super(firstName,lastName,userName, password, type);
         totalRatings = 0;
         avgRatingOfAllAccom = 0;
     }
