@@ -21,7 +21,7 @@ public class Utilities {
         return false;
     }
 
-
-
-
+    public HashSet<String> getSpecifics() {
+        return specifics;
+    }
 }
