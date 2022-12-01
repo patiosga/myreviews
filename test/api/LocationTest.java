@@ -1,20 +1,29 @@
 package api;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import api.Location;
+import org.junit.*;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class LocationTest {
 
+
     Location loc;
 
-    @BeforeEach
+    Location instance;
+
+    @BeforeClass
+    public static void setUpClass() {
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+    }
+
+    @Before
     public void setUp() {
-        loc = new Location("Flower Street", "Thessaloniki", "12345");
+        instance = new Location("Strathgou Dagkli", "Thessaloniki", "12121");
     }
 
     @After
@@ -23,35 +32,11 @@ public class LocationTest {
 
 
     @Test
-    void getAddress() {
-        assertEquals(loc.getAddress(), "Flower Street");
+    public void getSet() {
+        assertEquals("Strathgou Dagkli", instance.getAddress());
+        assertEquals("Thessaloniki", instance.getTown());
+        assertEquals("12121", instance.getPostCode());
     }
 
-    @Test
-    void setAddress() {
-        loc.setAddress("Main");
-        assertEquals(loc.getAddress(), "Main");
-    }
 
-    @Test
-    void getTown() {
-        assertEquals(loc.getTown(), "Thessaloniki");
-    }
-
-    @Test
-    void setTown() {
-        loc.setTown("Thessaloniki");
-        assertEquals(loc.getTown(), "Thessaloniki");
-    }
-
-    @Test
-    void getPostCode() {
-        assertEquals(loc.getPostCode(), "12345");
-    }
-
-    @Test
-    void setPostCode() {
-        loc.setPostCode("54321");
-        assertEquals(loc.getPostCode(), "54321");
-    }
 }
