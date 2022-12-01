@@ -54,5 +54,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="junit-4.12" level="application" />
   </component>
 </module>
