@@ -6,7 +6,7 @@ import java.util.List;
 public class Accomodation {
     private float avgRating;
     private int totalEvaluations; //avgRating και totalEvaluations αλλάζουν κάθε φορά που προστίθεται αξιολόγηση στο κατάλυμα
-    private final int singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
+    private final long singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
     private final Provider provider;
     private String name;
     private String description;
@@ -15,7 +15,6 @@ public class Accomodation {
 
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
     private ArrayList<Utilities> typesOfUtilities;
-    private int numOfRatings;
 
     public Accomodation(String name, String description, String stayType, Location location, Provider provider) {
         this.name = name;
@@ -28,14 +27,6 @@ public class Accomodation {
         avgRating = 0;
 
         typesOfUtilities = new ArrayList<>();
-    }
-
-    public int getNumOfRatings() {
-        return numOfRatings;
-    }
-
-    public void setNumOfRatings(int numOfRatings) {
-        this.numOfRatings = numOfRatings;
     }
 
     public String getName() {
@@ -74,7 +65,7 @@ public class Accomodation {
         return provider;
     }
 
-    public int getSingularId() {
+    public long getSingularId() {
         return singularId;
     }
 

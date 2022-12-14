@@ -6,7 +6,7 @@ public abstract class User { //βγάζει νόημα να είναι abstract 
     protected final String lastName;
     protected final String userName;
     protected String password;
-    protected final String type;
+    protected final String type; // "simpleUser" or "provider"
 
     public User(String firstName, String lastName, String userName, String password, String type) {
         this.userName = userName;

@@ -1,7 +1,6 @@
 package api;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 public class SimpleUser extends User{
     private float avgRating; //πρέπει να ενημερώνεται κάθε φορά που κάνει ο χρήστης νέα αξιολόγηση ή αφαιρείται μια παλιά του
@@ -11,7 +10,7 @@ public class SimpleUser extends User{
         avgRating = 0;
     }
 
-    public void updateAvgRatingOfUser(List<Evaluation> evaluations) {
+    public void updateAvgRatingOfUser(HashSet<Evaluation> evaluations) {
         if (evaluations.size() == 0) {
             avgRating = 0;
             return;

@@ -9,6 +9,7 @@ public class Evaluation {
     private final Accomodation accomodation;
     private String evaluationText;
     private float grade; //1 έως 5 --> μάλλον χρειάζεται κάτι σε exception αλλά θα δούμε μήπως απλά περιορίσουμε τις επιλογές στο gui
+    private final long singularId;
 
 
     public Evaluation(String evaluationText, float grade, SimpleUser user, Accomodation accomodation) {
@@ -22,6 +23,7 @@ public class Evaluation {
         Calendar cals = Calendar.getInstance();
         currentDate = Date.format(cals.getTime());
 
+        singularId = user.hashCode() + accomodation.hashCode() + (long) grade;
     }
 
     public String getEvaluationText() {
@@ -52,10 +54,9 @@ public class Evaluation {
         return currentDate;
     }
 
-    public void setCurrentDate(String currentDate) {
-        this.currentDate = currentDate;
+    public long getSingularId() {
+        return singularId;
     }
-
 
     public void display() {
         //
