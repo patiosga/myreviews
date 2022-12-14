@@ -1,57 +1,37 @@
 package api;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class LocationTest {
 
-    Location loc;
-
-    @BeforeEach
-    public void setUp() {
-        loc = new Location("Flower Street", "Thessaloniki", "12345");
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-
-    @Test
-    void getAddress() {
-        assertEquals(loc.getAddress(), "Flower Street");
+    @Before
+    public void setUp() throws Exception {
     }
 
     @Test
-    void setAddress() {
-        loc.setAddress("Main");
-        assertEquals(loc.getAddress(), "Main");
+    public void getAddress() {
     }
 
     @Test
-    void getTown() {
-        assertEquals(loc.getTown(), "Thessaloniki");
+    public void setAddress() {
     }
 
     @Test
-    void setTown() {
-        loc.setTown("Thessaloniki");
-        assertEquals(loc.getTown(), "Thessaloniki");
+    public void getTown() {
     }
 
     @Test
-    void getPostCode() {
-        assertEquals(loc.getPostCode(), "12345");
+    public void setTown() {
     }
 
     @Test
-    void setPostCode() {
-        loc.setPostCode("54321");
-        assertEquals(loc.getPostCode(), "54321");
+    public void getPostCode() {
+    }
+
+    @Test
+    public void setPostCode() {
     }
 }
