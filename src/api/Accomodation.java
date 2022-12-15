@@ -20,7 +20,7 @@ public class Accomodation {
         this.name = name;
         this.description = description;
         this.stayType = stayType;
-        numOfRatings = 0;
+        totalEvaluations = 0;
         place = location;
         this.provider = provider;
         singularId = provider.getUserName().hashCode() + name.hashCode(); //αποκλείουμε το γεγονός ο ίδιος πάροχος να έχει δύο καταλύματα με το ίδιο όνομα οπότε το id του καταλύματος είναι μοναδικό
@@ -28,6 +28,7 @@ public class Accomodation {
 
         typesOfUtilities = new ArrayList<>();
     }
+
 
     public String getName() {
         return name;
