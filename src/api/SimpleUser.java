@@ -1,8 +1,10 @@
 package api;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 
-public class SimpleUser extends User{
+public class SimpleUser extends User implements Serializable {
     private float avgRating; //πρέπει να ενημερώνεται κάθε φορά που κάνει ο χρήστης νέα αξιολόγηση ή αφαιρείται μια παλιά του
 
     public SimpleUser(String firstName, String lastName ,String userName, String password, String type) {

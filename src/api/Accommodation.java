@@ -1,9 +1,12 @@
 package api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
-public class Accomodation {
+public class Accommodation implements Serializable {
+
     private float avgRating;
     private int totalEvaluations; //avgRating και totalEvaluations αλλάζουν κάθε φορά που προστίθεται αξιολόγηση στο κατάλυμα
     private final long singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
@@ -16,7 +19,7 @@ public class Accomodation {
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
     private ArrayList<Utilities> typesOfUtilities;
 
-    public Accomodation(String name, String description, String stayType, Location location, Provider provider) {
+    public Accommodation(String name, String description, String stayType, Location location, Provider provider) {
         this.name = name;
         this.description = description;
         this.stayType = stayType;
@@ -82,7 +85,7 @@ public class Accomodation {
         this.totalEvaluations = totalEvaluations;
     }
 
-    public void updateAvgRatingOfAccomodation(List<Evaluation> evaluations) {
+    public void updateAvgRatingOfAccomodation(HashSet<Evaluation> evaluations) {
         if (evaluations.size() == 0) {
             avgRating = 0;
             return;
@@ -105,30 +108,25 @@ public class Accomodation {
     }
 
 
-
-
     /**
      * Για να μπορούν να προστεθούν και άλλα types στο μέλλον, π.χ. δωμάτιο σπα. Δεν πρόκειται να χρειαστεί η
-     * αφαίρεση π.χ. της παροχής view οπότε για την ώρα δεν υλοποιείται μέθοδος remove
+     * αφαίρεση π.χ. της παροχής view οπότε για την ώρα δεν υλοποιείται μέθοδος remove.
      * @param objUtil ο νέος τύπος παροχής που προστίθεται
      * @return επιστρέφει true αν το αντικείμενο δεν υπήρχε ήδη και προστέθηκε τώρα
      */
     public boolean addUtilityType(Utilities objUtil) {
-        if (!typesOfUtilities.contains(objUtil)) {
-            typesOfUtilities.add(objUtil);
-            return true;
+        if (!typesOfUtilities.isEmpty()) {
+            if (typesOfUtilities.contains(objUtil))
+                return false;
         }
-        return false;
+        typesOfUtilities.add(objUtil);
+        return true;
     }
 
-
-
-
-    public void display() {
-        //όνομα, τύπος, τοποθεσία, μέσος όρος
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Accommodation that)) return false;
+        return getSingularId() == that.getSingularId();
     }
-
-
-
-
 }

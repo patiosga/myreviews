@@ -1,11 +1,12 @@
 package api;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class ManageUsers {
-    HashSet<SimpleUser> simpleUsers;
-    HashSet<Provider> providers;
+public class ManageUsers implements Serializable {
+    private HashSet<SimpleUser> simpleUsers;
+    private HashSet<Provider> providers;
 
     public ManageUsers(){
         simpleUsers = new HashSet<>();

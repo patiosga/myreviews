@@ -1,29 +1,29 @@
 package api;
 
+import java.io.Serializable;
 import java.text.*;
 import java.util.Calendar;
 
-public class Evaluation {
-    private String currentDate;
+public class Evaluation implements Serializable {
+    private final String currentDate;
     private final SimpleUser user;
-    private final Accomodation accomodation;
+    private final Accommodation accommodation;
     private String evaluationText;
-    private float grade; //1 έως 5 --> μάλλον χρειάζεται κάτι σε exception αλλά θα δούμε μήπως απλά περιορίσουμε τις επιλογές στο gui
+    private float grade; //1 έως 5
     private final long singularId;
 
-
-    public Evaluation(String evaluationText, float grade, SimpleUser user, Accomodation accomodation) {
+    public Evaluation(String evaluationText, float grade, SimpleUser user, Accommodation accommodation) {
         this.evaluationText = evaluationText;
         this.grade = grade;
         this.user = user;
-        this.accomodation = accomodation;
+        this.accommodation = accommodation;
 
         //Ορισμός της ημερομηνίας που προστίθεται η αξιολόγηση
         DateFormat Date = DateFormat.getDateInstance();
         Calendar cals = Calendar.getInstance();
         currentDate = Date.format(cals.getTime());
 
-        singularId = user.hashCode() + accomodation.hashCode() + (long) grade;
+        singularId = user.hashCode() + accommodation.hashCode() + (long) grade;
     }
 
     public String getEvaluationText() {
@@ -46,8 +46,8 @@ public class Evaluation {
         return user;
     }
 
-    public Accomodation getAccomodation() {
-        return accomodation;
+    public Accommodation getAccomodation() {
+        return accommodation;
     }
 
     public String getCurrentDate() {
@@ -58,7 +58,10 @@ public class Evaluation {
         return singularId;
     }
 
-    public void display() {
-        //
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Evaluation that)) return false;
+        return getSingularId() == that.getSingularId();
     }
 }

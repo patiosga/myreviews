@@ -1,6 +1,9 @@
 package api;
 
-public abstract class User { //βγάζει νόημα να είναι abstract γιατί δεν πρόκειται να δημιουργηθούν αντικείμενα User
+import java.io.Serializable;
+import java.util.Objects;
+
+public abstract class User implements Serializable { //βγάζει νόημα να είναι abstract γιατί δεν πρόκειται να δημιουργηθούν αντικείμενα User
     // εδώ ίσως το αλλάξουμε ώστε να έχουμε και τα όνομα, επίθετο σε ξεχωριστές μεταβλητές αλλά μπορεί και να μη χρειαστεί αν υπάρχει καλή μέθοδος parsing για string
     protected final String firstName;
     protected final String lastName;
@@ -40,6 +43,11 @@ public abstract class User { //βγάζει νόημα να είναι abstract 
         return lastName;
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return getUserName().equals(user.getUserName());
+    }
 
 }

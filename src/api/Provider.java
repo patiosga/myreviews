@@ -1,8 +1,10 @@
 package api;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 
-public class Provider extends User {
+public class Provider extends User implements Serializable {
     private int totalRatings; //πρέπει να ενημερώνεται κάθε φορά που προστίθεται ή αφαιρείται αξιολόγηση
     private float avgRatingOfAllAccom;
 
@@ -12,7 +14,7 @@ public class Provider extends User {
         avgRatingOfAllAccom = 0;
     }
 
-    public void updateAvgRatingOfAllAccom(List<Evaluation> evaluations) { //πρέπει να καλείται μετά τη μέθοδο που ενημερώνει το κατάλυμα μετά από προσθήκη ή αφαίρεση αξιολόγησης
+    public void updateAvgRatingOfAllAccom(HashSet<Evaluation> evaluations) { //πρέπει να καλείται μετά τη μέθοδο που ενημερώνει το κατάλυμα μετά από προσθήκη ή αφαίρεση αξιολόγησης
         if (evaluations.size() == 0) {
             avgRatingOfAllAccom = 0;
             return;

@@ -1,6 +1,9 @@
 package api;
 
-public class Location {
+import java.io.Serializable;
+import java.security.SecureRandomParameters;
+
+public class Location implements Serializable {
     private String address;
     private String town;
     private String postCode;

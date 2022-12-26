@@ -9,7 +9,7 @@ public class EvaluationTest {
 
     Evaluation eval;
     SimpleUser user;
-    Accomodation accom;
+    Accommodation accom;
 
     @Before
     public void setUp() throws Exception {
