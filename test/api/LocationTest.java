@@ -31,7 +31,7 @@ public class LocationTest {
 
     @Test
     public void getPostCode() {
-        assertEquals("12345", location.getAddress());
+        assertEquals("12345", location.getPostCode());
     }
 
 

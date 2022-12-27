@@ -38,7 +38,7 @@ public class EvaluationTest {
 
     @Test
     public void getAccomodation() {
-        assertEquals(accom,eval.getAccomodation());
+        assertEquals(accom,eval.getAccommodation());
     }
 
 }

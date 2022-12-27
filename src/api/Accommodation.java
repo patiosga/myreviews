@@ -3,7 +3,6 @@ package api;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class Accommodation implements Serializable {
 
@@ -57,9 +56,7 @@ public class Accommodation implements Serializable {
         this.stayType = stayType;
     }
 
-    public Location getPlace() {
-        return place;
-    }
+    public Location getLocation() { return place; }
 
     public void setPlace(Location place) {
         this.place = place;
@@ -93,7 +90,7 @@ public class Accommodation implements Serializable {
         float totalSum = 0;
         int numOfEvaluations = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getAccomodation().getSingularId() == this.singularId) {
+            if (evaluation.getAccommodation().getSingularId() == this.singularId) {
                 totalSum += evaluation.getGrade();
                 numOfEvaluations++;
             }

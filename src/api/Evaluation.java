@@ -46,7 +46,7 @@ public class Evaluation implements Serializable {
         return user;
     }
 
-    public Accommodation getAccomodation() {
+    public Accommodation getAccommodation() {
         return accommodation;
     }
 
@@ -63,5 +63,10 @@ public class Evaluation implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Evaluation that)) return false;
         return getSingularId() == that.getSingularId();
+    }
+
+    @Override
+    public String toString() {
+        return user.getFirstName() + ", " + currentDate + ", Βαθμολογία: " + grade;
     }
 }

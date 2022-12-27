@@ -42,6 +42,4 @@ public class Location implements Serializable {
     public void setPostCode(String postCode) {
         this.postCode = postCode;
     }
-
-
 }

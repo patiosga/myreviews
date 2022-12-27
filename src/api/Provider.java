@@ -2,7 +2,6 @@ package api;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 
 public class Provider extends User implements Serializable {
     private int totalRatings; //πρέπει να ενημερώνεται κάθε φορά που προστίθεται ή αφαιρείται αξιολόγηση
@@ -22,7 +21,7 @@ public class Provider extends User implements Serializable {
         float totalSum = 0;
         int numOfEvaluations = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getAccomodation().getProvider().getUserName() == this.userName) {
+            if (evaluation.getAccommodation().getProvider().getUserName() == this.userName) {
                 totalSum += evaluation.getGrade();
                 numOfEvaluations++;
             }

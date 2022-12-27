@@ -1,10 +1,9 @@
 package api;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+
 
 public class ManageEvaluations implements Serializable {
     private HashSet<Evaluation> evaluations;
@@ -17,7 +16,7 @@ public class ManageEvaluations implements Serializable {
         if (evaluations.isEmpty())
             return;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getAccomodation().equals(accommodation))
+            if (evaluation.getAccommodation().equals(accommodation))
                 removeEvaluation(evaluation);
         }
     }
@@ -30,7 +29,7 @@ public class ManageEvaluations implements Serializable {
         if (evaluations.isEmpty())
             return false;
         for (Evaluation evaluation : evaluations) {  // μάλλον μπορεί να γίνει με μια απλή contains αφού η equals της evaluation ελέγχει χρήστη και κατάλυμα
-            if (evaluation.getUser().equals(user) && evaluation.getAccomodation().equals(accommodation))
+            if (evaluation.getUser().equals(user) && evaluation.getAccommodation().equals(accommodation))
                 return true;
         }
         return false;
@@ -50,13 +49,13 @@ public class ManageEvaluations implements Serializable {
             return false;
         if (evaluations.contains(toDeleteEvaluation)) {
             evaluations.remove(toDeleteEvaluation);
-            updateAvgRatings(toDeleteEvaluation.getAccomodation(), toDeleteEvaluation.getUser()); //επανυπολογισμοί μέσων όρων μετά τη διαγραφή
+            updateAvgRatings(toDeleteEvaluation.getAccommodation(), toDeleteEvaluation.getUser()); //επανυπολογισμοί μέσων όρων μετά τη διαγραφή
             return true;
         }
         return false;
     }
 
-    public List<Evaluation> getUserEvaluations(SimpleUser user) {
+    public ArrayList<Evaluation> getUserEvaluations(SimpleUser user) { //Μπορει να επιστρέφει null ή και κενή λίστα --> πρέπει να ελέγχεται
         ArrayList<Evaluation> userEvaluations = new ArrayList<>();
         if (!evaluations.isEmpty()) {
             for (Evaluation evaluation : evaluations) {
@@ -69,13 +68,26 @@ public class ManageEvaluations implements Serializable {
             return null;
     }
 
+    public ArrayList<Evaluation> getAccommodationEvaluations (Accommodation accommodation) { //Μπορει να επιστρέφει null ή και κενή λίστα --> πρέπει να ελέγχεται
+        ArrayList<Evaluation> accommodationEvaluations = new ArrayList<>();
+        if (!evaluations.isEmpty()) {
+            for (Evaluation evaluation : evaluations) {
+                if (evaluation.getAccommodation().equals(accommodation))
+                    accommodationEvaluations.add(evaluation);
+            }
+            return accommodationEvaluations;
+        }
+        else
+            return null;
+    }
+
     public boolean alterEvaluation(Evaluation oldEvaluation, float nextGrade, String nextText) {
         for (Evaluation evaluation : evaluations) {
             if (oldEvaluation.equals(evaluation)) {
                 evaluations.remove(evaluation); //πρέπει να γίνει αυτή η διαδικασία αλλιώς αλλάζει μόνο η τοπική μεταβλητή στο for loop
                 if (evaluation.getGrade() != nextGrade) { // έλεγχος για να μη γίνεται επανυπολογισμός μέσων όρων άδικα
                     evaluation.setGrade(nextGrade);
-                    updateAvgRatings(evaluation.getAccomodation(), evaluation.getUser()); //επανυπολογισμός μέσων όρων αν αλλάξει ο βαθμός της αξιολόγησεις
+                    updateAvgRatings(evaluation.getAccommodation(), evaluation.getUser()); //επανυπολογισμός μέσων όρων αν αλλάξει ο βαθμός της αξιολόγησεις
                 }
                 evaluation.setEvaluationText(nextText);
                 evaluations.add(evaluation);
