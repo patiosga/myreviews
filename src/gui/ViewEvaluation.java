@@ -1,9 +1,13 @@
 package gui;
 
+import api.Accommodation;
 import api.Evaluation;
+import api.SimpleUser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DateFormat;
+import java.util.Calendar;
 
 public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με κουμπιά για να την επεξεργάζεται ο χρήστης
     protected Evaluation evaluation;
@@ -19,8 +23,7 @@ public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με
         setTitle("Αξιολόγηση");
 
 
-        GridLayout generalLayout = new GridLayout(2,1);
-        setLayout(generalLayout);
+        JPanel generalPanel = new JPanel(new GridLayout(2,1));
         JPanel informationPanel = new JPanel(new GridLayout(2,2));
         informationPanel.add(new JLabel(evaluation.getUser().getFirstName()));
         informationPanel.add(new JLabel(evaluation.getCurrentDate()));
@@ -29,13 +32,48 @@ public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με
         gradeField.setEditable(false);
         informationPanel.add(gradeField);
 
-        add(informationPanel);
+        generalPanel.add(informationPanel);
 
         evaluationText = new JTextField(evaluation.getEvaluationText());
         evaluationText.setEditable(false);
-        add(evaluationText);
+        generalPanel.add(evaluationText);
+
+        add(generalPanel);
+
 
         setVisible(true);
 
+    }
+
+    public ViewEvaluation(SimpleUser user) {
+        setSize(500, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Αξιολόγηση");
+
+
+        JPanel generalPanel = new JPanel(new GridLayout(2,1));
+        JPanel informationPanel = new JPanel(new GridLayout(2,2));
+        informationPanel.add(new JLabel(user.getFirstName()));
+
+        DateFormat Date = DateFormat.getDateInstance();
+        Calendar cals = Calendar.getInstance();
+        informationPanel.add(new JLabel(Date.format(cals.getTime())));
+
+        informationPanel.add(new JLabel(" Βαθμολογία:"));
+        gradeField = new JTextField("");
+        gradeField.setEditable(false);
+        informationPanel.add(gradeField);
+
+        generalPanel.add(informationPanel);
+
+        evaluationText = new JTextField("");
+        evaluationText.setEditable(false);
+        generalPanel.add(evaluationText);
+
+        add(generalPanel);
+
+
+        setVisible(true);
     }
 }

@@ -11,11 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ViewAccommodation extends JFrame {
-    protected Accommodation accommodation;
-    protected JPanel accommodationDetails;
     protected JList<String> evaluationList; //Έχει τα String των αξιολογήσεων και γίνεται η αντιστοίχιση μέσω getSelectedIndex()
     protected ArrayList<Evaluation> evaluationsOfAccommodation;
-    protected ManageEvaluations evaluationManager;
+    protected JPanel accommodationDetails;
     protected JTextField accommodationName;
     protected JLabel accommodationRating;
     protected JTextField description;
@@ -27,8 +25,6 @@ public class ViewAccommodation extends JFrame {
 
 
     public ViewAccommodation(Accommodation accommodation, ManageEvaluations evaluationManager) {
-        this.accommodation = accommodation;
-        this.evaluationManager = evaluationManager;
 
         setSize(700, 700);
         setLocationRelativeTo(null);

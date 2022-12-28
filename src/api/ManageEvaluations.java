@@ -25,7 +25,7 @@ public class ManageEvaluations implements Serializable {
         accommodation.updateAvgRatingOfAccomodation(evaluations);
         user.updateAvgRatingOfUser(evaluations);
     }
-    private boolean userAlreadyEvaluatedThis(SimpleUser user, Accommodation accommodation) {
+    public boolean userAlreadyEvaluatedThis(SimpleUser user, Accommodation accommodation) {
         if (evaluations.isEmpty())
             return false;
         for (Evaluation evaluation : evaluations) {  // μάλλον μπορεί να γίνει με μια απλή contains αφού η equals της evaluation ελέγχει χρήστη και κατάλυμα
@@ -84,6 +84,10 @@ public class ManageEvaluations implements Serializable {
     public boolean alterEvaluation(Evaluation oldEvaluation, float nextGrade, String nextText) {
         for (Evaluation evaluation : evaluations) {
             if (oldEvaluation.equals(evaluation)) {
+                if (evaluationTextTooLong(nextText))
+                    return false;
+                if (gradeOutOfBounds(nextGrade))
+                    return false;
                 evaluations.remove(evaluation); //πρέπει να γίνει αυτή η διαδικασία αλλιώς αλλάζει μόνο η τοπική μεταβλητή στο for loop
                 if (evaluation.getGrade() != nextGrade) { // έλεγχος για να μη γίνεται επανυπολογισμός μέσων όρων άδικα
                     evaluation.setGrade(nextGrade);
@@ -99,5 +103,9 @@ public class ManageEvaluations implements Serializable {
 
     public boolean evaluationTextTooLong(String text) {
         return text.length() > 500;
+    }
+
+    public boolean gradeOutOfBounds(float grade) {
+        return grade < 1 || grade > 5;
     }
 }
