@@ -11,12 +11,9 @@ import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
 
-    protected User user;
-    protected JTextField firstName;
-    protected JTextField lastName;
-    protected JLabel username;
-    protected JLabel password;
-    protected JRadioButton type;
+    private JLabel username;
+    private JLabel password;
+
 
 
     public Login(User user) {
@@ -24,10 +21,11 @@ public class Login extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Login");
-        JPanel generalPanel = new JPanel(new GridLayout(2, 1));
+        JPanel generalPanel = new JPanel(new GridLayout(1, 2));
+        this.add(new JButton("Login"));
+        this.add(new JButton("Sign up"));
+        this.setVisible(true);
 
-        JButton login = new JButton("Log in");
-        JButton signup = new JButton("Sign up");
 
 
     }
