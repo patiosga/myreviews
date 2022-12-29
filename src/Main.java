@@ -1,4 +1,5 @@
 import api.*;
+import gui.ViewAccommodation;
 import gui.ViewEditableEvaluationToChange;
 import gui.ViewEditableEvaluationToCreate;
 
@@ -14,7 +15,7 @@ public class Main {
         manageEvaluations.addEvaluation("Greatest of all time", 3.5f, simpleUser, apartment);
         manageEvaluations.addEvaluation("Greatest of all time", 5f, simpleUser2, apartment);
 
-        //ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
-        ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
+        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
+        //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
     }
 }

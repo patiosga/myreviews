@@ -13,20 +13,31 @@ public class Login extends JFrame {
 
     private JLabel username;
     private JLabel password;
+    JButton login,signup;
 
 
 
-    public Login(User user) {
+
+    public Login() {
         setSize(300, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Login");
         JPanel generalPanel = new JPanel(new GridLayout(1, 2));
-        this.add(new JButton("Login"));
-        this.add(new JButton("Sign up"));
+        login = new JButton("Login");
+        signup = new JButton("Sign Up");
+        login.addActionListener(e);
+        signup.addActionListener((ActionListener) this);
         this.setVisible(true);
-
-
-
     }
+
+    login.addActionListener(new ActionListener()) {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new LoginPage();
+            super.dispose();
+        }
+    }
+
+
 }
