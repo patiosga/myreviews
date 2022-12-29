@@ -1,6 +1,7 @@
 package gui;
 
 
+import api.ManageUsers;
 import api.User;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 public class Login extends JFrame {
 
     private JButton login,signup;
+    private ManageUsers usersManager;
 
 
 
@@ -26,7 +28,7 @@ public class Login extends JFrame {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LoginPage();
+                new LoginPage(ManageUsers usersManager);
                 Login.super.dispose();
 
             }

@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import api.ManageUsers;
+
 
 
 
 
 public class LoginPage extends JFrame implements ActionListener {
 
-
+    private ManageUsers usersManager;
 
 
     private JButton userName,password;
@@ -18,7 +20,7 @@ public class LoginPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     }
 
-    public LoginPage(){
+    public LoginPage(ManageUsers usersManager){
         JPanel panel = new JPanel();
         setSize(350,200);
         setLocationRelativeTo(null);
@@ -45,6 +47,21 @@ public class LoginPage extends JFrame implements ActionListener {
         JButton button = new JButton("Login");
         button.setBounds(10,80,80,25);
         panel.add(button);
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (usersManager.findUserWithUsername(userText.getText()) == null)
+                        JOptionPane.showMessageDialog(getParent(), "Δεν υπάρχει αυτος ο χρήστης");
+                } finally {
+
+                }
+            }
+        });
+
+
+
 
 
 
