@@ -11,9 +11,7 @@ import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
 
-    private JLabel username;
-    private JLabel password;
-    JButton login,signup;
+    private JButton login,signup;
 
 
 
@@ -22,22 +20,30 @@ public class Login extends JFrame {
         setSize(300, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Login");
-        JPanel generalPanel = new JPanel(new GridLayout(1, 2));
+        setTitle("Authentication");
+        JPanel generalPanel = new JPanel(new GridLayout(2, 1));
         login = new JButton("Login");
         signup = new JButton("Sign Up");
-        login.addActionListener(e);
-        signup.addActionListener((ActionListener) this);
+
+
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
+        signup.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         this.setVisible(true);
     }
 
-    login.addActionListener(new ActionListener()) {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            new LoginPage();
-            super.dispose();
-        }
-    }
+
 
 
 }
