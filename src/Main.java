@@ -70,7 +70,7 @@ public class Main {
 
         Utility parkingSpace = new Utility();
         parkingSpace.addSpecificUtility("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
-        parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στον δρόμο");
+        parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στο δρόμο");
         generalUtilities.add(parkingSpace);
 
         apartment.setTypesOfUtilities(generalUtilities);

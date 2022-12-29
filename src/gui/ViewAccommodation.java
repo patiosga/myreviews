@@ -13,6 +13,7 @@ public class ViewAccommodation extends JFrame {
     protected JList<String> evaluationList; //Έχει τα String των αξιολογήσεων και γίνεται η αντιστοίχιση μέσω getSelectedIndex()
     protected ArrayList<Evaluation> evaluationsOfAccommodation;
     protected JPanel accommodationDetails;
+    protected JPanel generalPanel;
     protected JTextField accommodationName;
     protected JLabel accommodationRating;
     protected JTextField description;
@@ -57,9 +58,58 @@ public class ViewAccommodation extends JFrame {
         setTitle("Κατάλυμα: " + accommodation.getName());
         setLayout(new BorderLayout());
 
-        JPanel generalPanel = new JPanel(new GridLayout(4,1));
+        generalPanel = new JPanel(new GridLayout(4,1));
 
-        accommodationDetails = new JPanel(new GridLayout(5,2,5,5));
+        showAccommodationDetails(accommodation);
+
+        makeEvaluationList(evaluationManager,accommodation);
+
+        //we do this to hide the shame brought upon us
+        makeEmptyCheckBoxes();
+        fillCheckBoxes(accommodation);
+
+
+
+        // Ολο αυτο θα δουλευει διαφορετικά για provider και simpleUser στον δευτερο πρεπει να εμφανίζεται η editable μορφή του evaluation
+        viewSelectedEvaluation = new JButton("View Evaluation");
+        viewSelectedEvaluation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (evaluationList.getSelectedIndex() != -1) {
+                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()));
+                }
+            }
+        });
+
+        add(generalPanel);
+        add(viewSelectedEvaluation, BorderLayout.PAGE_END);
+
+        setVisible(true);
+    }
+
+    public ViewAccommodation(Provider provider) { //για το stayType θα εχω drop down list με τις δυνατές επιλογές!!!
+        setSize(700, 700);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Νέο κατάλυμα");
+
+        generalPanel = new JPanel(new GridLayout(3,1)); //3 rows γιατί το θέλω για τη δημιουργία νέου καταλύματος και άρα δεν έχω λίστα αξιολογήσεων
+
+        Location loc = new Location("","","");
+        Accommodation accommodation = new Accommodation("","", "",loc, provider);
+
+        showAccommodationDetails(accommodation);;
+        makeEmptyCheckBoxes();
+
+        add(generalPanel);
+
+        add(viewSelectedEvaluation, BorderLayout.PAGE_END);
+    }
+
+
+    protected void showAccommodationDetails(Accommodation accommodation) {
+
+        accommodationDetails = new JPanel(new GridLayout(5,2));
 
         accommodationName = new JTextField(accommodation.getName());
         accommodationName.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
@@ -93,245 +143,95 @@ public class ViewAccommodation extends JFrame {
         accommodationDetails.add(postCode);
         generalPanel.add(accommodationDetails);
 
-        generalPanel.add(description);
+        JPanel descriptionPanel = new JPanel(new FlowLayout());
+        TitledBorder border = BorderFactory.createTitledBorder(" Περιγραφή καταλύματος ");
+        descriptionPanel.setBorder(border);
+        descriptionPanel.add(description);
+        generalPanel.add(descriptionPanel);
+    }
 
+
+    protected void makeEvaluationList(ManageEvaluations evaluationManager, Accommodation accommodation) {
         evaluationsOfAccommodation = evaluationManager.getAccommodationEvaluations(accommodation);
         DefaultListModel<String> helperList = new DefaultListModel<>();
         if (evaluationsOfAccommodation != null) {
-                for (int i=0; i<evaluationsOfAccommodation.size(); i++) {
-                    helperList.add(i, evaluationsOfAccommodation.get(i).toString());
-                }
+            for (int i=0; i<evaluationsOfAccommodation.size(); i++) {
+                helperList.add(i, evaluationsOfAccommodation.get(i).toString());
+            }
         }
         evaluationList = new JList<>(helperList);
         generalPanel.add(new JScrollPane(evaluationList));
-
-
-
-        //Check boxes hell
-        JPanel utilities = new JPanel(new GridLayout(9,1));
-
-
-        JPanel view = new JPanel(new GridLayout(3,2));
-        TitledBorder border = BorderFactory.createTitledBorder(" Θέα ");
-        view.setBorder(border);
-        viewPool = new JCheckBox("Θέα σε πισίνα");
-        viewBeach = new JCheckBox("Θέα σε παραλία");
-        viewSea = new JCheckBox("Θέα στη θάλασσα");
-        viewPort = new JCheckBox("Θέα στο λιμάνι");
-        viewMountain = new JCheckBox("Θέα στο βουνό");
-        viewStreet = new JCheckBox("Θέα στον δρόμο");
-        view.add(viewPool);
-        view.add(viewBeach);
-        view.add(viewSea);
-        view.add(viewPort);
-        view.add(viewMountain);
-        view.add(viewStreet);
-
-        ArrayList<String> viewSpecifics = accommodation.getTypesOfUtilities().get(0).getSpecifics();
-        if (!viewSpecifics.isEmpty()) {
-            if (viewSpecifics.contains("Θέα σε πισίνα"))
-                viewPool.setSelected(true);
-            if (viewSpecifics.contains("Θέα σε παραλία"))
-                viewBeach.setSelected(true);
-            if (viewSpecifics.contains("Θέα σε θάλασσα"))
-                viewSea.setSelected(true);
-            if (viewSpecifics.contains("Θέα στο λιμάνι"))
-                viewPort.setSelected(true);
-            if (viewSpecifics.contains("Θέα στο βουνό"))
-                viewMountain.setSelected(true);
-            if (viewSpecifics.contains("Θέα στον δρόμο"))
-                viewStreet.setSelected(true);
-        }
-
-        utilities.add(view);
-
-        JPanel bath = new JPanel(new GridLayout(1,1));
-        TitledBorder border1 = BorderFactory.createTitledBorder(" Μπάνιο ");
-        bath.setBorder(border1);
-        hairDryer = new JCheckBox("Πιστολάκι μαλλιών");
-        bath.add(hairDryer);
-
-        ArrayList<String> bathSpecifics = accommodation.getTypesOfUtilities().get(0).getSpecifics();
-        if (!viewSpecifics.isEmpty()) {
-            if (viewSpecifics.contains("Θέα σε πισίνα"))
-                viewPool.setSelected(true);
-            if (viewSpecifics.contains("Θέα σε παραλία"))
-                viewBeach.setSelected(true);
-            if (viewSpecifics.contains("Θέα σε θάλασσα"))
-                viewSea.setSelected(true);
-            if (viewSpecifics.contains("Θέα στο λιμάνι"))
-                viewPort.setSelected(true);
-            if (viewSpecifics.contains("Θέα στο βουνό"))
-                viewMountain.setSelected(true);
-            if (viewSpecifics.contains("Θέα στον δρόμο"))
-                viewStreet.setSelected(true);
-        }
-
-        utilities.add(bath);
-
-        JPanel washingClothes = new JPanel(new GridLayout(1,2));
-        TitledBorder border2 = BorderFactory.createTitledBorder(" Πλύσιμο ρούχων ");
-        washingClothes.setBorder(border2);
-        clotheWasher = new JCheckBox("Πλυντήριο ρούχων,");
-        dryer = new JCheckBox("Στεγνωτήριο");
-        washingClothes.add(clotheWasher);
-        washingClothes.add(dryer);
-
-        utilities.add(washingClothes);
-
-        JPanel entertainment = new JPanel(new GridLayout(1,1));
-        TitledBorder border3 = BorderFactory.createTitledBorder(" Ψυχαγωγία ");
-        entertainment.setBorder(border3);
-        tv = new JCheckBox("Τηλεόραση");
-        entertainment.add(tv);
-
-        utilities.add(entertainment);
-
-        JPanel temperatureControl = new JPanel(new GridLayout(2,2));
-        TitledBorder border4 = BorderFactory.createTitledBorder(" Θέρμανση και κλιματισμός ");
-        temperatureControl.setBorder(border4);
-        firePlace = new JCheckBox("Εσωτερικό τζάκι");
-        airCondition = new JCheckBox("Κλιματισμός");
-        centralHeat = new JCheckBox("Κεντρική θέρμανση");
-        temperatureControl.add(firePlace);
-        temperatureControl.add(airCondition);
-        temperatureControl.add(centralHeat);
-
-        utilities.add(temperatureControl);
-
-        JPanel internet = new JPanel(new GridLayout(1,2));
-        TitledBorder border5 = BorderFactory.createTitledBorder(" Διαδίκτυο ");
-        internet.setBorder(border5);
-        wifi = new JCheckBox("Wifi");
-        ethernet = new JCheckBox("Ethernet");
-        internet.add(wifi);
-        internet.add(ethernet);
-
-        utilities.add(internet);
-
-        JPanel foodAreas = new JPanel(new GridLayout(4,2));
-        TitledBorder border6 = BorderFactory.createTitledBorder(" Κουζίνα και τραπεζαρία ");
-        foodAreas.setBorder(border6);
-        kitchen = new JCheckBox("Κουζίνα");
-        fridge = new JCheckBox("Ψυγείο");
-        microwave = new JCheckBox("Φούρνος μικροκυμάτων");
-        kitchenware = new JCheckBox("Μαγειρικά είδη");
-        spoonsKnives = new JCheckBox("Πιάτα και μαχαιροπίρουνα");
-        plateWasher = new JCheckBox("Πλυντήριο πιάτων");
-        coffeeMachine = new JCheckBox("Καφετιέρα");
-        foodAreas.add(kitchen);
-        foodAreas.add(fridge);
-        foodAreas.add(microwave);
-        foodAreas.add(kitchenware);
-        foodAreas.add(spoonsKnives);
-        foodAreas.add(plateWasher);
-        foodAreas.add(coffeeMachine);
-        foodAreas.add(viewStreet);
-
-        utilities.add(foodAreas);
-
-        JPanel outsideSpace = new JPanel(new GridLayout(1,2));
-        TitledBorder border7 = BorderFactory.createTitledBorder(" Εξωτερικός χώρος ");
-        outsideSpace.setBorder(border7);
-        balcony = new JCheckBox("Μπαλκόνι");
-        yard = new JCheckBox("Αυλή");
-        outsideSpace.add(balcony);
-        outsideSpace.add(yard);
-
-        utilities.add(outsideSpace);
-
-        JPanel parkingSpace = new JPanel(new GridLayout(1,2));
-        TitledBorder border8 = BorderFactory.createTitledBorder(" Χώρος στάθμευσης ");
-        parkingSpace.setBorder(border8);
-        freeParkingProperty = new JCheckBox("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
-        freeParkingStreet = new JCheckBox("Δωρεάν πάρκινγκ στο δρόμο");
-        parkingSpace.add(freeParkingProperty);
-        parkingSpace.add(freeParkingStreet);
-
-        utilities.add(parkingSpace);
-
-
-
-
-
-        generalPanel.add(new JScrollPane(utilities));
-        //End of this hell-hole
-
-
-
-        // ΟΛΟ αυτο θα δουλευει διαφορετικά για provider και simpleUser στον δευτερο πρεπει να εμφανίζεται η editable μορφή του evaluation άρα μπαίνει στις υποκλάσεις
-        viewSelectedEvaluation = new JButton("View Evaluation");
-        viewSelectedEvaluation.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (evaluationList.getSelectedIndex() != -1) {
-                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()));
-                }
-            }
-        });
-
-        add(generalPanel);
-        add(viewSelectedEvaluation, BorderLayout.PAGE_END);
-
-
-
-        setVisible(true);
-
-
     }
 
-    public ViewAccommodation(Provider provider) {
-        setSize(700, 700);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Νέο κατάλυμα");
 
-        JPanel generalPanel = new JPanel(new GridLayout(3,1)); //ΠΡΕΠΕΙ ΝΑ ΠΡΟΣΤΕΘΕΙ 4ο ΠΑΡΟΧΕΣ ΜΕ CHECKBOXES
-        //GridLayout gridLayoutGeneral = new GridLayout(3,1);
-        //setLayout(gridLayoutGeneral);
+    protected void fillCheckBoxes(Accommodation accommodation) {
+        ArrayList<String> viewSpecifics = accommodation.getTypesOfUtilities().get(0).getSpecifics();
+        if (!viewSpecifics.isEmpty()) {
+            viewPool.setSelected(viewSpecifics.contains("Θέα σε πισίνα"));
+            viewBeach.setSelected(viewSpecifics.contains("Θέα σε παραλία"));
+            viewSea.setSelected(viewSpecifics.contains("Θέα στη θάλασσα"));
+            viewPort.setSelected(viewSpecifics.contains("Θέα στο λιμάνι"));
+            viewMountain.setSelected(viewSpecifics.contains("Θέα στο βουνό"));
+            viewStreet.setSelected(viewSpecifics.contains("Θέα στον δρόμο"));
+        }
 
-        accommodationDetails = new JPanel(new GridLayout(5,2,5,5));
+        ArrayList<String> bathSpecifics = accommodation.getTypesOfUtilities().get(1).getSpecifics();
+        if (!bathSpecifics.isEmpty()) {
+            if (bathSpecifics.contains("Πιστολάκι μαλλιών"))
+                hairDryer.setSelected(true);
+        }
 
-        accommodationName = new JTextField("");
-        accommodationName.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
-        accommodationName.setFont(accommodationName.getFont().deriveFont(Font.BOLD, 14f));
+        ArrayList<String> washingClothesSpecifics = accommodation.getTypesOfUtilities().get(2).getSpecifics();
+        if (!washingClothesSpecifics.isEmpty()) {
+            clotheWasher.setSelected(washingClothesSpecifics.contains("Πλυντήριο ρούχων"));
+            dryer.setSelected(washingClothesSpecifics.contains("Στεγνωτήριο"));
+        }
 
-        accommodationRating = new JLabel("Βαθμολογία: -") ;
+        ArrayList<String> entertainmentSpecifics = accommodation.getTypesOfUtilities().get(3).getSpecifics();
+        if (!entertainmentSpecifics.isEmpty()) {
+            tv.setSelected(entertainmentSpecifics.contains("Τηλεόραση"));
+        }
 
-        description = new JTextField("");
-        description.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
+        ArrayList<String> temperatureControlSpecifics = accommodation.getTypesOfUtilities().get(4).getSpecifics();
+        if (!temperatureControlSpecifics.isEmpty()) {
+            firePlace.setSelected(temperatureControlSpecifics.contains("Εσωτερικό τζάκι"));
+            airCondition.setSelected(temperatureControlSpecifics.contains("Κλιματισμός"));
+            centralHeat.setSelected(temperatureControlSpecifics.contains("Κεντρική θέρμανση"));
+        }
 
-        stayType = new JTextField("");
-        stayType.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
+        ArrayList<String> internetSpecifics = accommodation.getTypesOfUtilities().get(5).getSpecifics();
+        if (!internetSpecifics.isEmpty()) {
+            wifi.setSelected(internetSpecifics.contains("Wifi"));
+            ethernet.setSelected(internetSpecifics.contains("Ethernet"));
+        }
 
-        town = new JTextField("");
-        address = new JTextField("");
-        postCode = new JTextField("");
-        town.setEditable(false);
-        address.setEditable(false);
-        postCode.setEditable(false); // αλλάζουν σε true στην υποκλάση ViewAccommodationAsProvider
+        ArrayList<String> foodAreasSpecifics = accommodation.getTypesOfUtilities().get(6).getSpecifics();
+        if (!foodAreasSpecifics.isEmpty()) {
+            kitchen.setSelected(foodAreasSpecifics.contains("Κουζίνα"));
+            fridge.setSelected(foodAreasSpecifics.contains("Ψυγείο"));
+            microwave.setSelected(foodAreasSpecifics.contains("Φούρνος μικροκυμάτων"));
+            kitchenware.setSelected(foodAreasSpecifics.contains("Μαγειρικά είδη"));
+            spoonsKnives.setSelected(foodAreasSpecifics.contains("Πιάτα και μαχαιροπίρουνα"));
+            plateWasher.setSelected(foodAreasSpecifics.contains("Πλυντήριο πιάτων"));
+            coffeeMachine.setSelected(foodAreasSpecifics.contains("Καφετιέρα"));
+        }
+
+        ArrayList<String> outsideSpaceSpecifics = accommodation.getTypesOfUtilities().get(7).getSpecifics();
+        if (!outsideSpaceSpecifics.isEmpty()) {
+            balcony.setSelected(outsideSpaceSpecifics.contains("Μπαλκόνι"));
+            yard.setSelected(outsideSpaceSpecifics.contains("Αυλή"));
+        }
+
+        ArrayList<String> parkingSpaceSpecifics = accommodation.getTypesOfUtilities().get(8).getSpecifics();
+        if (!parkingSpaceSpecifics.isEmpty()) {
+            freeParkingProperty.setSelected(parkingSpaceSpecifics.contains("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία"));
+            freeParkingStreet.setSelected(parkingSpaceSpecifics.contains("Δωρεάν πάρκινγκ στο δρόμο"));
+        }
+    }
 
 
-        accommodationDetails.add(accommodationName);
-        accommodationDetails.add(accommodationRating);
-        accommodationDetails.add(new JLabel(" Τύπος:"));
-        accommodationDetails.add(stayType);
-        accommodationDetails.add(new JLabel(" Πόλη:"));
-        accommodationDetails.add(town);
-        accommodationDetails.add(new JLabel(" Διεύθυνση:"));
-        accommodationDetails.add(address);
-        accommodationDetails.add(new JLabel(" T.K.:"));
-        accommodationDetails.add(postCode);
-        generalPanel.add(accommodationDetails);
-
-
-        generalPanel.add(description);
-
-
-
-        //Check boxes hell
+    public void makeEmptyCheckBoxes() {
         JPanel utilities = new JPanel(new GridLayout(9,1));
-
 
         JPanel view = new JPanel(new GridLayout(3,2));
         TitledBorder border = BorderFactory.createTitledBorder(" Θέα ");
@@ -369,7 +269,7 @@ public class ViewAccommodation extends JFrame {
         JPanel washingClothes = new JPanel(new GridLayout(1,2));
         TitledBorder border2 = BorderFactory.createTitledBorder(" Πλύσιμο ρούχων ");
         washingClothes.setBorder(border2);
-        clotheWasher = new JCheckBox("Πλυντήριο ρούχων,");
+        clotheWasher = new JCheckBox("Πλυντήριο ρούχων");
         dryer = new JCheckBox("Στεγνωτήριο");
         washingClothes.add(clotheWasher);
         washingClothes.add(dryer);
@@ -465,12 +365,8 @@ public class ViewAccommodation extends JFrame {
 
         utilities.add(parkingSpace);
 
+
         generalPanel.add(new JScrollPane(utilities));
-        //End of this hell-hole
-
-        add(generalPanel);
-
-        add(viewSelectedEvaluation, BorderLayout.PAGE_END);
     }
 
 }
