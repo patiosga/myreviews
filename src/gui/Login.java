@@ -23,20 +23,22 @@ public class Login extends JFrame {
         setTitle("Authentication");
         JPanel generalPanel = new JPanel(new GridLayout(2, 1));
         login = new JButton("Login");
-        signup = new JButton("Sign Up");
-
-
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new LoginPage();
+                Login.super.dispose();
 
             }
         });
+        signup = new JButton("Sign Up");
 
 
         signup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new SignUpPage;
+                Login.super.dispose();
 
             }
         });
