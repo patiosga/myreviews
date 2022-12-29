@@ -15,7 +15,6 @@ public class ViewEditableEvaluationToCreate extends ViewEvaluation {
     public ViewEditableEvaluationToCreate(Accommodation accommodation, SimpleUser user, ManageEvaluations evaluationsManager) {
         super(user);
 
-        setVisible(false);
         gradeField.setEditable(true);
         evaluationText.setEditable(true);
         submitEvaluation = new JButton("Υποβολή");

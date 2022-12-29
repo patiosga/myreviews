@@ -1,13 +1,13 @@
 package api;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
 
-public class Utilities implements Serializable {
-    private HashSet<String> specifics;
+public class Utility implements Serializable {
+    private ArrayList<String> specifics;
 
-    public Utilities() {
-        specifics = new HashSet<>();
+    public Utility() {
+        specifics = new ArrayList<>();
     }
 
     public boolean addSpecificUtility(String somethingNew) { //θα προστεθούν στα typesOfUtilities του κάθε καταλύματος ανάλογα με το τι θα δίνεται στα αρχεία
@@ -30,7 +30,7 @@ public class Utilities implements Serializable {
         return false;
     }
 
-    public HashSet<String> getSpecifics() {
+    public ArrayList<String> getSpecifics() {
         return specifics;
     }
 }

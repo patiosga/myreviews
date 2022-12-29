@@ -73,7 +73,6 @@ public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με
 
         add(generalPanel);
 
-
-        setVisible(true);
+        //setVisible στις υποκλάσεις
     }
 }

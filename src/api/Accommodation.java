@@ -16,7 +16,7 @@ public class Accommodation implements Serializable {
     private Location place;
 
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
-    private ArrayList<Utilities> typesOfUtilities;
+    private ArrayList<Utility> typesOfUtilities;
 
     public Accommodation(String name, String description, String stayType, Location location, Provider provider) {
         this.name = name;
@@ -111,7 +111,7 @@ public class Accommodation implements Serializable {
      * @param objUtil ο νέος τύπος παροχής που προστίθεται
      * @return επιστρέφει true αν το αντικείμενο δεν υπήρχε ήδη και προστέθηκε τώρα
      */
-    public boolean addUtilityType(Utilities objUtil) {
+    public boolean addUtilityType(Utility objUtil) {
         if (!typesOfUtilities.isEmpty()) {
             if (typesOfUtilities.contains(objUtil))
                 return false;

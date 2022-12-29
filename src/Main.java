@@ -1,7 +1,8 @@
 import api.*;
 import gui.ViewAccommodation;
-import gui.ViewEditableEvaluationToChange;
-import gui.ViewEditableEvaluationToCreate;
+
+import java.sql.Array;
+import java.util.ArrayList;
 
 public class Main {
     static public void main(String[] args) {
@@ -15,7 +16,66 @@ public class Main {
         manageEvaluations.addEvaluation("Greatest of all time", 3.5f, simpleUser, apartment);
         manageEvaluations.addEvaluation("Greatest of all time", 5f, simpleUser2, apartment);
 
-        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
+
+
+
+        ArrayList<Utility> generalUtilities = new ArrayList<>();
+        Utility view = new Utility();
+        view.addSpecificUtility("Θέα σε πισίνα");
+        view.addSpecificUtility("Θέα σε παραλία");
+        view.addSpecificUtility("Θέα στη θάλασσα");
+        view.addSpecificUtility("Θέα στο λιμάνι");
+        view.addSpecificUtility("Θέα στο βουνό");
+        view.addSpecificUtility("Θέα στον δρόμο");
+        generalUtilities.add(view);
+
+        Utility bath = new Utility();
+        bath.addSpecificUtility("Πιστολάκι μαλλιών");
+        generalUtilities.add(bath);
+
+        Utility washingClothes = new Utility();
+        washingClothes.addSpecificUtility("Πλυντήριο ρούχων");
+        washingClothes.addSpecificUtility("Στεγνωτήριο");
+        generalUtilities.add(washingClothes);
+
+        Utility entertainment = new Utility();
+        entertainment.addSpecificUtility("Τηλεόραση");
+        generalUtilities.add(entertainment);
+
+        Utility temperatureControl = new Utility();
+        temperatureControl.addSpecificUtility("Εσωτερικό τζάκι");
+        temperatureControl.addSpecificUtility("Κλιματισμός");
+        temperatureControl.addSpecificUtility("Κεντρική θέρμανση");
+        generalUtilities.add(temperatureControl);
+
+        Utility internet = new Utility();
+        internet.addSpecificUtility("Wifi");
+        internet.addSpecificUtility("Ethernet");
+        generalUtilities.add(internet);
+
+        Utility foodAreas = new Utility();
+        foodAreas.addSpecificUtility("Κουζίνα");
+        foodAreas.addSpecificUtility("Ψυγείο");
+        foodAreas.addSpecificUtility("Φούρνος μικροκυμάτων");
+        foodAreas.addSpecificUtility("Μαγειρικά είδη");
+        foodAreas.addSpecificUtility("Πιάτα και μαχαιροπίρουνα");
+        foodAreas.addSpecificUtility("Πλυντήριο πιάτων");
+        foodAreas.addSpecificUtility("Καφετιέρα");
+        generalUtilities.add(foodAreas);
+
+        Utility outsideSpace = new Utility();
+        outsideSpace.addSpecificUtility("Μπαλκόνι");
+        outsideSpace.addSpecificUtility("Αυλή");
+        generalUtilities.add(outsideSpace);
+
+        Utility parkingSpace = new Utility();
+        parkingSpace.addSpecificUtility("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
+        parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στον δρόμο");
+        generalUtilities.add(parkingSpace);
+
+        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations, generalUtilities);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
+
+
     }
 }

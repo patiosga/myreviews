@@ -6,11 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 class UtilitiesTest {
-    Utilities comforts;
+    Utility comforts;
 
     @Before
     public void setUp() {
-        comforts = new Utilities();
+        comforts = new Utility();
     }
 
     @After
