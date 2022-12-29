@@ -37,7 +37,7 @@ public class Login extends JFrame {
         signup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SignUpPage;
+                //new SignUpPage;
                 Login.super.dispose();
 
             }

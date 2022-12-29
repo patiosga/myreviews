@@ -73,7 +73,9 @@ public class Main {
         parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στον δρόμο");
         generalUtilities.add(parkingSpace);
 
-        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations, generalUtilities);
+        apartment.setTypesOfUtilities(generalUtilities);
+
+        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
 
 

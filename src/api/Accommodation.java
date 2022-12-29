@@ -14,7 +14,6 @@ public class Accommodation implements Serializable {
     private String description;
     private String stayType; //ξενοδοχείο, διαμέρισμα, μεζονέτα --> hotel, apartment, maisonette
     private Location place;
-
     //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
     private ArrayList<Utility> typesOfUtilities;
 
@@ -80,6 +79,14 @@ public class Accommodation implements Serializable {
 
     public void setTotalEvaluations(int totalEvaluations) {
         this.totalEvaluations = totalEvaluations;
+    }
+
+    public ArrayList<Utility> getTypesOfUtilities() {
+        return typesOfUtilities;
+    }
+
+    public void setTypesOfUtilities(ArrayList<Utility> typesOfUtilities) {
+        this.typesOfUtilities = typesOfUtilities;
     }
 
     public void updateAvgRatingOfAccomodation(HashSet<Evaluation> evaluations) {

@@ -49,7 +49,7 @@ public class ViewAccommodation extends JFrame {
     protected JCheckBox freeParkingStreet;
 
 
-    public ViewAccommodation(Accommodation accommodation, ManageEvaluations evaluationManager, ArrayList<Utility> generalUtilities) {
+    public ViewAccommodation(Accommodation accommodation, ManageEvaluations evaluationManager) {
 
         setSize(700, 700);
         setLocationRelativeTo(null);
@@ -111,7 +111,7 @@ public class ViewAccommodation extends JFrame {
         JPanel utilities = new JPanel(new GridLayout(9,1));
 
 
-        JPanel view = new JPanel(new GridLayout(6,1));
+        JPanel view = new JPanel(new GridLayout(3,2));
         TitledBorder border = BorderFactory.createTitledBorder(" Θέα ");
         view.setBorder(border);
         viewPool = new JCheckBox("Θέα σε πισίνα");
@@ -127,6 +127,22 @@ public class ViewAccommodation extends JFrame {
         view.add(viewMountain);
         view.add(viewStreet);
 
+        ArrayList<String> viewSpecifics = accommodation.getTypesOfUtilities().get(0).getSpecifics();
+        if (!viewSpecifics.isEmpty()) {
+            if (viewSpecifics.contains("Θέα σε πισίνα"))
+                viewPool.setSelected(true);
+            if (viewSpecifics.contains("Θέα σε παραλία"))
+                viewBeach.setSelected(true);
+            if (viewSpecifics.contains("Θέα σε θάλασσα"))
+                viewSea.setSelected(true);
+            if (viewSpecifics.contains("Θέα στο λιμάνι"))
+                viewPort.setSelected(true);
+            if (viewSpecifics.contains("Θέα στο βουνό"))
+                viewMountain.setSelected(true);
+            if (viewSpecifics.contains("Θέα στον δρόμο"))
+                viewStreet.setSelected(true);
+        }
+
         utilities.add(view);
 
         JPanel bath = new JPanel(new GridLayout(1,1));
@@ -135,10 +151,26 @@ public class ViewAccommodation extends JFrame {
         hairDryer = new JCheckBox("Πιστολάκι μαλλιών");
         bath.add(hairDryer);
 
+        ArrayList<String> bathSpecifics = accommodation.getTypesOfUtilities().get(0).getSpecifics();
+        if (!viewSpecifics.isEmpty()) {
+            if (viewSpecifics.contains("Θέα σε πισίνα"))
+                viewPool.setSelected(true);
+            if (viewSpecifics.contains("Θέα σε παραλία"))
+                viewBeach.setSelected(true);
+            if (viewSpecifics.contains("Θέα σε θάλασσα"))
+                viewSea.setSelected(true);
+            if (viewSpecifics.contains("Θέα στο λιμάνι"))
+                viewPort.setSelected(true);
+            if (viewSpecifics.contains("Θέα στο βουνό"))
+                viewMountain.setSelected(true);
+            if (viewSpecifics.contains("Θέα στον δρόμο"))
+                viewStreet.setSelected(true);
+        }
+
         utilities.add(bath);
 
-        JPanel washingClothes = new JPanel(new GridLayout(2,1));
-        TitledBorder border2 = BorderFactory.createTitledBorder(" Πλύσημο ρούχων ");
+        JPanel washingClothes = new JPanel(new GridLayout(1,2));
+        TitledBorder border2 = BorderFactory.createTitledBorder(" Πλύσιμο ρούχων ");
         washingClothes.setBorder(border2);
         clotheWasher = new JCheckBox("Πλυντήριο ρούχων,");
         dryer = new JCheckBox("Στεγνωτήριο");
@@ -155,7 +187,7 @@ public class ViewAccommodation extends JFrame {
 
         utilities.add(entertainment);
 
-        JPanel temperatureControl = new JPanel(new GridLayout(3,1));
+        JPanel temperatureControl = new JPanel(new GridLayout(2,2));
         TitledBorder border4 = BorderFactory.createTitledBorder(" Θέρμανση και κλιματισμός ");
         temperatureControl.setBorder(border4);
         firePlace = new JCheckBox("Εσωτερικό τζάκι");
@@ -167,7 +199,7 @@ public class ViewAccommodation extends JFrame {
 
         utilities.add(temperatureControl);
 
-        JPanel internet = new JPanel(new GridLayout(2,1));
+        JPanel internet = new JPanel(new GridLayout(1,2));
         TitledBorder border5 = BorderFactory.createTitledBorder(" Διαδίκτυο ");
         internet.setBorder(border5);
         wifi = new JCheckBox("Wifi");
@@ -177,7 +209,7 @@ public class ViewAccommodation extends JFrame {
 
         utilities.add(internet);
 
-        JPanel foodAreas = new JPanel(new GridLayout(7,1));
+        JPanel foodAreas = new JPanel(new GridLayout(4,2));
         TitledBorder border6 = BorderFactory.createTitledBorder(" Κουζίνα και τραπεζαρία ");
         foodAreas.setBorder(border6);
         kitchen = new JCheckBox("Κουζίνα");
@@ -198,7 +230,7 @@ public class ViewAccommodation extends JFrame {
 
         utilities.add(foodAreas);
 
-        JPanel outsideSpace = new JPanel(new GridLayout(2,1));
+        JPanel outsideSpace = new JPanel(new GridLayout(1,2));
         TitledBorder border7 = BorderFactory.createTitledBorder(" Εξωτερικός χώρος ");
         outsideSpace.setBorder(border7);
         balcony = new JCheckBox("Μπαλκόνι");
@@ -208,17 +240,22 @@ public class ViewAccommodation extends JFrame {
 
         utilities.add(outsideSpace);
 
-        JPanel parkingSpace = new JPanel(new GridLayout(2,1));
+        JPanel parkingSpace = new JPanel(new GridLayout(1,2));
         TitledBorder border8 = BorderFactory.createTitledBorder(" Χώρος στάθμευσης ");
         parkingSpace.setBorder(border8);
-        freeParkingProperty = new JCheckBox("Δωρεάν χώρος στάθμευσης στην ιδιοκτησίαΔωρεάν πάρκινγκ στο δρόμο");
+        freeParkingProperty = new JCheckBox("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
         freeParkingStreet = new JCheckBox("Δωρεάν πάρκινγκ στο δρόμο");
         parkingSpace.add(freeParkingProperty);
         parkingSpace.add(freeParkingStreet);
 
         utilities.add(parkingSpace);
 
+
+
+
+
         generalPanel.add(new JScrollPane(utilities));
+        //End of this hell-hole
 
 
 
@@ -235,9 +272,6 @@ public class ViewAccommodation extends JFrame {
 
         add(generalPanel);
         add(viewSelectedEvaluation, BorderLayout.PAGE_END);
-
-
-
 
 
 
@@ -292,6 +326,147 @@ public class ViewAccommodation extends JFrame {
 
 
         generalPanel.add(description);
+
+
+
+        //Check boxes hell
+        JPanel utilities = new JPanel(new GridLayout(9,1));
+
+
+        JPanel view = new JPanel(new GridLayout(3,2));
+        TitledBorder border = BorderFactory.createTitledBorder(" Θέα ");
+        view.setBorder(border);
+        viewPool = new JCheckBox("Θέα σε πισίνα");
+        viewBeach = new JCheckBox("Θέα σε παραλία");
+        viewSea = new JCheckBox("Θέα στη θάλασσα");
+        viewPort = new JCheckBox("Θέα στο λιμάνι");
+        viewMountain = new JCheckBox("Θέα στο βουνό");
+        viewStreet = new JCheckBox("Θέα στον δρόμο");
+        view.add(viewPool);
+        view.add(viewBeach);
+        view.add(viewSea);
+        view.add(viewPort);
+        view.add(viewMountain);
+        view.add(viewStreet);
+        viewPool.setEnabled(false);
+        viewBeach.setEnabled(false);
+        viewSea.setEnabled(false);
+        viewPort.setEnabled(false);
+        viewMountain.setEnabled(false);
+        viewStreet.setEnabled(false);
+
+        utilities.add(view);
+
+        JPanel bath = new JPanel(new GridLayout(1,1));
+        TitledBorder border1 = BorderFactory.createTitledBorder(" Μπάνιο ");
+        bath.setBorder(border1);
+        hairDryer = new JCheckBox("Πιστολάκι μαλλιών");
+        bath.add(hairDryer);
+        hairDryer.setEnabled(false);
+
+        utilities.add(bath);
+
+        JPanel washingClothes = new JPanel(new GridLayout(1,2));
+        TitledBorder border2 = BorderFactory.createTitledBorder(" Πλύσιμο ρούχων ");
+        washingClothes.setBorder(border2);
+        clotheWasher = new JCheckBox("Πλυντήριο ρούχων,");
+        dryer = new JCheckBox("Στεγνωτήριο");
+        washingClothes.add(clotheWasher);
+        washingClothes.add(dryer);
+        clotheWasher.setEnabled(false);
+        dryer.setEnabled(false);
+
+        utilities.add(washingClothes);
+
+        JPanel entertainment = new JPanel(new GridLayout(1,1));
+        TitledBorder border3 = BorderFactory.createTitledBorder(" Ψυχαγωγία ");
+        entertainment.setBorder(border3);
+        tv = new JCheckBox("Τηλεόραση");
+        entertainment.add(tv);
+        tv.setEnabled(false);
+
+        utilities.add(entertainment);
+
+        JPanel temperatureControl = new JPanel(new GridLayout(2,2));
+        TitledBorder border4 = BorderFactory.createTitledBorder(" Θέρμανση και κλιματισμός ");
+        temperatureControl.setBorder(border4);
+        firePlace = new JCheckBox("Εσωτερικό τζάκι");
+        airCondition = new JCheckBox("Κλιματισμός");
+        centralHeat = new JCheckBox("Κεντρική θέρμανση");
+        temperatureControl.add(firePlace);
+        temperatureControl.add(airCondition);
+        temperatureControl.add(centralHeat);
+        firePlace.setEnabled(false);
+        airCondition.setEnabled(false);
+        centralHeat.setEnabled(false);
+
+        utilities.add(temperatureControl);
+
+        JPanel internet = new JPanel(new GridLayout(1,2));
+        TitledBorder border5 = BorderFactory.createTitledBorder(" Διαδίκτυο ");
+        internet.setBorder(border5);
+        wifi = new JCheckBox("Wifi");
+        ethernet = new JCheckBox("Ethernet");
+        internet.add(wifi);
+        internet.add(ethernet);
+        wifi.setEnabled(false);
+        ethernet.setEnabled(false);
+
+        utilities.add(internet);
+
+        JPanel foodAreas = new JPanel(new GridLayout(4,2));
+        TitledBorder border6 = BorderFactory.createTitledBorder(" Κουζίνα και τραπεζαρία ");
+        foodAreas.setBorder(border6);
+        kitchen = new JCheckBox("Κουζίνα");
+        fridge = new JCheckBox("Ψυγείο");
+        microwave = new JCheckBox("Φούρνος μικροκυμάτων");
+        kitchenware = new JCheckBox("Μαγειρικά είδη");
+        spoonsKnives = new JCheckBox("Πιάτα και μαχαιροπίρουνα");
+        plateWasher = new JCheckBox("Πλυντήριο πιάτων");
+        coffeeMachine = new JCheckBox("Καφετιέρα");
+        foodAreas.add(kitchen);
+        foodAreas.add(fridge);
+        foodAreas.add(microwave);
+        foodAreas.add(kitchenware);
+        foodAreas.add(spoonsKnives);
+        foodAreas.add(plateWasher);
+        foodAreas.add(coffeeMachine);
+        kitchen.setEnabled(false);
+        fridge.setEnabled(false);
+        microwave.setEnabled(false);
+        kitchenware.setEnabled(false);
+        spoonsKnives.setEnabled(false);
+        plateWasher.setEnabled(false);
+        coffeeMachine.setEnabled(false);
+
+        utilities.add(foodAreas);
+
+        JPanel outsideSpace = new JPanel(new GridLayout(1,2));
+        TitledBorder border7 = BorderFactory.createTitledBorder(" Εξωτερικός χώρος ");
+        outsideSpace.setBorder(border7);
+        balcony = new JCheckBox("Μπαλκόνι");
+        yard = new JCheckBox("Αυλή");
+        outsideSpace.add(balcony);
+        outsideSpace.add(yard);
+        balcony.setEnabled(false);
+        yard.setEnabled(false);
+
+        utilities.add(outsideSpace);
+
+        JPanel parkingSpace = new JPanel(new GridLayout(1,2));
+        TitledBorder border8 = BorderFactory.createTitledBorder(" Χώρος στάθμευσης ");
+        parkingSpace.setBorder(border8);
+        freeParkingProperty = new JCheckBox("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
+        freeParkingStreet = new JCheckBox("Δωρεάν πάρκινγκ στο δρόμο");
+        parkingSpace.add(freeParkingProperty);
+        parkingSpace.add(freeParkingStreet);
+        freeParkingStreet.setEnabled(false);
+        freeParkingProperty.setEnabled(false);
+
+        utilities.add(parkingSpace);
+
+        generalPanel.add(new JScrollPane(utilities));
+        //End of this hell-hole
 
         add(generalPanel);
 

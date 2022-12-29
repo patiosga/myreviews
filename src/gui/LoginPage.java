@@ -18,7 +18,7 @@ public class LoginPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     }
 
-    public void LoginP(){
+    public LoginPage(){
         JPanel panel = new JPanel();
         setSize(350,200);
         setLocationRelativeTo(null);
@@ -51,10 +51,5 @@ public class LoginPage extends JFrame implements ActionListener {
         this.setVisible(true);
 
     }
-
-
-
-
-
 
 }
