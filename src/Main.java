@@ -77,9 +77,9 @@ public class Main {
 
         apartment.setTypesOfUtilities(generalUtilities);
 
-        //ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
+        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
-        SignUpPage signUpPage = new SignUpPage(ManageUsers);
+
 
     }
 }
