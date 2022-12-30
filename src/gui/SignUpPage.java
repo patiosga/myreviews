@@ -73,8 +73,8 @@ public class SignUpPage extends JFrame implements ActionListener {
         ButtonGroup group = new ButtonGroup();
         group.add(radioButtonSimpleUser);
         group.add(radioButtonProvider);
-        //radioButtonSimpleUser.setBounds();
-        //radioButtonProvider.setBounds();
+        radioButtonSimpleUser.setBounds(10,140,80,25);
+        radioButtonProvider.setBounds(100,140,165,25);
         panel.add(radioButtonSimpleUser);
         panel.add(radioButtonProvider);
 
@@ -83,6 +83,20 @@ public class SignUpPage extends JFrame implements ActionListener {
         this.add(radioButtonProvider);
         this.pack();
         this.setVisible(true);
+
+
+        JButton signUpButton = new JButton("Login");
+        signUpButton.setBounds(10,170,80,25);
+        panel.add(signUpButton);
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                   // if(usersManage.)
+               // }
+
+           // }
+        //});
 
 
 
