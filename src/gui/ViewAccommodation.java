@@ -10,18 +10,17 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ViewAccommodation extends JFrame {
-    protected JList<String> evaluationList; //Έχει τα String των αξιολογήσεων και γίνεται η αντιστοίχιση μέσω getSelectedIndex()
+    protected JList<String> evaluationList; //Έχει τα String των αξιολογήσεων και γίνεται η αντιστοίχιση με τον evaluationsOfAccommodation μέσω getSelectedIndex()
     protected ArrayList<Evaluation> evaluationsOfAccommodation;
     protected JPanel accommodationDetails;
     protected JPanel generalPanel;
     protected JTextField accommodationName;
     protected JLabel accommodationRating;
-    protected JTextField description;
+    protected JTextArea description;
     protected JTextField stayType;
     protected JTextField town;
     protected JTextField address;
     protected JTextField postCode;
-    protected JButton viewSelectedEvaluation;
     protected JCheckBox viewPool;
     protected JCheckBox viewBeach;
     protected JCheckBox viewSea;
@@ -50,60 +49,55 @@ public class ViewAccommodation extends JFrame {
     protected JCheckBox freeParkingStreet;
 
 
-    public ViewAccommodation(Accommodation accommodation, ManageEvaluations evaluationManager) {
+    public ViewAccommodation(Accommodation accommodation,User user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager, boolean withButtons) {
 
-        setSize(700, 700);
+        setSize(800, 800);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Κατάλυμα: " + accommodation.getName());
-        setLayout(new BorderLayout());
 
         generalPanel = new JPanel(new GridLayout(4,1));
 
         showAccommodationDetails(accommodation);
-
-        makeEvaluationList(evaluationManager,accommodation);
-
+        accommodationRating.setText("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
+        makeEvaluationList(evaluationsManager,accommodation);
         //we do this to hide the shame brought upon us
         makeEmptyCheckBoxes();
         fillCheckBoxes(accommodation);
 
 
-
-        // Ολο αυτο θα δουλευει διαφορετικά για provider και simpleUser στον δευτερο πρεπει να εμφανίζεται η editable μορφή του evaluation
-        viewSelectedEvaluation = new JButton("View Evaluation");
+        JButton viewSelectedEvaluation = new JButton("View Evaluation");
         viewSelectedEvaluation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (evaluationList.getSelectedIndex() != -1) {
-                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()));
+                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()), user, evaluationsManager, true);
                 }
             }
         });
 
+        JButton editAccommodation = new JButton("Επεξεργασία καταλύματος");
+        editAccommodation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewEditableAccommodation editableAccommodation = new ViewEditableAccommodation(accommodation, (Provider) user, evaluationsManager, accommodationsManager);
+            }
+        });
+
         add(generalPanel);
-        add(viewSelectedEvaluation, BorderLayout.PAGE_END);
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(1,1)); // 1 ή 2 columns ανάλογα με το αν ανήκει στον χρήστη το κατάλυμα
+        if (accommodationsManager.isProvidersAccommodation(user, accommodation)) { //Το κουμπί επεξεργασίας εμφανίζεται μόνο αν το κατάλυμα είναι του χρήστη
+            buttonsPanel = new JPanel(new GridLayout(1,2));
+            buttonsPanel.add(editAccommodation);
+        }
+
+        buttonsPanel.add(viewSelectedEvaluation);
+        if (withButtons)
+            add(buttonsPanel, BorderLayout.PAGE_END);
+
 
         setVisible(true);
-    }
-
-    public ViewAccommodation(Provider provider) { //για το stayType θα εχω drop down list με τις δυνατές επιλογές!!!
-        setSize(700, 700);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Νέο κατάλυμα");
-
-        generalPanel = new JPanel(new GridLayout(3,1)); //3 rows γιατί το θέλω για τη δημιουργία νέου καταλύματος και άρα δεν έχω λίστα αξιολογήσεων
-
-        Location loc = new Location("","","");
-        Accommodation accommodation = new Accommodation("","", "",loc, provider);
-
-        showAccommodationDetails(accommodation);;
-        makeEmptyCheckBoxes();
-
-        add(generalPanel);
-
-        add(viewSelectedEvaluation, BorderLayout.PAGE_END);
     }
 
 
@@ -112,23 +106,24 @@ public class ViewAccommodation extends JFrame {
         accommodationDetails = new JPanel(new GridLayout(5,2));
 
         accommodationName = new JTextField(accommodation.getName());
-        accommodationName.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
+        accommodationName.setEditable(false); // αλλάζει σε true στην υποκλάση ViewEditableAccommodation
         accommodationName.setFont(accommodationName.getFont().deriveFont(Font.BOLD, 14f));
 
-        accommodationRating = new JLabel("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
+        accommodationRating = new JLabel(); // συμπληρώνεται ανάλογα με την περίσταση
 
-        description = new JTextField(accommodation.getDescription());
-        description.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
+        description = new JTextArea(accommodation.getDescription());
+        description.setEditable(false); // αλλάζει σε true στην υποκλάση ViewEditableAccommodationAsProvider
+
 
         stayType = new JTextField(accommodation.getStayType());
-        stayType.setEditable(false); // αλλάζει σε true στην υποκλάση ViewAccommodationAsProvider
+        stayType.setEditable(false); // αλλάζει σε true στην υποκλάση ViewEditableAccommodationAsProvider
 
         town = new JTextField(accommodation.getLocation().getTown());
         address = new JTextField(accommodation.getLocation().getAddress());
         postCode = new JTextField(accommodation.getLocation().getPostCode());
         town.setEditable(false);
         address.setEditable(false);
-        postCode.setEditable(false); // αλλάζουν σε true στην υποκλάση ViewAccommodationAsProvider
+        postCode.setEditable(false); // αλλάζουν σε true στην υποκλάση ViewEditableAccommodation
 
 
         accommodationDetails.add(accommodationName);

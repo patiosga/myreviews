@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Utility implements Serializable {
+
     private ArrayList<String> specifics;
 
     public Utility() {
@@ -32,5 +33,9 @@ public class Utility implements Serializable {
 
     public ArrayList<String> getSpecifics() {
         return specifics;
+    }
+
+    public void setSpecifics(ArrayList<String> specifics) {
+        this.specifics = specifics;
     }
 }
