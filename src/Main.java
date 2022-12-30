@@ -1,8 +1,10 @@
 import api.*;
+import gui.SignUpPage;
 import gui.ViewAccommodation;
 
 import java.sql.Array;
 import java.util.ArrayList;
+
 
 public class Main {
     static public void main(String[] args) {
@@ -75,9 +77,9 @@ public class Main {
 
         apartment.setTypesOfUtilities(generalUtilities);
 
-        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
+        //ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
-
+        SignUpPage signUpPage = new SignUpPage(ManageUsers);
 
     }
 }

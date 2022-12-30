@@ -28,7 +28,7 @@ public class Login extends JFrame {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new LoginPage(ManageUsers usersManager);
+                new LoginPage(usersManager);
                 Login.super.dispose();
 
             }

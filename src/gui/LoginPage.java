@@ -14,11 +14,12 @@ public class LoginPage extends JFrame implements ActionListener {
 
     private ManageUsers usersManager;
 
-
     private JButton userName,password;
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
+
 
     public LoginPage(ManageUsers usersManager){
         JPanel panel = new JPanel();
