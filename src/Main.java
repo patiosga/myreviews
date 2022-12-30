@@ -15,6 +15,8 @@ public class Main {
         ManageEvaluations manageEvaluations = new ManageEvaluations();
         manageEvaluations.addEvaluation("Greatest of all time", 3.5f, simpleUser, apartment);
         manageEvaluations.addEvaluation("Greatest of all time", 5f, simpleUser2, apartment);
+        ManageAccommodations manageAccommodations = new ManageAccommodations();
+        manageAccommodations.addAccommodation("Luxury Place", "The best thing in town right now with extra bathroom", "apartment", "Arx Litis 6", "Thess", "12345", provider);
 
 
 
@@ -75,7 +77,7 @@ public class Main {
 
         apartment.setTypesOfUtilities(generalUtilities);
 
-        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
+        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, provider, manageEvaluations, manageAccommodations, true);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
 
 

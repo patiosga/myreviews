@@ -101,6 +101,10 @@ public class ManageEvaluations implements Serializable {
         return false;
     }
 
+    public boolean isUsersEvaluation(User user, Evaluation evaluation) {
+        return evaluation.getUser().equals(user);
+    }
+
     public boolean evaluationTextTooLong(String text) {
         return text.length() > 500;
     }

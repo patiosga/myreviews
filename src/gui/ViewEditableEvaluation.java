@@ -1,6 +1,7 @@
 package gui;
 
 import api.Accommodation;
+import api.Evaluation;
 import api.ManageEvaluations;
 import api.SimpleUser;
 
@@ -9,11 +10,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ViewEditableEvaluationToCreate extends ViewEvaluation {
+public class ViewEditableEvaluation extends ViewEvaluation {
     private JButton submitEvaluation;
 
-    public ViewEditableEvaluationToCreate(Accommodation accommodation, SimpleUser user, ManageEvaluations evaluationsManager) {
-        super(user);
+    public ViewEditableEvaluation(Evaluation oldEvaluation, Accommodation accommodation, SimpleUser user, ManageEvaluations evaluationsManager) {
+        super(oldEvaluation, user, evaluationsManager, false);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         gradeField.setEditable(true);
         evaluationText.setEditable(true);
@@ -38,7 +41,9 @@ public class ViewEditableEvaluationToCreate extends ViewEvaluation {
                         JOptionPane.showMessageDialog(getParent(), "Έχετε ήδη αξιολογήσει αυτό το κατάλυμα.");
 
                     else {
-                        evaluationsManager.addEvaluation(evaluationText.getText(), grade, user, accommodation);
+                        if (evaluationsManager.userAlreadyEvaluatedThis(user, accommodation))
+                            evaluationsManager.alterEvaluation(oldEvaluation, grade, evaluationText.getText());
+                        else evaluationsManager.addEvaluation(evaluationText.getText(), grade, user, accommodation);
                         JOptionPane.showMessageDialog(getParent(), "Επιτυχής υποβολή αξιολόγησης.");
                         dispose();
                     }
@@ -50,7 +55,25 @@ public class ViewEditableEvaluationToCreate extends ViewEvaluation {
 
             }
         });
-        add(submitEvaluation, BorderLayout.PAGE_END);
+
+        JButton deleteEvaluation = new JButton("Διαγραφή αξιολόγησης");
+        deleteEvaluation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!evaluationsManager.removeEvaluation(oldEvaluation))
+                    JOptionPane.showMessageDialog(getParent(), "Δεν έχει υποβληθεί η αξιολόγηση για να είναι δυνατή η διαγραφή της.");
+                else
+                    dispose();
+            }
+        });
+
+        JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
+        buttonsPanel.add(submitEvaluation, BorderLayout.PAGE_END);
+        buttonsPanel.add(deleteEvaluation);
+        add(buttonsPanel); // Κανονικά εδώ θα υπήρχε η επεξεργασία υποβολής αλλά το κάνει "override"
+
+
+
         setVisible(true);
 }
 }

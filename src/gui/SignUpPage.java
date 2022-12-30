@@ -10,10 +10,10 @@ public class SignUpPage extends JFrame implements ActionListener {
 
     private ManageUsers usersManage;
 
-    private JButton
+    private JButton test;
 
 
-    @Override
+    //@Override
     public void actionPerformed(ActionEvent e) {
     }
 

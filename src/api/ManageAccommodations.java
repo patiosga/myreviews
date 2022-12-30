@@ -1,12 +1,13 @@
 package api;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ManageAccommodations {
-    private HashSet<Accommodation> accommodations;
+    private ArrayList<Accommodation> accommodations;
 
     public ManageAccommodations() {
-        accommodations = new HashSet<>();
+        accommodations = new ArrayList<>();
     }
 
     public boolean addAccommodation(String name, String description, String stayType, String address, String town, String postCode, Provider provider) {
@@ -49,10 +50,22 @@ public class ManageAccommodations {
         return false;
     }
 
-    public boolean alterAccommodationUtilities(Accommodation accommodation) {
+    public boolean alterAccommodationUtilities(Accommodation accommodation , ArrayList<Utility> utilities) {
+        if (!accommodationExists(accommodation))
+            return false;
+        accommodation.setTypesOfUtilities(utilities);
         return true;
     }
 
+    public boolean accommodationExists(Accommodation accommodation) {
+        if (accommodations.isEmpty())
+            return false;
+        return accommodations.contains(accommodation);
+    }
 
 
+    public boolean isProvidersAccommodation(User user, Accommodation accommodation) {
+        return user.equals(accommodation.getProvider());
+
+    }
 }
