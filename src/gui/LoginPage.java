@@ -54,9 +54,9 @@ public class LoginPage extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (usersManager.findUserWithUsername(userText.getText()) == null)
-                        JOptionPane.showMessageDialog(getParent(), "Δεν υπάρχει αυτος ο χρήστης");
-                    if(usersManager.authentication(userText.getText(),passwordText.getTE) || passwordText.getPassword())
-                        JOptionPane.showMessageDialog(getParent(),"Κάποιο απο τα στοιχεία είναι λάθος");
+                        JOptionPane.showMessageDialog(getParent(), "Δεν υπάρχει αυτός ο χρήστης");
+//                    if(usersManager.authentication(userText.getText(),passwordText.getTE) || passwordText.getPassword())
+//                        JOptionPane.showMessageDialog(getParent(),"Κάποιο απο τα στοιχεία είναι λάθος");
                 } finally {
 
                 }

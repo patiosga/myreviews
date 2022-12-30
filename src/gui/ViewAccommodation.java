@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class ViewAccommodation extends JFrame {
     protected JList<String> evaluationList; //Έχει τα String των αξιολογήσεων και γίνεται η αντιστοίχιση με τον evaluationsOfAccommodation μέσω getSelectedIndex()
@@ -49,7 +50,7 @@ public class ViewAccommodation extends JFrame {
     protected JCheckBox freeParkingStreet;
 
 
-    public ViewAccommodation(Accommodation accommodation,User user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager, boolean withButtons) {
+    public ViewAccommodation(Accommodation accommodation, User user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager, boolean withButtons) {
 
         setSize(800, 800);
         setLocationRelativeTo(null);
@@ -57,16 +58,18 @@ public class ViewAccommodation extends JFrame {
         setTitle("Κατάλυμα: " + accommodation.getName());
 
         generalPanel = new JPanel(new GridLayout(4,1));
+        evaluationList = new JList<>();
 
         showAccommodationDetails(accommodation);
         accommodationRating.setText("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
         makeEvaluationList(evaluationsManager,accommodation);
+        generalPanel.add(new JScrollPane(evaluationList));
         //we do this to hide the shame brought upon us
         makeEmptyCheckBoxes();
         fillCheckBoxes(accommodation);
 
 
-        JButton viewSelectedEvaluation = new JButton("View Evaluation");
+        JButton viewSelectedEvaluation = new JButton("Δείτε την αξιολόγηση");
         viewSelectedEvaluation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,15 +89,45 @@ public class ViewAccommodation extends JFrame {
 
         add(generalPanel);
 
-        JPanel buttonsPanel = new JPanel(new GridLayout(1,1)); // 1 ή 2 columns ανάλογα με το αν ανήκει στον χρήστη το κατάλυμα
+        JPanel bottomButtonsPanel = new JPanel(new GridLayout(1,1)); // 1 ή 2 columns ανάλογα με το αν ανήκει στον χρήστη το κατάλυμα
         if (accommodationsManager.isProvidersAccommodation(user, accommodation)) { //Το κουμπί επεξεργασίας εμφανίζεται μόνο αν το κατάλυμα είναι του χρήστη
-            buttonsPanel = new JPanel(new GridLayout(1,2));
-            buttonsPanel.add(editAccommodation);
+            bottomButtonsPanel = new JPanel(new GridLayout(1,2));
+            bottomButtonsPanel.add(editAccommodation);
         }
 
-        buttonsPanel.add(viewSelectedEvaluation);
+        bottomButtonsPanel.add(viewSelectedEvaluation);
         if (withButtons)
-            add(buttonsPanel, BorderLayout.PAGE_END);
+            add(bottomButtonsPanel, BorderLayout.PAGE_END);
+
+        JButton evaluateAccommodation = new JButton("Αξιολογήστε το κατάλυμα");
+        evaluateAccommodation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (evaluationsManager.userAlreadyEvaluatedThis((SimpleUser) user, accommodation))
+                    JOptionPane.showMessageDialog(getParent(), "Εχετε ήδη αξιολογήσει αυτό το κατάλυμα");
+                else {
+                    Evaluation tempEvaluation = new Evaluation("", 0, (SimpleUser) user, accommodation);
+                    new ViewEditableEvaluation(tempEvaluation, accommodation, (SimpleUser) user, evaluationsManager);
+                }
+            }
+        });
+
+        JButton reload = new JButton("Ανανέωση");
+        reload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                makeEvaluationList(evaluationsManager, accommodation);
+                accommodationRating.setText("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
+            }
+        });
+
+        JPanel upperButtonsPanel = new JPanel(new GridLayout(1,1)); // 1 ή 2 columns ανάλογα με το αν είναι SimpleUser και άρα μπορεί να αξιολογήσει το κατάλυμα
+        if (user instanceof SimpleUser) { //Το κουμπί προσθήκης αξιολόγησης εμφανίζεται μόνο αν το βλέπει SimpleUser
+            upperButtonsPanel = new JPanel(new GridLayout(1,2));
+            upperButtonsPanel.add(evaluateAccommodation);
+        }
+        upperButtonsPanel.add(reload);
+        add(upperButtonsPanel, BorderLayout.PAGE_START);
 
 
         setVisible(true);
@@ -148,14 +181,13 @@ public class ViewAccommodation extends JFrame {
 
     protected void makeEvaluationList(ManageEvaluations evaluationManager, Accommodation accommodation) {
         evaluationsOfAccommodation = evaluationManager.getAccommodationEvaluations(accommodation);
-        DefaultListModel<String> helperList = new DefaultListModel<>();
-        if (evaluationsOfAccommodation != null) {
-            for (int i=0; i<evaluationsOfAccommodation.size(); i++) {
-                helperList.add(i, evaluationsOfAccommodation.get(i).toString());
+        Vector<String> helperList = new Vector<>();
+        if (!evaluationsOfAccommodation.isEmpty()) {
+            for (Evaluation evaluation : evaluationsOfAccommodation) {
+                helperList.addElement(evaluation.toString());
             }
         }
-        evaluationList = new JList<>(helperList);
-        generalPanel.add(new JScrollPane(evaluationList));
+        evaluationList.setListData(helperList);
     }
 
 

@@ -93,10 +93,12 @@ public class SignUpPage extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                    // if(usersManage.)
-               // }
+                } finally {
 
-           // }
-        //});
+                }
+
+           }
+        });
 
 
 

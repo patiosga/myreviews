@@ -57,6 +57,17 @@ public class ManageAccommodations {
         return true;
     }
 
+    public ArrayList<Accommodation> getProvidersAccommodations(Provider provider) {
+        ArrayList<Accommodation> providersAccommodations = new ArrayList<>();
+        if (!accommodations.isEmpty()) {
+            for (Accommodation accommodation : accommodations) {
+                if (accommodation.getProvider().equals(provider));
+                    providersAccommodations.add(accommodation);
+            }
+        }
+        return providersAccommodations;
+    }
+
     public boolean accommodationExists(Accommodation accommodation) {
         if (accommodations.isEmpty())
             return false;

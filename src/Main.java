@@ -1,6 +1,7 @@
 import api.*;
 import gui.SignUpPage;
 import gui.ViewAccommodation;
+import gui.dashboardSimpleUser;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Main {
     static public void main(String[] args) {
         SimpleUser simpleUser = new SimpleUser("John", "Vet", "vetoulis", "paok", "simpleUser");
         SimpleUser simpleUser2 = new SimpleUser("John2", "Vet2", "vetoulis2", "paok2", "simpleUser");
+        SimpleUser simpleUser3 = new SimpleUser("John3", "Vet3", "vetaf", "paok", "simpleUser");
         Provider provider = new Provider("Mitsos", "Pap", "user1", "pass1", "provider");
         Location place = new Location("Arx Litis 6", "Thess", "12345");
         Accommodation apartment = new Accommodation("Luxury Place", "The best thing in town right now with extra bathroom", "apartment", place, provider);
@@ -17,6 +19,8 @@ public class Main {
         ManageEvaluations manageEvaluations = new ManageEvaluations();
         manageEvaluations.addEvaluation("Greatest of all time", 3.5f, simpleUser, apartment);
         manageEvaluations.addEvaluation("Greatest of all time", 5f, simpleUser2, apartment);
+        ManageAccommodations accommodationsManager = new ManageAccommodations();
+        accommodationsManager.addAccommodation("Luxury Place", "The best thing in town right now with extra bathroom", "apartment", "Arx Litis 6", "Thess", "12345", provider);
 
 
 
@@ -77,9 +81,9 @@ public class Main {
 
         apartment.setTypesOfUtilities(generalUtilities);
 
-        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, manageEvaluations);
+        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, simpleUser, manageEvaluations, accommodationsManager, true);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
-
+        dashboardSimpleUser dashboardSimpleUser = new dashboardSimpleUser(simpleUser, manageEvaluations);
 
     }
 }

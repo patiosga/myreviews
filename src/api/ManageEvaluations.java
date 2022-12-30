@@ -12,6 +12,7 @@ public class ManageEvaluations implements Serializable {
         evaluations = new HashSet<>();
     }
 
+
     public void removedAccommodationAlert(Accommodation accommodation) {
         if (evaluations.isEmpty())
             return;
@@ -62,10 +63,8 @@ public class ManageEvaluations implements Serializable {
                 if (evaluation.getUser().equals(user))
                     userEvaluations.add(evaluation);
             }
-            return userEvaluations;
         }
-        else
-            return null;
+        return userEvaluations;
     }
 
     public ArrayList<Evaluation> getAccommodationEvaluations (Accommodation accommodation) { //Μπορει να επιστρέφει null ή και κενή λίστα --> πρέπει να ελέγχεται
@@ -75,10 +74,8 @@ public class ManageEvaluations implements Serializable {
                 if (evaluation.getAccommodation().equals(accommodation))
                     accommodationEvaluations.add(evaluation);
             }
-            return accommodationEvaluations;
         }
-        else
-            return null;
+        return accommodationEvaluations;
     }
 
     public boolean alterEvaluation(Evaluation oldEvaluation, float nextGrade, String nextText) {

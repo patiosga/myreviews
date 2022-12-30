@@ -37,9 +37,6 @@ public class ViewEditableEvaluation extends ViewEvaluation {
                     else if (evaluationText.getText() == null)
                         JOptionPane.showMessageDialog(getParent(), "Το κείμενο της αξιολόγησης είναι υποχρεωτικό.");
 
-                    else if (evaluationsManager.userAlreadyEvaluatedThis(user,accommodation))
-                        JOptionPane.showMessageDialog(getParent(), "Έχετε ήδη αξιολογήσει αυτό το κατάλυμα.");
-
                     else {
                         if (evaluationsManager.userAlreadyEvaluatedThis(user, accommodation))
                             evaluationsManager.alterEvaluation(oldEvaluation, grade, evaluationText.getText());
@@ -68,9 +65,9 @@ public class ViewEditableEvaluation extends ViewEvaluation {
         });
 
         JPanel buttonsPanel = new JPanel(new GridLayout(1,2));
-        buttonsPanel.add(submitEvaluation, BorderLayout.PAGE_END);
+        buttonsPanel.add(submitEvaluation);
         buttonsPanel.add(deleteEvaluation);
-        add(buttonsPanel); // Κανονικά εδώ θα υπήρχε η επεξεργασία υποβολής αλλά το κάνει "override"
+        add(buttonsPanel, BorderLayout.PAGE_END); // Κανονικά εδώ θα υπήρχε η επεξεργασία υποβολής αλλά το κάνει "override"
 
 
 
