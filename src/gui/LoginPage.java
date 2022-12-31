@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import api.ManageUsers;
+import api.User;
 
 
 
@@ -14,7 +15,8 @@ public class LoginPage extends JFrame implements ActionListener {
 
     private ManageUsers usersManager;
 
-    private JButton userName,password;
+    //private JButton userName;
+    //private JButton password;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -54,22 +56,28 @@ public class LoginPage extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (usersManager.findUserWithUsername(userText.getText()) == null)
-                        JOptionPane.showMessageDialog(getParent(), "Δεν υπάρχει αυτός ο χρήστης");
-//                    if(usersManager.authentication(userText.getText(),passwordText.getTE) || passwordText.getPassword())
-//                        JOptionPane.showMessageDialog(getParent(),"Κάποιο απο τα στοιχεία είναι λάθος");
+                        JOptionPane.showMessageDialog(getParent(), "Δεν βρέθηκε χρήστης με αυτό το όνομα");
+                    //if(!usersManager.authentication((userText, passwordText)){
+                    JOptionPane.showMessageDialog(getParent(), "Κάποιο απο τα στοιχεία είναι λάθος");
+                       //if(usersManager.authentication((userText, passwordText))
+                        JOptionPane.showMessageDialog(getParent(), "Συνδεθήκατε επιτυχώς");
+
+//                }
                 } finally {
 
                 }
-            }
-        });
+//            };
+//        });
 
 
 
 
 
 
-        this.setVisible(true);
+        //this.setVisible(true);
 
     }
 
+})
+;}
 }

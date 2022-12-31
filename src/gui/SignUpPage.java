@@ -92,13 +92,23 @@ public class SignUpPage extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                   // if(usersManage.)
+                    if (radioButtonSimpleUser.isSelected()) {
+                        if(usersManage.createSimpleUser(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), String.valueOf(passwordText.getPassword())) == false)
+                            JOptionPane.showMessageDialog(getParent(), "Υπάρχει ήδη χρήστης με αuτό το username");
+                        else if(usersManage.createSimpleUser(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), String.valueOf(passwordText.getPassword())) == true)
+                            JOptionPane.showMessageDialog(getParent(), "Επιτυχής δημιουργία λογαριασμού");
+                    }
+                    if (radioButtonProvider.isSelected()) {
+                        if (usersManage.createProvider(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), String.valueOf(passwordText.getPassword())) == false)
+                            JOptionPane.showMessageDialog(getParent(), "Υπάρχει ήδη πάροχος με αuτό το username");
+                        else if(usersManage.createProvider(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), String.valueOf(passwordText.getPassword())) == true)
+                            JOptionPane.showMessageDialog(getParent(), "Επιτυχής δημιουργία λογαριασμού");
+                    }
+
+
                 } finally {
 
-                }
-
-           }
-        });
+                };
 
 
 
@@ -110,5 +120,7 @@ public class SignUpPage extends JFrame implements ActionListener {
 
 
 
+    }
+ });
     }
 }
