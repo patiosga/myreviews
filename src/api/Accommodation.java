@@ -73,8 +73,7 @@ public class Accommodation implements Serializable {
     }
 
     /**
-     * Σε περίπτωση μετονομασίας του καταλύματος να ανανεώνεται ο κωδικός
-     * @param singularId Μοναδικός κωδικός καταλύματος
+     * Σε περίπτωση μετονομασίας του καταλύματος να ανανεώνεται ο μοναδικός κωδικός του καταλύματος
      */
     public void updateSingularId() {
         singularId = provider.getUserName().hashCode() + name.hashCode();
