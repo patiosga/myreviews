@@ -122,6 +122,7 @@ public class ViewAccommodation extends JFrame {
                 town.setText(accommodation.getLocation().getTown());
                 postCode.setText(accommodation.getLocation().getPostCode());
                 address.setText(accommodation.getLocation().getAddress());
+                fillCheckBoxes(accommodation);
             }
         });
 
