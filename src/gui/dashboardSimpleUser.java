@@ -25,6 +25,7 @@ public class dashboardSimpleUser extends JFrame{
         setSize(1000, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Αρχική σελίδα χρήστη");
 
         makeEvaluationList(evaluationsManager);
         generalPanel.add(new JScrollPane(evaluationList));
@@ -62,7 +63,6 @@ public class dashboardSimpleUser extends JFrame{
                 dispose();
             }
         });
-        add(logOut, BorderLayout.PAGE_START);
 
         JPanel searchPanel = new JPanel();
         searchPanel.add(new JLabel("Empty for now"));
@@ -70,7 +70,11 @@ public class dashboardSimpleUser extends JFrame{
         add(generalPanel);
 
         avgRating = new JLabel("Μέση βαθμολογία αξιολογήσεων: " + user.getAvgRating());
-        add(avgRating, BorderLayout.PAGE_START);
+
+        JPanel upperPanel = new JPanel(new GridLayout(1,2));
+        upperPanel.add(avgRating);
+        upperPanel.add(logOut);
+        add(upperPanel, BorderLayout.PAGE_START);
 
         setVisible(true);
     }

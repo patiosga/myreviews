@@ -50,12 +50,11 @@ public class ViewEditableAccommodation extends ViewAccommodation {
         postCode.setEditable(true);
 
         JButton submitAccommodation = new JButton("Υποβολή");
-        String checkText = checkSubmissionInaccuracies();
 
         submitAccommodation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String checkText = checkSubmissionInaccuracies();
+                String checkText = accommodationsManager.checkSubmissionInaccuracies(accommodationName.getText(), description.getText(), stayType.getText(), town.getText(), address.getText(), postCode.getText());
                 if (checkText != null)
                     JOptionPane.showMessageDialog(getParent(), checkText);
                 else {
@@ -93,22 +92,6 @@ public class ViewEditableAccommodation extends ViewAccommodation {
 
         setVisible(true);
 
-    }
-
-    private String checkSubmissionInaccuracies() { //επιστρέφει null αν όλα καλά
-        if (accommodationName.getText().length() == 0 || stayType.getText().length() == 0 || description.getText().length() == 0 || town.getText().length() == 0 || postCode.getText().length() == 0 || address.getText().length() == 0)
-            return "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.";
-        else if (!stayType.getText().equals("Ξενοδοχείο")  && !stayType.getText().equals("Διαμέρισμα") && !stayType.getText().equals("Μεζονέτα"))
-            return "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα." + stayType.getText() + ".";
-        float postC;
-        try {
-            postC = Float.parseFloat(postCode.getText());
-            if (postC <= 0)
-                return "Εισάγετε έγκυρο ταχυδρομικό κώδικα";
-        } catch(NumberFormatException e1) {
-            return "Παρακαλώ εισάγετε αριθμό στο πεδίο του ταχυδρομικού κώδικα.";
-        }
-        return null; //περίπτωση του όλα καλά
     }
 
     private void sortOutCheckBoxHell() {

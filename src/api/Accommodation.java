@@ -146,6 +146,6 @@ public class Accommodation implements Serializable {
 
     @Override
     public String toString() {
-        return name + ", " + getLocation().getTown() + stayType + ", " + avgRating +"(" + totalEvaluations+")";
+        return name + ", " + getLocation().getTown() + ", " + stayType + ", " + avgRating +"(" + totalEvaluations+")";
     }
 }

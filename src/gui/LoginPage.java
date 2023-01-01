@@ -18,17 +18,17 @@ public class LoginPage extends JFrame {
 
         JPanel generalPanel = new JPanel(new GridLayout(2,2));
 
-        JLabel userLabel = new JLabel("Username");
+        JLabel userLabel = new JLabel("Όνομα χρήστη");
         generalPanel.add(userLabel);
         JTextField userText = new JTextField(20);
         generalPanel.add(userText);
 
-        JLabel passwordLabel = new JLabel("Password");
+        JLabel passwordLabel = new JLabel("Κωδικός");
         generalPanel.add(passwordLabel);
         JPasswordField passwordText = new JPasswordField();
         generalPanel.add(passwordText);
 
-        JButton button = new JButton("Login");
+        JButton button = new JButton("Σύνδεση");
         add(button, BorderLayout.PAGE_END);
         button.addActionListener(new ActionListener() {
             @Override

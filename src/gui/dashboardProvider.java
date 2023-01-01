@@ -25,6 +25,7 @@ public class dashboardProvider extends JFrame {
         setSize(1000, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Αρχική σελίδα παρόχου");
 
         makeAccommodationList(accommodationsManager);
         generalPanel.add(new JScrollPane(accommodationsList));
@@ -78,7 +79,6 @@ public class dashboardProvider extends JFrame {
                 dispose();
             }
         });
-        add(logOut, BorderLayout.PAGE_START);
 
         JPanel searchPanel = new JPanel();
         searchPanel.add(new JLabel("Empty for now"));
@@ -86,6 +86,11 @@ public class dashboardProvider extends JFrame {
         add(generalPanel);
 
         avgRating = new JLabel("Μέση βαθμολογία των καταλυμάτων σας: " + user.getAvgRatingOfAllAccom());
+
+        JPanel upperPanel = new JPanel(new GridLayout(1,2));
+        upperPanel.add(avgRating);
+        upperPanel.add(logOut);
+        add(upperPanel, BorderLayout.PAGE_START);
 
         setVisible(true);
     }

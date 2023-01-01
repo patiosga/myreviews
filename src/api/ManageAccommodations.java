@@ -88,4 +88,20 @@ public class ManageAccommodations {
             accommodation.updateAvgRatingOfAccommodation(evaluations);
         }
     }
+
+    public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά
+        if (name.length() == 0 || stayType.length() == 0 || description.length() == 0 || town.length() == 0 || postCode.length() == 0 || address.length() == 0)
+            return "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.";
+        else if (!stayType.equals("Ξενοδοχείο")  && !stayType.equals("Διαμέρισμα") && !stayType.equals("Μεζονέτα"))
+            return "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα." + stayType + ".";
+        float postC;
+        try {
+            postC = Float.parseFloat(postCode);
+            if (postC <= 0)
+                return "Εισάγετε έγκυρο ταχυδρομικό κώδικα";
+        } catch(NumberFormatException e1) {
+            return "Παρακαλώ εισάγετε αριθμό στο πεδίο του ταχυδρομικού κώδικα.";
+        }
+        return null; //περίπτωση του όλα καλά
+    }
 }

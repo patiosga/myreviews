@@ -41,24 +41,17 @@ public class ManageUsers implements Serializable {
         return user instanceof Provider;
     }
 
-    private boolean checkSynonymity(User user) { // true αν o νέος χρήστης που πάει να δημιουργηθεί έχει ίδιο username με άλλον
-        return findUserWithUsername(user.getUserName()) != null;
-    }
 
-    public boolean createSimpleUser(String firstName, String lastName ,String userName, String password) {
+    public SimpleUser createSimpleUser(String firstName, String lastName ,String userName, String password) {
         SimpleUser user = new SimpleUser(firstName, lastName, userName, password, "simpleUser");
-        if (checkSynonymity(user))
-            return false; // username already exists
         simpleUsers.add(user);
-        return true;
+        return user;
     }
 
-    public boolean createProvider(String firstName, String lastName ,String userName, String password) {
+    public Provider createProvider(String firstName, String lastName ,String userName, String password) {
         Provider user = new Provider(firstName, lastName, userName, password, "provider");
-        if (checkSynonymity(user))
-            return false; // username already exists
         providers.add(user);
-        return true;
+        return user;
     }
 
     public boolean authentication(String username, String password) {
@@ -75,5 +68,13 @@ public class ManageUsers implements Serializable {
             simpleUser.updateAvgRatingOfUser(evaluations);
         for (Provider provider : providers)
             provider.updateAvgRatingOfAllAccom(evaluations);
+    }
+
+    public String checkSignUpInaccuracies(String firstName, String lastName, String username, String password) {
+        if (firstName.length() == 0 || lastName.length() == 0 || username.length() == 0 || password.length() == 0)
+            return "Όλα τα πεδία κειμένου είναι υποχρεωτικά για την εγγραφή";
+        if (findUserWithUsername(username) != null)
+            return "Το όνομα χρήστη " + username + " υπάρχει ήδη";
+        return null;
     }
 }
