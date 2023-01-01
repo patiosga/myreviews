@@ -1,83 +1,57 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import api.ManageUsers;
-import api.User;
+import api.*;
 
 
+public class LoginPage extends JFrame {
 
-
-
-public class LoginPage extends JFrame implements ActionListener {
-
-    private ManageUsers usersManager;
-
-    //private JButton userName;
-    //private JButton password;
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    }
-
-
-    public LoginPage(ManageUsers usersManager){
-        JPanel panel = new JPanel();
+    public LoginPage(ManageUsers usersManager, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager){
         setSize(350,200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Login");
-        this.add(panel);
 
-        panel.setLayout(null);
+        JPanel generalPanel = new JPanel(new GridLayout(2,2));
 
         JLabel userLabel = new JLabel("Username");
-        userLabel.setBounds(10, 20, 80, 25);
-        panel.add(userLabel);
+        generalPanel.add(userLabel);
         JTextField userText = new JTextField(20);
-        userText.setBounds(100,20,165,25 );
-        panel.add(userText);
+        generalPanel.add(userText);
 
         JLabel passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10,50,80,25);
-        panel.add(passwordLabel);
+        generalPanel.add(passwordLabel);
         JPasswordField passwordText = new JPasswordField();
-        passwordText.setBounds(100,50,165,25);
-        panel.add(passwordText);
+        generalPanel.add(passwordText);
 
         JButton button = new JButton("Login");
-        button.setBounds(10,80,80,25);
-        panel.add(button);
+        add(button, BorderLayout.PAGE_END);
         button.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (usersManager.findUserWithUsername(userText.getText()) == null)
-                        JOptionPane.showMessageDialog(getParent(), "Δεν βρέθηκε χρήστης με αυτό το όνομα");
-                    //if(!usersManager.authentication((userText, passwordText)){
-                    JOptionPane.showMessageDialog(getParent(), "Κάποιο απο τα στοιχεία είναι λάθος");
-                       //if(usersManager.authentication((userText, passwordText))
-                        JOptionPane.showMessageDialog(getParent(), "Συνδεθήκατε επιτυχώς");
-
-//                }
-                } finally {
+                User user;
+                if ((user = usersManager.findUserWithUsername(userText.getText())) == null) {
+                    JOptionPane.showMessageDialog(getParent(), "Δεν βρέθηκε χρήστης με αυτό το όνομα");
+                }
+                else if (!usersManager.authentication(userText.getText(), new String(passwordText.getPassword()))) {
+                    JOptionPane.showMessageDialog(getParent(), "Λανθασμένος κωδικός πρόσβασης");
 
                 }
-//            };
-//        });
-
-
-
-
-
-
-        //this.setVisible(true);
-
+                else {
+                    if (usersManager.isSimpleUser(user))
+                        new dashboardSimpleUser((SimpleUser) user, evaluationsManager, usersManager, accommodationsManager);
+                    else
+                        new dashboardProvider((Provider) user, accommodationsManager, evaluationsManager, usersManager);
+                    dispose();
+                }
+            }
+        });
+        add(generalPanel);
+        setVisible(true);
     }
 
-})
-;}
 }

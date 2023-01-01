@@ -1,5 +1,6 @@
 import api.*;
 import gui.SignUpPage;
+import gui.StartingPage;
 import gui.ViewAccommodation;
 import gui.dashboardSimpleUser;
 
@@ -21,6 +22,7 @@ public class Main {
         manageEvaluations.addEvaluation("Greatest of all time", 5f, simpleUser2, apartment);
         ManageAccommodations accommodationsManager = new ManageAccommodations();
         accommodationsManager.addAccommodation("Luxury Place", "The best thing in town right now with extra bathroom", "apartment", "Arx Litis 6", "Thess", "12345", provider);
+
 
 
 
@@ -81,9 +83,13 @@ public class Main {
 
         apartment.setTypesOfUtilities(generalUtilities);
 
-        ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, simpleUser, manageEvaluations, accommodationsManager, true);
+        ManageUsers usersManager = new ManageUsers();
+        usersManager.createSimpleUser("John", "Vet", "vetoulis", "paok");
+        usersManager.createProvider("John2", "Vet2", "vetoulis2", "paok2");
+        //ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, simpleUser, manageEvaluations, accommodationsManager, true);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);
-        dashboardSimpleUser dashboardSimpleUser = new dashboardSimpleUser(simpleUser, manageEvaluations);
+        //dashboardSimpleUser dashboardSimpleUser = new dashboardSimpleUser(simpleUser, manageEvaluations);
+        new StartingPage(usersManager, manageEvaluations, accommodationsManager);
 
     }
 }

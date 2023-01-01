@@ -1,9 +1,6 @@
 package gui;
 
-import api.Accommodation;
-import api.Evaluation;
-import api.ManageEvaluations;
-import api.SimpleUser;
+import api.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +14,7 @@ public class dashboardSimpleUser extends JFrame{
     private final SimpleUser user;
     private JList<String> evaluationList;
 
-    public dashboardSimpleUser(SimpleUser user, ManageEvaluations evaluationsManager) {
+    public dashboardSimpleUser(SimpleUser user, ManageEvaluations evaluationsManager, ManageUsers usersManager, ManageAccommodations accommodationsManager) {
 
         this.user = user;
         evaluationList = new JList<>();
@@ -59,7 +56,7 @@ public class dashboardSimpleUser extends JFrame{
         logOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Login();
+                new StartingPage(usersManager, evaluationsManager, accommodationsManager);
                 dispose();
             }
         });

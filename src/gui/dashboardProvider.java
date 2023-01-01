@@ -14,7 +14,7 @@ public class dashboardProvider extends JFrame {
     private final Provider user;
     private JList<String> accommodationsList;
 
-    public dashboardProvider(Provider user, ManageAccommodations accommodationsManager ,ManageEvaluations evaluationsManager) {
+    public dashboardProvider(Provider user, ManageAccommodations accommodationsManager ,ManageEvaluations evaluationsManager, ManageUsers usersManager) {
 
         this.user = user;
         accommodationsList = new JList<>();
@@ -56,7 +56,7 @@ public class dashboardProvider extends JFrame {
         logOut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Login();
+                new StartingPage(usersManager, evaluationsManager, accommodationsManager);
                 dispose();
             }
         });

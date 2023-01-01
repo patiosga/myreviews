@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import api.ManageAccommodations;
+import api.ManageEvaluations;
 import api.ManageUsers;
 
 public class SignUpPage extends JFrame implements ActionListener {
@@ -18,7 +20,7 @@ public class SignUpPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     }
 
-    public SignUpPage(ManageUsers usersManage){
+    public SignUpPage(ManageUsers usersManager, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager){
         JPanel panel = new JPanel();
         setSize(700,400);
         setLocationRelativeTo(null);
@@ -101,8 +103,6 @@ public class SignUpPage extends JFrame implements ActionListener {
                     if (radioButtonProvider.isSelected()) {
                         if (usersManage.createProvider(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), String.valueOf(passwordText.getPassword())) == false)
                             JOptionPane.showMessageDialog(getParent(), "Υπάρχει ήδη πάροχος με αuτό το username");
-                        else if(usersManage.createProvider(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), String.valueOf(passwordText.getPassword())) == true)
-                            JOptionPane.showMessageDialog(getParent(), "Επιτυχής δημιουργία λογαριασμού");
                     }
 
 

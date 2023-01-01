@@ -16,13 +16,13 @@ public class ManageUsers implements Serializable {
     public User findUserWithUsername(String username) {
         if (!simpleUsers.isEmpty()) {
             for (SimpleUser simpleUser : simpleUsers) {
-                if (username == simpleUser.getUserName())
+                if (Objects.equals(username, simpleUser.getUserName()))
                     return simpleUser;
             }
         }
         if (!providers.isEmpty()) {
             for (Provider provider : providers) {
-                if (username == provider.getUserName())
+                if (Objects.equals(username, provider.getUserName()))
                     return provider;
             }
         }
@@ -34,17 +34,11 @@ public class ManageUsers implements Serializable {
     }
 
     public boolean isSimpleUser(User user) {
-        if (!simpleUsers.isEmpty()) {
-            return simpleUsers.contains(user);
-        }
-        return false;
+        return user instanceof SimpleUser;
     }
 
     public boolean isProvider(User user) {
-        if (!simpleUsers.isEmpty()) {
-            return providers.contains(user);
-        }
-        return false;
+        return user instanceof Provider;
     }
 
     private boolean checkSynonymity(User user) { // true αν o νέος χρήστης που πάει να δημιουργηθεί έχει ίδιο username με άλλον
@@ -71,7 +65,7 @@ public class ManageUsers implements Serializable {
         User user = findUserWithUsername(username);
         if (user == null)
             return false;
-        return user.getPassword() == password;
+        return user.getPassword().equals(password);
 
     }
 

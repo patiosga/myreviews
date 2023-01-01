@@ -61,7 +61,7 @@ public class ManageAccommodations {
         ArrayList<Accommodation> providersAccommodations = new ArrayList<>();
         if (!accommodations.isEmpty()) {
             for (Accommodation accommodation : accommodations) {
-                if (accommodation.getProvider().equals(provider));
+                if (accommodation.getProvider().equals(provider))
                     providersAccommodations.add(accommodation);
             }
         }
