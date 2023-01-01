@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 
 public class ManageEvaluations implements Serializable {
+
     private HashSet<Evaluation> evaluations;
 
     public ManageEvaluations() {
@@ -23,7 +24,8 @@ public class ManageEvaluations implements Serializable {
     }
 
     private void updateAvgRatings(Accommodation accommodation, SimpleUser user) {
-        accommodation.updateAvgRatingOfAccomodation(evaluations);
+        accommodation.getProvider().updateAvgRatingOfAllAccom(evaluations);
+        accommodation.updateAvgRatingOfAccommodation(evaluations);
         user.updateAvgRatingOfUser(evaluations);
     }
     public boolean userAlreadyEvaluatedThis(SimpleUser user, Accommodation accommodation) {
@@ -56,7 +58,7 @@ public class ManageEvaluations implements Serializable {
         return false;
     }
 
-    public ArrayList<Evaluation> getUserEvaluations(SimpleUser user) { //Μπορει να επιστρέφει null ή και κενή λίστα --> πρέπει να ελέγχεται
+    public ArrayList<Evaluation> getUserEvaluations(SimpleUser user) { //Μπορεί να επιστρέφει κενή λίστα --> πρέπει να ελέγχεται
         ArrayList<Evaluation> userEvaluations = new ArrayList<>();
         if (!evaluations.isEmpty()) {
             for (Evaluation evaluation : evaluations) {
@@ -108,5 +110,9 @@ public class ManageEvaluations implements Serializable {
 
     public boolean gradeOutOfBounds(float grade) {
         return grade < 1 || grade > 5;
+    }
+
+    public HashSet<Evaluation> getEvaluations() {
+        return evaluations;
     }
 }

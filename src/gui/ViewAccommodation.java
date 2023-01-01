@@ -51,7 +51,6 @@ public class ViewAccommodation extends JFrame {
 
 
     public ViewAccommodation(Accommodation accommodation, User user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager, boolean withButtons) {
-
         setSize(800, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -74,7 +73,7 @@ public class ViewAccommodation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (evaluationList.getSelectedIndex() != -1) {
-                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()), user, evaluationsManager, true);
+                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()), user, evaluationsManager, accommodationsManager, true);
                 }
             }
         });
@@ -107,7 +106,7 @@ public class ViewAccommodation extends JFrame {
                     JOptionPane.showMessageDialog(getParent(), "Εχετε ήδη αξιολογήσει αυτό το κατάλυμα");
                 else {
                     Evaluation tempEvaluation = new Evaluation("", 0, (SimpleUser) user, accommodation);
-                    new ViewEditableEvaluation(tempEvaluation, accommodation, (SimpleUser) user, evaluationsManager);
+                    new ViewEditableEvaluation(tempEvaluation, accommodation, (SimpleUser) user, evaluationsManager, accommodationsManager);
                 }
             }
         });
@@ -118,6 +117,11 @@ public class ViewAccommodation extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 makeEvaluationList(evaluationsManager, accommodation);
                 accommodationRating.setText("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
+                accommodationName.setText(accommodation.getName());
+                description.setText(accommodation.getDescription());
+                town.setText(accommodation.getLocation().getTown());
+                postCode.setText(accommodation.getLocation().getPostCode());
+                address.setText(accommodation.getLocation().getAddress());
             }
         });
 

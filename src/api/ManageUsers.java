@@ -66,7 +66,14 @@ public class ManageUsers implements Serializable {
         if (user == null)
             return false;
         return user.getPassword().equals(password);
-
     }
 
+    public void updateAllAvgRatings(HashSet<Evaluation> evaluations) {
+        if (evaluations.isEmpty())
+            return;
+        for (SimpleUser simpleUser : simpleUsers)
+            simpleUser.updateAvgRatingOfUser(evaluations);
+        for (Provider provider : providers)
+            provider.updateAvgRatingOfAllAccom(evaluations);
+    }
 }

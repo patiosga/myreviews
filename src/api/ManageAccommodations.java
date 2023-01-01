@@ -10,7 +10,7 @@ public class ManageAccommodations {
         accommodations = new ArrayList<>();
     }
 
-    public boolean addAccommodation(String name, String description, String stayType, String address, String town, String postCode, Provider provider) {
+    public boolean addAccommodation(String name, String description, String stayType, String address, String town, String postCode, ArrayList<Utility> utilities, Provider provider) {
         Location location = new Location(address, town, postCode);
         Accommodation accommodation = new Accommodation(name, description, stayType, location, provider);
         if (!accommodations.isEmpty()) {
@@ -18,6 +18,7 @@ public class ManageAccommodations {
                 return false;
             }
         }
+        accommodation.setTypesOfUtilities(utilities);
         accommodations.add(accommodation);
         return true;
     }
@@ -40,6 +41,7 @@ public class ManageAccommodations {
             if (accommodation.equals(accommodation1)) {
                 accommodations.remove(accommodation1);
                 accommodation1.setName(name);
+                accommodation1.updateSingularId(); //απαραίτητο για να αποφευχθούν συγχύσεις
                 accommodation1.setDescription(description);
                 accommodation1.setStayType(stayType);
                 accommodation1.setPlace(location);
@@ -77,6 +79,13 @@ public class ManageAccommodations {
 
     public boolean isProvidersAccommodation(User user, Accommodation accommodation) {
         return user.equals(accommodation.getProvider());
+    }
 
+    public void updateAllAvgRatings(HashSet<Evaluation> evaluations) {
+        if (evaluations.isEmpty())
+            return;
+        for (Accommodation accommodation : accommodations) {
+            accommodation.updateAvgRatingOfAccommodation(evaluations);
+        }
     }
 }

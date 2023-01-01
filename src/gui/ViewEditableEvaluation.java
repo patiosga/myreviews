@@ -1,9 +1,6 @@
 package gui;
 
-import api.Accommodation;
-import api.Evaluation;
-import api.ManageEvaluations;
-import api.SimpleUser;
+import api.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +10,8 @@ import java.awt.event.ActionListener;
 public class ViewEditableEvaluation extends ViewEvaluation {
     private JButton submitEvaluation;
 
-    public ViewEditableEvaluation(Evaluation oldEvaluation, Accommodation accommodation, SimpleUser user, ManageEvaluations evaluationsManager) {
-        super(oldEvaluation, user, evaluationsManager, false);
+    public ViewEditableEvaluation(Evaluation oldEvaluation, Accommodation accommodation, SimpleUser user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager) {
+        super(oldEvaluation, user, evaluationsManager, accommodationsManager, false);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 

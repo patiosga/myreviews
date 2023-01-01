@@ -8,23 +8,26 @@ public class Accommodation implements Serializable {
 
     private float avgRating;
     private int totalEvaluations; //avgRating και totalEvaluations αλλάζουν κάθε φορά που προστίθεται αξιολόγηση στο κατάλυμα
-    private final long singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας
+
+    private long singularId; //Για να αποφευχθούν προβλήματα συνωνυμίας  !!!!!!
     private final Provider provider;
     private String name;
     private String description;
     private String stayType; //ξενοδοχείο, διαμέρισμα, μεζονέτα --> hotel, apartment, maisonette
     private Location place;
-    //Παροχές - Προκαθορισμένες σε μορφή checklist σε συνεργασία με το GUI --> ένας θεος ξέρει πως
     private ArrayList<Utility> typesOfUtilities;
+    static int totalAccommodations = 0;
 
-    public Accommodation(String name, String description, String stayType, Location location, Provider provider) {
+    public Accommodation(String name, String description, String stayType, Location location,Provider provider) {
+        totalAccommodations++;
         this.name = name;
         this.description = description;
         this.stayType = stayType;
         totalEvaluations = 0;
         place = location;
         this.provider = provider;
-        singularId = provider.getUserName().hashCode() + name.hashCode(); //αποκλείουμε το γεγονός ο ίδιος πάροχος να έχει δύο καταλύματα με το ίδιο όνομα οπότε το id του καταλύματος είναι μοναδικό
+        singularId = provider.getUserName().hashCode() + name.hashCode() + totalAccommodations;
+        //Μοναδικός κωδικός καταλύματος ακόμα και αν ο ίδιος πάροχος έχει δύο καταλύματα με το ίδιο όνομα
         avgRating = 0;
 
         typesOfUtilities = new ArrayList<>();
@@ -69,6 +72,14 @@ public class Accommodation implements Serializable {
         return singularId;
     }
 
+    /**
+     * Σε περίπτωση μετονομασίας του καταλύματος να ανανεώνεται ο κωδικός
+     * @param singularId Μοναδικός κωδικός καταλύματος
+     */
+    public void updateSingularId() {
+        singularId = provider.getUserName().hashCode() + name.hashCode();
+    }
+
     public float getAvgRating() {
         return avgRating;
     }
@@ -89,7 +100,7 @@ public class Accommodation implements Serializable {
         this.typesOfUtilities = typesOfUtilities;
     }
 
-    public void updateAvgRatingOfAccomodation(HashSet<Evaluation> evaluations) {
+    public void updateAvgRatingOfAccommodation(HashSet<Evaluation> evaluations) {
         if (evaluations.size() == 0) {
             avgRating = 0;
             return;
@@ -132,5 +143,10 @@ public class Accommodation implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Accommodation that)) return false;
         return getSingularId() == that.getSingularId();
+    }
+
+    @Override
+    public String toString() {
+        return name + ", " + getLocation().getTown() + stayType + ", " + avgRating +"(" + totalEvaluations+")";
     }
 }

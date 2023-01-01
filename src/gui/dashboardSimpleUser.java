@@ -13,6 +13,7 @@ public class dashboardSimpleUser extends JFrame{
     private ArrayList<Evaluation> evaluationsOfUser;
     private final SimpleUser user;
     private JList<String> evaluationList;
+    private JLabel avgRating;
 
     public dashboardSimpleUser(SimpleUser user, ManageEvaluations evaluationsManager, ManageUsers usersManager, ManageAccommodations accommodationsManager) {
 
@@ -33,9 +34,8 @@ public class dashboardSimpleUser extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (evaluationList.getSelectedIndex() != -1) {
-                    new ViewEvaluation(evaluationsOfUser.get(evaluationList.getSelectedIndex()), user, evaluationsManager, true);
+                    new ViewEvaluation(evaluationsOfUser.get(evaluationList.getSelectedIndex()), user, evaluationsManager, accommodationsManager, true);
                 }
-
             }
         });
 
@@ -43,6 +43,8 @@ public class dashboardSimpleUser extends JFrame{
         reload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                user.updateAvgRatingOfUser(evaluationsManager.getEvaluations());
+                avgRating.setText("Μέση βαθμολογία αξιολογήσεων: " + user.getAvgRating());
                 makeEvaluationList(evaluationsManager);
             }
         });
@@ -66,6 +68,9 @@ public class dashboardSimpleUser extends JFrame{
         searchPanel.add(new JLabel("Empty for now"));
         generalPanel.add(searchPanel);
         add(generalPanel);
+
+        avgRating = new JLabel("Μέση βαθμολογία αξιολογήσεων: " + user.getAvgRating());
+        add(avgRating, BorderLayout.PAGE_START);
 
         setVisible(true);
     }

@@ -13,6 +13,10 @@ public class Provider extends User implements Serializable {
         avgRatingOfAllAccom = 0;
     }
 
+    /**
+     * Η μέση βαθμολογία του παρόχου δεν επηρεάζεται από καταλύματα με μηδενικές αξιολογήσεις, γιατί βγαίνει από τη λίστα των αξιολογήσεων
+     * @param evaluations Η λίστα όλων των αξιολογήσεων για όλα τα καταλύματα (βελτιστοποιήσιμο)
+     */
     public void updateAvgRatingOfAllAccom(HashSet<Evaluation> evaluations) { //πρέπει να καλείται μετά τη μέθοδο που ενημερώνει το κατάλυμα μετά από προσθήκη ή αφαίρεση αξιολόγησης
         if (evaluations.size() == 0) {
             avgRatingOfAllAccom = 0;
@@ -21,7 +25,7 @@ public class Provider extends User implements Serializable {
         float totalSum = 0;
         int numOfEvaluations = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getAccommodation().getProvider().getUserName() == this.userName) {
+            if (evaluation.getAccommodation().getProvider().equals(this)) {
                 totalSum += evaluation.getGrade();
                 numOfEvaluations++;
             }

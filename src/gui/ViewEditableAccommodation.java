@@ -8,7 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ViewEditableAccommodation extends ViewAccommodation{
+public class ViewEditableAccommodation extends ViewAccommodation {
+    ArrayList<Utility> generalUtilities;
     public ViewEditableAccommodation(Accommodation accommodation, Provider provider, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager) {
         super(accommodation, provider, evaluationsManager, accommodationsManager, false);
 
@@ -58,15 +59,16 @@ public class ViewEditableAccommodation extends ViewAccommodation{
                 if (checkText != null)
                     JOptionPane.showMessageDialog(getParent(), checkText);
                 else {
+                    sortOutCheckBoxHell();
                     if (accommodationsManager.accommodationExists(accommodation)) {
                         accommodationsManager.alterAccommodationDetails(accommodation, accommodationName.getText(), description.getText(),
                                 stayType.getText(), address.getText(), town.getText(), postCode.getText());
+                        accommodationsManager.alterAccommodationUtilities(accommodation, generalUtilities);
                     }
                     else {
                         accommodationsManager.addAccommodation(accommodationName.getText(), description.getText(), stayType.getText(),
-                                address.getText(), town.getText(), postCode.getText(), provider);
+                                address.getText(), town.getText(), postCode.getText(), generalUtilities, provider);
                     }
-                    sortOutCheckBoxHell(accommodation, accommodationsManager);
                     dispose();
                 }
 
@@ -109,8 +111,8 @@ public class ViewEditableAccommodation extends ViewAccommodation{
         return null; //περίπτωση του όλα καλά
     }
 
-    private void sortOutCheckBoxHell(Accommodation accommodation, ManageAccommodations accommodationsManager) {
-        ArrayList<Utility> generalUtilities = new ArrayList<>();
+    private void sortOutCheckBoxHell() {
+        generalUtilities = new ArrayList<>();
         Utility view = new Utility();
         if (viewPool.isSelected())
             view.addSpecificUtility("Θέα σε πισίνα");
@@ -189,7 +191,5 @@ public class ViewEditableAccommodation extends ViewAccommodation{
         if (freeParkingStreet.isSelected())
             parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στο δρόμο");
         generalUtilities.add(parkingSpace);
-
-        accommodationsManager.alterAccommodationUtilities(accommodation, generalUtilities);
     }
 }

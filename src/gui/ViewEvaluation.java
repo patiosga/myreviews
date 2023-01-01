@@ -14,7 +14,7 @@ public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με
     protected JTextField gradeField;
     protected JTextArea evaluationText;
 
-    public ViewEvaluation(Evaluation evaluation, User user, ManageEvaluations evaluationsManager, boolean withButtons) {
+    public ViewEvaluation(Evaluation evaluation, User user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager, boolean withButtons) {
 
         setSize(500, 300);
         setLocationRelativeTo(null);
@@ -43,9 +43,18 @@ public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με
         editEvaluation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewEditableEvaluation editableEvaluation = new ViewEditableEvaluation(evaluation, evaluation.getAccommodation(), (SimpleUser) user, evaluationsManager);
+                ViewEditableEvaluation editableEvaluation = new ViewEditableEvaluation(evaluation, evaluation.getAccommodation(), (SimpleUser) user, evaluationsManager, accommodationsManager);
             }
         });
+
+        JButton seeAccommodation = new JButton("Δείτε το αξιολογούμενο κατάλυμα");
+        seeAccommodation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ViewAccommodation(evaluation.getAccommodation(), user, evaluationsManager, accommodationsManager, true);
+            }
+        });
+        add(seeAccommodation, BorderLayout.PAGE_START);
 
         if (evaluationsManager.isUsersEvaluation(user, evaluation) && withButtons) { //Το κουμπί επεξεργασίας εμφανίζεται μόνο αν η αξιολόγηση είναι του χρήστη
             add(editEvaluation, BorderLayout.PAGE_END);
