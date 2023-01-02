@@ -58,15 +58,24 @@ public class ViewEditableAccommodation extends ViewAccommodation {
                 if (checkText != null)
                     JOptionPane.showMessageDialog(getParent(), checkText);
                 else {
-                    sortOutCheckBoxHell();
+                    generalUtilities = sortOutCheckBoxHell();
+                    ArrayList<Utility> eternalUtilities = new ArrayList<>(); //Utilities που μένουν μετά το κλείσιμο του παραθύρου
+                    for (Utility utility : generalUtilities) {
+                        Utility tempUtility = new Utility();
+                        for (String specific : utility.getSpecifics()) {
+                            tempUtility.addSpecificUtility(specific);
+                        }
+                        eternalUtilities.add(tempUtility);
+                    }
+
                     if (accommodationsManager.accommodationExists(accommodation)) {
                         accommodationsManager.alterAccommodationDetails(accommodation, accommodationName.getText(), description.getText(),
                                 stayType.getText(), address.getText(), town.getText(), postCode.getText());
-                        accommodationsManager.alterAccommodationUtilities(accommodation, generalUtilities);
+                        accommodationsManager.alterAccommodationUtilities(accommodation, eternalUtilities);
                     }
                     else {
                         accommodationsManager.addAccommodation(accommodationName.getText(), description.getText(), stayType.getText(),
-                                address.getText(), town.getText(), postCode.getText(), generalUtilities, provider);
+                                address.getText(), town.getText(), postCode.getText(), eternalUtilities, provider);
                     }
                     dispose();
                 }

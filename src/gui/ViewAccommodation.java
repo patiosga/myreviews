@@ -85,7 +85,7 @@ public class ViewAccommodation extends JFrame {
         editAccommodation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewEditableAccommodation editableAccommodation = new ViewEditableAccommodation(accommodation, (Provider) user, evaluationsManager, accommodationsManager);
+                new ViewEditableAccommodation(accommodation, (Provider) user, evaluationsManager, accommodationsManager);
             }
         });
 
@@ -434,7 +434,7 @@ public class ViewAccommodation extends JFrame {
         generalPanel.add(new JScrollPane(utilities));
     }
 
-    protected void sortOutCheckBoxHell() {
+    protected ArrayList<Utility> sortOutCheckBoxHell() {
         generalUtilities = new ArrayList<>();
         Utility view = new Utility();
         if (viewPool.isSelected())
@@ -514,6 +514,8 @@ public class ViewAccommodation extends JFrame {
         if (freeParkingStreet.isSelected())
             parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στο δρόμο");
         generalUtilities.add(parkingSpace);
+
+        return generalUtilities;
     }
 
 }

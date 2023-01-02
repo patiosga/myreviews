@@ -1,13 +1,39 @@
 package api;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class ManageAccommodations {
+public class ManageAccommodations implements Serializable {
     private ArrayList<Accommodation> accommodations;
 
     public ManageAccommodations() {
         accommodations = new ArrayList<>();
+    }
+
+    private void saveToOutputFiles() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
+            out.writeObject(this);
+            //out.flush();
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
+            out.writeObject(this);
+            //out.flush();
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
+            out.writeObject(this);
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
     }
 
     public boolean addAccommodation(String name, String description, String stayType, String address, String town, String postCode, ArrayList<Utility> utilities, Provider provider) {
@@ -20,6 +46,7 @@ public class ManageAccommodations {
         }
         accommodation.setTypesOfUtilities(utilities);
         accommodations.add(accommodation);
+        saveToOutputFiles();
         return true;
     }
 
@@ -30,6 +57,7 @@ public class ManageAccommodations {
             return false;
         accommodations.remove(accommodation);
         //Διαχείριση fallout των evaluations με εξτρα συνάρτηση στη ManageEvaluations
+        saveToOutputFiles();
         return true;
     }
 
@@ -46,6 +74,7 @@ public class ManageAccommodations {
                 accommodation1.setStayType(stayType);
                 accommodation1.setPlace(location);
                 accommodations.add(accommodation1);
+                saveToOutputFiles();
                 return true;
             }
         }
@@ -56,6 +85,7 @@ public class ManageAccommodations {
         if (!accommodationExists(accommodation))
             return false;
         accommodation.setTypesOfUtilities(utilities);
+        saveToOutputFiles();
         return true;
     }
 

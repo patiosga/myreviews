@@ -17,6 +17,9 @@ public class Evaluation implements Serializable {
         this.grade = grade;
         this.user = user;
         this.accommodation = accommodation;
+        //Βαθιά αντιγραφή!(?)
+//        this.user = new SimpleUser(user.getFirstName(), user.getLastName(), user.getUserName(), user.getPassword(), "simpleUser");
+//        this.accommodation = new Accommodation(accommodation.getName(), accommodation.getDescription(), accommodation.getStayType(), accommodation.getLocation(), accommodation.getProvider());
 
         //Ορισμός της ημερομηνίας που προστίθεται η αξιολόγηση
         DateFormat Date = DateFormat.getDateInstance();

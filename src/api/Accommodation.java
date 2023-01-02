@@ -16,21 +16,40 @@ public class Accommodation implements Serializable {
     private String stayType; //ξενοδοχείο, διαμέρισμα, μεζονέτα --> hotel, apartment, maisonette
     private Location place;
     private ArrayList<Utility> typesOfUtilities;
-    static int totalAccommodations = 0;
 
-    public Accommodation(String name, String description, String stayType, Location location,Provider provider) {
-        totalAccommodations++;
+    public Accommodation(String name, String description, String stayType, Location location, Provider provider) {
         this.name = name;
         this.description = description;
         this.stayType = stayType;
         totalEvaluations = 0;
         place = location;
         this.provider = provider;
-        singularId = totalAccommodations;
+        //Βαθιά αντιγραφή!(?)
+//        place = new Location(location.getAddress(), location.getTown(), location.getPostCode());
+//        this.provider = new Provider(provider.getFirstName(), provider.getLastName(), provider.getUserName(), provider.getPassword(), "provider");
+        singularId = provider.getUserName().hashCode() + name.hashCode(); //Μοναδικό id καταλύματος --> Απαγορεύω στον provider να κάνει δύο καταλύματα με το ίδιο όνομα
         //Μοναδικός κωδικός καταλύματος ακόμα και αν ο ίδιος πάροχος έχει δύο καταλύματα με το ίδιο όνομα
         avgRating = 0;
 
-        typesOfUtilities = new ArrayList<>();
+        typesOfUtilities = new ArrayList<>(); //Για λόγους debugging
+        Utility view = new Utility();
+        typesOfUtilities.add(view);
+        Utility bath = new Utility();
+        typesOfUtilities.add(bath);
+        Utility washingClothes = new Utility();
+        typesOfUtilities.add(washingClothes);
+        Utility entertainment = new Utility();
+        typesOfUtilities.add(entertainment);
+        Utility temperatureControl = new Utility();
+        typesOfUtilities.add(temperatureControl);
+        Utility internet = new Utility();
+        typesOfUtilities.add(internet);
+        Utility foodArea = new Utility();
+        typesOfUtilities.add(foodArea);
+        Utility outsideSpace = new Utility();
+        typesOfUtilities.add(outsideSpace);
+        Utility parkingSpace = new Utility();
+        typesOfUtilities.add(parkingSpace);
     }
 
 

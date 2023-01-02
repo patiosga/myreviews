@@ -1,6 +1,7 @@
 package gui;
 
 import api.*;
+import jdk.jshell.execution.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,13 +47,7 @@ public class dashboardProvider extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Location loc = new Location("","","");
                 Accommodation newAccommodation = new Accommodation("", "Εισάγετε μια περιγραφή για το νέο σας κατάλυμα", "", loc, user);
-                ArrayList<Utility> tempUtilities = new ArrayList<>();
-                Utility tempUtility = new Utility();
-                for (int i=0; i<9; i++) {
-                    tempUtilities.add(tempUtility);
-                    tempUtility = new Utility();
-                }
-                newAccommodation.setTypesOfUtilities(tempUtilities);
+
                 new ViewEditableAccommodation(newAccommodation, user, evaluationsManager, accommodationsManager);
             }
         });

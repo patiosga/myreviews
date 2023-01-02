@@ -1,6 +1,8 @@
 package api;
 
-import javax.swing.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +16,27 @@ public class ManageEvaluations implements Serializable {
         evaluations = new HashSet<>();
     }
 
+    private void saveToOutputFiles() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
+            out.writeObject(this);
+            //out.flush();
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
+            out.writeObject(this);
+            //out.flush();
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
+            out.writeObject(this);
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+    }
 
     public void removedAccommodationAlert(Accommodation accommodation) {
         if (evaluations.isEmpty())
@@ -22,6 +45,7 @@ public class ManageEvaluations implements Serializable {
             if (evaluation.getAccommodation().equals(accommodation))
                 removeEvaluation(evaluation);
         }
+        saveToOutputFiles();
     }
 
     private void updateAvgRatings(Accommodation accommodation, SimpleUser user) {
@@ -45,6 +69,7 @@ public class ManageEvaluations implements Serializable {
             return false;
         evaluations.add(submittedEvaluation);
         updateAvgRatings(accommodation, user); //επανυπολογισμοί μέσων όρων μετά την προσθήκη
+        saveToOutputFiles();
         return true;
     }
 
@@ -54,6 +79,7 @@ public class ManageEvaluations implements Serializable {
         if (evaluations.contains(toDeleteEvaluation)) {
             evaluations.remove(toDeleteEvaluation);
             updateAvgRatings(toDeleteEvaluation.getAccommodation(), toDeleteEvaluation.getUser()); //επανυπολογισμοί μέσων όρων μετά τη διαγραφή
+            saveToOutputFiles();
             return true;
         }
         return false;
@@ -95,6 +121,7 @@ public class ManageEvaluations implements Serializable {
                 }
                 evaluation.setEvaluationText(nextText);
                 evaluations.add(evaluation);
+                saveToOutputFiles();
                 return true;
             }
         }

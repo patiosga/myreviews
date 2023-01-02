@@ -1,6 +1,6 @@
 package api;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -11,6 +11,28 @@ public class ManageUsers implements Serializable {
     public ManageUsers(){
         simpleUsers = new HashSet<>();
         providers = new HashSet<>();
+    }
+
+    private void saveToOutputFiles() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
+            out.writeObject(this);
+            //out.flush();
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
+            out.writeObject(this);
+            //out.flush();
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
+            out.writeObject(this);
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
     }
 
     public User findUserWithUsername(String username) {
@@ -45,12 +67,14 @@ public class ManageUsers implements Serializable {
     public SimpleUser createSimpleUser(String firstName, String lastName ,String userName, String password) {
         SimpleUser user = new SimpleUser(firstName, lastName, userName, password, "simpleUser");
         simpleUsers.add(user);
+        saveToOutputFiles();
         return user;
     }
 
     public Provider createProvider(String firstName, String lastName ,String userName, String password) {
         Provider user = new Provider(firstName, lastName, userName, password, "provider");
         providers.add(user);
+        saveToOutputFiles();
         return user;
     }
 
@@ -68,6 +92,7 @@ public class ManageUsers implements Serializable {
             simpleUser.updateAvgRatingOfUser(evaluations);
         for (Provider provider : providers)
             provider.updateAvgRatingOfAllAccom(evaluations);
+        saveToOutputFiles();
     }
 
     public String checkSignUpInaccuracies(String firstName, String lastName, String username, String password) {
