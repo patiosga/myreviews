@@ -54,14 +54,12 @@ public class ManageUsers implements Serializable {
     public SimpleUser createSimpleUser(String firstName, String lastName ,String userName, String password) {
         SimpleUser user = new SimpleUser(firstName, lastName, userName, password, "simpleUser");
         simpleUsers.add(user);
-        saveToOutputFiles();
         return user;
     }
 
     public Provider createProvider(String firstName, String lastName ,String userName, String password) {
         Provider user = new Provider(firstName, lastName, userName, password, "provider");
         providers.add(user);
-        saveToOutputFiles();
         return user;
     }
 
@@ -79,7 +77,6 @@ public class ManageUsers implements Serializable {
             simpleUser.updateAvgRatingOfUser(evaluations);
         for (Provider provider : providers)
             provider.updateAvgRatingOfAllAccom(evaluations);
-        saveToOutputFiles();
     }
 
     public String checkSignUpInaccuracies(String firstName, String lastName, String username, String password) {

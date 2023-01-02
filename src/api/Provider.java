@@ -46,7 +46,5 @@ public class Provider extends User implements Serializable {
     public int getTotalRatings() {
         return totalRatings;
     }
-    public void display(){
-        //provolh katalumatwn-dunatothta epejergasias
-    }
+
 }

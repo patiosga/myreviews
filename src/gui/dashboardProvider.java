@@ -23,7 +23,7 @@ public class dashboardProvider extends JFrame {
         this.user = user;
         accommodationsList = new JList<>();
 
-        JPanel generalPanel = new JPanel(new GridLayout(2,1));
+        JPanel generalPanel = new JPanel(new GridLayout(1,1));
 
         setSize(1000, 800);
         setLocationRelativeTo(null);
@@ -58,8 +58,9 @@ public class dashboardProvider extends JFrame {
         reload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                accommodationsManager.updateAllAvgRatings(evaluationsManager.getEvaluations());
                 user.updateAvgRatingOfAllAccom(evaluationsManager.getEvaluations());
-                avgRating.setText("Μέση βαθμολογία των καταλυμάτων σας: " + user.getAvgRatingOfAllAccom());
+                avgRating.setText("Μέση βαθμολογία των καταλυμάτων σας: " + user.getAvgRatingOfAllAccom() + evaluationsManager.getProvidersNumOfEvaluations(user));
                 makeAccommodationList(accommodationsManager);
             }
         });
@@ -79,12 +80,10 @@ public class dashboardProvider extends JFrame {
             }
         });
 
-        JPanel searchPanel = new JPanel();
-        searchPanel.add(new JLabel("Empty for now"));
-        generalPanel.add(searchPanel);
         add(generalPanel);
-
-        avgRating = new JLabel("Μέση βαθμολογία των καταλυμάτων σας: " + user.getAvgRatingOfAllAccom());
+        accommodationsManager.updateAllAvgRatings(evaluationsManager.getEvaluations());
+        user.updateAvgRatingOfAllAccom(evaluationsManager.getEvaluations());
+        avgRating = new JLabel("Μέση βαθμολογία των καταλυμάτων σας: " + user.getAvgRatingOfAllAccom() + "("+evaluationsManager.getProvidersNumOfEvaluations(user) + ")");
 
         JPanel upperPanel = new JPanel(new GridLayout(1,2));
         upperPanel.add(avgRating);

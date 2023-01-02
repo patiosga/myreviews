@@ -31,7 +31,6 @@ public class ManageEvaluations implements Serializable {
             if (evaluation.getAccommodation().equals(accommodation))
                 removeEvaluation(evaluation);
         }
-        saveToOutputFiles();
     }
 
     private void updateAvgRatings(Accommodation accommodation, SimpleUser user) {
@@ -55,7 +54,6 @@ public class ManageEvaluations implements Serializable {
             return false;
         evaluations.add(submittedEvaluation);
         updateAvgRatings(accommodation, user); //επανυπολογισμοί μέσων όρων μετά την προσθήκη
-        saveToOutputFiles();
         return true;
     }
 
@@ -65,7 +63,6 @@ public class ManageEvaluations implements Serializable {
         if (evaluations.contains(toDeleteEvaluation)) {
             evaluations.remove(toDeleteEvaluation);
             updateAvgRatings(toDeleteEvaluation.getAccommodation(), toDeleteEvaluation.getUser()); //επανυπολογισμοί μέσων όρων μετά τη διαγραφή
-            saveToOutputFiles();
             return true;
         }
         return false;
@@ -100,18 +97,25 @@ public class ManageEvaluations implements Serializable {
                     return false;
                 if (gradeOutOfBounds(nextGrade))
                     return false;
-                evaluations.remove(evaluation); //πρέπει να γίνει αυτή η διαδικασία αλλιώς αλλάζει μόνο η τοπική μεταβλητή στο for loop
-                if (evaluation.getGrade() != nextGrade) { // έλεγχος για να μη γίνεται επανυπολογισμός μέσων όρων άδικα
-                    evaluation.setGrade(nextGrade);
-                    updateAvgRatings(evaluation.getAccommodation(), evaluation.getUser()); //επανυπολογισμός μέσων όρων αν αλλάξει ο βαθμός της αξιολόγησεις
-                }
+                removeEvaluation(evaluation); //πρέπει να γίνει αυτή η διαδικασία αλλιώς αλλάζει μόνο η τοπική μεταβλητή στο for loop
+                evaluation.setGrade(nextGrade);
                 evaluation.setEvaluationText(nextText);
-                evaluations.add(evaluation);
-                saveToOutputFiles();
+                addEvaluation(nextText, nextGrade, oldEvaluation.getUser(), oldEvaluation.getAccommodation());
                 return true;
             }
         }
         return false;
+    }
+
+    public int getProvidersNumOfEvaluations(Provider provider) {
+        int counter = 0;
+        if (evaluations.isEmpty())
+            return 0;
+        for (Evaluation evaluation : evaluations) {
+            if (evaluation.getAccommodation().getProvider().equals(provider))
+                counter++;
+        }
+        return counter;
     }
 
     public boolean isUsersEvaluation(User user, Evaluation evaluation) {

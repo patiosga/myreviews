@@ -33,7 +33,6 @@ public class ManageAccommodations implements Serializable {
         }
         accommodation.setTypesOfUtilities(utilities);
         accommodations.add(accommodation);
-        saveToOutputFiles();
         return true;
     }
 
@@ -44,7 +43,6 @@ public class ManageAccommodations implements Serializable {
             return false;
         accommodations.remove(accommodation);
         //Διαχείριση fallout των evaluations με εξτρα συνάρτηση στη ManageEvaluations
-        saveToOutputFiles();
         return true;
     }
 
@@ -61,7 +59,6 @@ public class ManageAccommodations implements Serializable {
                 accommodation1.setStayType(stayType);
                 accommodation1.setPlace(location);
                 accommodations.add(accommodation1);
-                saveToOutputFiles();
                 return true;
             }
         }
@@ -72,7 +69,6 @@ public class ManageAccommodations implements Serializable {
         if (!accommodationExists(accommodation))
             return false;
         accommodation.setTypesOfUtilities(utilities);
-        saveToOutputFiles();
         return true;
     }
 
@@ -104,7 +100,6 @@ public class ManageAccommodations implements Serializable {
         for (Accommodation accommodation : accommodations) {
             accommodation.updateAvgRatingOfAccommodation(evaluations);
         }
-        saveToOutputFiles();
     }
 
     public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά
