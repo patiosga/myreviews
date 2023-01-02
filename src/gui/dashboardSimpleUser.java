@@ -40,6 +40,14 @@ public class dashboardSimpleUser extends JFrame{
             }
         });
 
+        JButton search = new JButton("Αναζητήστε καταλύματα");
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new searchAccommodations(user, evaluationsManager, accommodationsManager);
+            }
+        });
+
         JButton reload = new JButton("Ανανέωση");
         reload.addActionListener(new ActionListener() {
             @Override
@@ -50,8 +58,9 @@ public class dashboardSimpleUser extends JFrame{
             }
         });
 
-        JPanel bottomButtonsPanel = new JPanel(new GridLayout(1, 2));
+        JPanel bottomButtonsPanel = new JPanel(new GridLayout(1, 3));
         bottomButtonsPanel.add(viewEvaluation);
+        bottomButtonsPanel.add(search);
         bottomButtonsPanel.add(reload);
         add(bottomButtonsPanel, BorderLayout.PAGE_END);
 
@@ -75,6 +84,10 @@ public class dashboardSimpleUser extends JFrame{
         upperPanel.add(avgRating);
         upperPanel.add(logOut);
         add(upperPanel, BorderLayout.PAGE_START);
+
+
+        //Αναζήτηση καταλυμάτων
+
 
         setVisible(true);
     }

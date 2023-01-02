@@ -80,8 +80,10 @@ public class ViewEditableAccommodation extends ViewAccommodation {
             public void actionPerformed(ActionEvent e) {
                 if (!accommodationsManager.removeAccommodation(accommodation))
                     JOptionPane.showMessageDialog(getParent(), "Δεν έχει υποβληθεί το κατάλυμα για να είναι δυνατή η διαγραφή του.");
-                else
+                else {
+                    evaluationsManager.removedAccommodationAlert(accommodation);
                     dispose();
+                }
             }
         });
 
@@ -92,87 +94,5 @@ public class ViewEditableAccommodation extends ViewAccommodation {
 
         setVisible(true);
 
-    }
-
-    private void sortOutCheckBoxHell() {
-        generalUtilities = new ArrayList<>();
-        Utility view = new Utility();
-        if (viewPool.isSelected())
-            view.addSpecificUtility("Θέα σε πισίνα");
-        if (viewBeach.isSelected())
-            view.addSpecificUtility("Θέα σε παραλία");
-        if (viewSea.isSelected())
-            view.addSpecificUtility("Θέα στη θάλασσα");
-        if (viewPort.isSelected())
-            view.addSpecificUtility("Θέα στο λιμάνι");
-        if (viewMountain.isSelected())
-            view.addSpecificUtility("Θέα στο βουνό");
-        if (viewStreet.isSelected())
-            view.addSpecificUtility("Θέα στον δρόμο");
-        generalUtilities.add(view);
-
-        Utility bath = new Utility();
-        if (hairDryer.isSelected())
-            bath.addSpecificUtility("Πιστολάκι μαλλιών");
-        generalUtilities.add(bath);
-
-        Utility washingClothes = new Utility();
-        if (clotheWasher.isSelected())
-            washingClothes.addSpecificUtility("Πλυντήριο ρούχων");
-        if (dryer.isSelected())
-            washingClothes.addSpecificUtility("Στεγνωτήριο");
-        generalUtilities.add(washingClothes);
-
-        Utility entertainment = new Utility();
-        if (tv.isSelected())
-            entertainment.addSpecificUtility("Τηλεόραση");
-        generalUtilities.add(entertainment);
-
-        Utility temperatureControl = new Utility();
-        if (firePlace.isSelected())
-            temperatureControl.addSpecificUtility("Εσωτερικό τζάκι");
-        if (airCondition.isSelected())
-            temperatureControl.addSpecificUtility("Κλιματισμός");
-        if (centralHeat.isSelected())
-            temperatureControl.addSpecificUtility("Κεντρική θέρμανση");
-        generalUtilities.add(temperatureControl);
-
-        Utility internet = new Utility();
-        if (wifi.isSelected())
-            internet.addSpecificUtility("Wifi");
-        if (ethernet.isSelected())
-            internet.addSpecificUtility("Ethernet");
-        generalUtilities.add(internet);
-
-        Utility foodAreas = new Utility();
-        if (kitchen.isSelected())
-            foodAreas.addSpecificUtility("Κουζίνα");
-        if (fridge.isSelected())
-            foodAreas.addSpecificUtility("Ψυγείο");
-        if (microwave.isSelected())
-            foodAreas.addSpecificUtility("Φούρνος μικροκυμάτων");
-        if (kitchenware.isSelected())
-            foodAreas.addSpecificUtility("Μαγειρικά είδη");
-        if (spoonsKnives.isSelected())
-            foodAreas.addSpecificUtility("Πιάτα και μαχαιροπίρουνα");
-        if (plateWasher.isSelected())
-            foodAreas.addSpecificUtility("Πλυντήριο πιάτων");
-        if (coffeeMachine.isSelected())
-            foodAreas.addSpecificUtility("Καφετιέρα");
-        generalUtilities.add(foodAreas);
-
-        Utility outsideSpace = new Utility();
-        if (balcony.isSelected())
-            outsideSpace.addSpecificUtility("Μπαλκόνι");
-        if (yard.isSelected())
-            outsideSpace.addSpecificUtility("Αυλή");
-        generalUtilities.add(outsideSpace);
-
-        Utility parkingSpace = new Utility();
-        if (freeParkingProperty.isSelected())
-            parkingSpace.addSpecificUtility("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
-        if (freeParkingStreet.isSelected())
-            parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στο δρόμο");
-        generalUtilities.add(parkingSpace);
     }
 }

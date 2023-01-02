@@ -22,31 +22,20 @@ public class ViewEditableEvaluation extends ViewEvaluation {
         submitEvaluation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                float grade;
-                try {
+                String checkMessage = evaluationsManager.checkSubmissionInaccuracies(evaluationText.getText(), gradeField.getText());
+
+                if (checkMessage != null)
+                    JOptionPane.showMessageDialog(getParent(), checkMessage);
+
+                else {
+                    float grade;
                     grade = Float.parseFloat(gradeField.getText());
-                    if (evaluationsManager.gradeOutOfBounds(grade) || gradeField.getText() == null)
-                        JOptionPane.showMessageDialog(getParent(), "Παρακαλώ εισάγετε βαθμολογία μεταξύ του 1 και 5.");
-
-                    else if (evaluationsManager.evaluationTextTooLong(evaluationText.getText()))
-                        JOptionPane.showMessageDialog(getParent(), "Το κείμενο της αξιολόγησης δεν πρέπει να υπερβαίνει τους 500 χαρακτήρες");
-
-                    else if (evaluationText.getText() == null)
-                        JOptionPane.showMessageDialog(getParent(), "Το κείμενο της αξιολόγησης είναι υποχρεωτικό.");
-
-                    else {
-                        if (evaluationsManager.userAlreadyEvaluatedThis(user, accommodation))
-                            evaluationsManager.alterEvaluation(oldEvaluation, grade, evaluationText.getText());
-                        else evaluationsManager.addEvaluation(evaluationText.getText(), grade, user, accommodation);
-                        JOptionPane.showMessageDialog(getParent(), "Επιτυχής υποβολή αξιολόγησης.");
-                        dispose();
-                    }
-
-
-                } catch(NumberFormatException e1) {
-                    JOptionPane.showMessageDialog(getParent(), "Παρακαλώ εισάγετε αριθμό στο πεδίο της βαθμολογίας.");
+                    if (evaluationsManager.userAlreadyEvaluatedThis(user, accommodation))
+                        evaluationsManager.alterEvaluation(oldEvaluation, grade, evaluationText.getText());
+                    else evaluationsManager.addEvaluation(evaluationText.getText(), grade, user, accommodation);
+                    JOptionPane.showMessageDialog(getParent(), "Επιτυχής υποβολή αξιολόγησης.");
+                    dispose();
                 }
-
             }
         });
 

@@ -26,7 +26,7 @@ public class Accommodation implements Serializable {
         totalEvaluations = 0;
         place = location;
         this.provider = provider;
-        singularId = provider.getUserName().hashCode() + name.hashCode() + totalAccommodations;
+        singularId = totalAccommodations;
         //Μοναδικός κωδικός καταλύματος ακόμα και αν ο ίδιος πάροχος έχει δύο καταλύματα με το ίδιο όνομα
         avgRating = 0;
 
@@ -122,20 +122,20 @@ public class Accommodation implements Serializable {
     }
 
 
-    /**
-     * Για να μπορούν να προστεθούν και άλλα types στο μέλλον, π.χ. δωμάτιο σπα. Δεν πρόκειται να χρειαστεί η
-     * αφαίρεση π.χ. της παροχής view οπότε για την ώρα δεν υλοποιείται μέθοδος remove.
-     * @param objUtil ο νέος τύπος παροχής που προστίθεται
-     * @return επιστρέφει true αν το αντικείμενο δεν υπήρχε ήδη και προστέθηκε τώρα
-     */
-    public boolean addUtilityType(Utility objUtil) {
-        if (!typesOfUtilities.isEmpty()) {
-            if (typesOfUtilities.contains(objUtil))
-                return false;
-        }
-        typesOfUtilities.add(objUtil);
-        return true;
-    }
+//    /**
+//     * Για να μπορούν να προστεθούν και άλλα types στο μέλλον, π.χ. δωμάτιο σπα. Δεν πρόκειται να χρειαστεί η
+//     * αφαίρεση π.χ. της παροχής view οπότε για την ώρα δεν υλοποιείται μέθοδος remove.
+//     * @param objUtil ο νέος τύπος παροχής που προστίθεται
+//     * @return επιστρέφει true αν το αντικείμενο δεν υπήρχε ήδη και προστέθηκε τώρα
+//     */
+//    public boolean addUtilityType(Utility objUtil) {
+//        if (!typesOfUtilities.isEmpty()) {
+//            if (typesOfUtilities.contains(objUtil))
+//                return false;
+//        }
+//        typesOfUtilities.add(objUtil);
+//        return true;
+//    }
 
     @Override
     public boolean equals(Object o) {

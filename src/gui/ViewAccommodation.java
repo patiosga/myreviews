@@ -12,7 +12,9 @@ import java.util.Vector;
 
 public class ViewAccommodation extends JFrame {
     protected JList<String> evaluationList; //Έχει τα String των αξιολογήσεων και γίνεται η αντιστοίχιση με τον evaluationsOfAccommodation μέσω getSelectedIndex()
+    protected JList<String> resultingAccommodations; //Για τα String των καταλυμάτων στα αποτελέσματα της αναζήτησης του χρήστη
     protected ArrayList<Evaluation> evaluationsOfAccommodation;
+    protected ArrayList<Utility> generalUtilities; //Για την επεξεργασία των checkBoxes σε παιδιά κλάσεις
     protected JPanel accommodationDetails;
     protected JPanel generalPanel;
     protected JTextField accommodationName;
@@ -60,7 +62,8 @@ public class ViewAccommodation extends JFrame {
         evaluationList = new JList<>();
 
         showAccommodationDetails(accommodation);
-        accommodationRating.setText("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
+
+        accommodationRating.setText("Βαθμολογία: " + accommodation.getAvgRating() + " (" + accommodation.getTotalEvaluations() + ")");
         makeEvaluationList(evaluationsManager,accommodation);
         generalPanel.add(new JScrollPane(evaluationList));
         //we do this to hide the shame brought upon us
@@ -136,6 +139,36 @@ public class ViewAccommodation extends JFrame {
 
 
         setVisible(true);
+    }
+
+    public ViewAccommodation(SimpleUser user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager) { //Για επαναχρησιμοποίηση φόρμας σε αναζήτηση καταλυμάτων
+        setSize(800, 800);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle("Αναζήτηση καταλύματος...");
+
+        generalPanel = new JPanel(new GridLayout(3,1)); // 3 rows. 1: Πεδία string, 2: Επιθυμητές παροχές, 3: Λίστα αποτελεσμάτων
+        resultingAccommodations = new JList<>();
+
+        accommodationDetails = new JPanel(new GridLayout(3,2));
+
+        accommodationName = new JTextField();
+        accommodationName.setFont(accommodationName.getFont().deriveFont(Font.BOLD, 14f));
+        stayType = new JTextField();
+        town = new JTextField();
+
+        accommodationDetails.add(new JLabel(" Όνομα:"));
+        accommodationDetails.add(accommodationName);
+        accommodationDetails.add(new JLabel(" Τύπος:"));
+        accommodationDetails.add(stayType);
+        accommodationDetails.add(new JLabel(" Πόλη:"));
+        accommodationDetails.add(town);
+        generalPanel.add(accommodationDetails);
+
+        makeEmptyCheckBoxes();
+
+        generalPanel.add(new JScrollPane(resultingAccommodations));
+        add(generalPanel);
     }
 
 
@@ -399,6 +432,88 @@ public class ViewAccommodation extends JFrame {
 
 
         generalPanel.add(new JScrollPane(utilities));
+    }
+
+    protected void sortOutCheckBoxHell() {
+        generalUtilities = new ArrayList<>();
+        Utility view = new Utility();
+        if (viewPool.isSelected())
+            view.addSpecificUtility("Θέα σε πισίνα");
+        if (viewBeach.isSelected())
+            view.addSpecificUtility("Θέα σε παραλία");
+        if (viewSea.isSelected())
+            view.addSpecificUtility("Θέα στη θάλασσα");
+        if (viewPort.isSelected())
+            view.addSpecificUtility("Θέα στο λιμάνι");
+        if (viewMountain.isSelected())
+            view.addSpecificUtility("Θέα στο βουνό");
+        if (viewStreet.isSelected())
+            view.addSpecificUtility("Θέα στον δρόμο");
+        generalUtilities.add(view);
+
+        Utility bath = new Utility();
+        if (hairDryer.isSelected())
+            bath.addSpecificUtility("Πιστολάκι μαλλιών");
+        generalUtilities.add(bath);
+
+        Utility washingClothes = new Utility();
+        if (clotheWasher.isSelected())
+            washingClothes.addSpecificUtility("Πλυντήριο ρούχων");
+        if (dryer.isSelected())
+            washingClothes.addSpecificUtility("Στεγνωτήριο");
+        generalUtilities.add(washingClothes);
+
+        Utility entertainment = new Utility();
+        if (tv.isSelected())
+            entertainment.addSpecificUtility("Τηλεόραση");
+        generalUtilities.add(entertainment);
+
+        Utility temperatureControl = new Utility();
+        if (firePlace.isSelected())
+            temperatureControl.addSpecificUtility("Εσωτερικό τζάκι");
+        if (airCondition.isSelected())
+            temperatureControl.addSpecificUtility("Κλιματισμός");
+        if (centralHeat.isSelected())
+            temperatureControl.addSpecificUtility("Κεντρική θέρμανση");
+        generalUtilities.add(temperatureControl);
+
+        Utility internet = new Utility();
+        if (wifi.isSelected())
+            internet.addSpecificUtility("Wifi");
+        if (ethernet.isSelected())
+            internet.addSpecificUtility("Ethernet");
+        generalUtilities.add(internet);
+
+        Utility foodAreas = new Utility();
+        if (kitchen.isSelected())
+            foodAreas.addSpecificUtility("Κουζίνα");
+        if (fridge.isSelected())
+            foodAreas.addSpecificUtility("Ψυγείο");
+        if (microwave.isSelected())
+            foodAreas.addSpecificUtility("Φούρνος μικροκυμάτων");
+        if (kitchenware.isSelected())
+            foodAreas.addSpecificUtility("Μαγειρικά είδη");
+        if (spoonsKnives.isSelected())
+            foodAreas.addSpecificUtility("Πιάτα και μαχαιροπίρουνα");
+        if (plateWasher.isSelected())
+            foodAreas.addSpecificUtility("Πλυντήριο πιάτων");
+        if (coffeeMachine.isSelected())
+            foodAreas.addSpecificUtility("Καφετιέρα");
+        generalUtilities.add(foodAreas);
+
+        Utility outsideSpace = new Utility();
+        if (balcony.isSelected())
+            outsideSpace.addSpecificUtility("Μπαλκόνι");
+        if (yard.isSelected())
+            outsideSpace.addSpecificUtility("Αυλή");
+        generalUtilities.add(outsideSpace);
+
+        Utility parkingSpace = new Utility();
+        if (freeParkingProperty.isSelected())
+            parkingSpace.addSpecificUtility("Δωρεάν χώρος στάθμευσης στην ιδιοκτησία");
+        if (freeParkingStreet.isSelected())
+            parkingSpace.addSpecificUtility("Δωρεάν πάρκινγκ στο δρόμο");
+        generalUtilities.add(parkingSpace);
     }
 
 }

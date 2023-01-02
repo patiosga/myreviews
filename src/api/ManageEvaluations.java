@@ -1,5 +1,6 @@
 package api;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -114,5 +115,23 @@ public class ManageEvaluations implements Serializable {
 
     public HashSet<Evaluation> getEvaluations() {
         return evaluations;
+    }
+
+    public String checkSubmissionInaccuracies(String evaluationText, String grade) {
+        try {
+            float grade_num = Float.parseFloat(grade);
+            if (gradeOutOfBounds(grade_num))
+                return "Παρακαλώ εισάγετε βαθμολογία μεταξύ του 1 και 5.";
+
+            else if (evaluationTextTooLong(evaluationText))
+                return "Το κείμενο της αξιολόγησης δεν πρέπει να υπερβαίνει τους 500 χαρακτήρες";
+
+            else if (evaluationText.length() == 0)
+                return "Το κείμενο της αξιολόγησης είναι υποχρεωτικό.";
+            return null;
+
+        } catch(NumberFormatException e1) {
+            return "Παρακαλώ εισάγετε αριθμό στο πεδίο της βαθμολογίας.";
+        }
     }
 }

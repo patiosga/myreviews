@@ -90,7 +90,6 @@ public class Main {
         usersManager.updateAllAvgRatings(manageEvaluations.getEvaluations()); //!!!!!!!!!!!!!!!!! Στην αρχικοποίηση χρειάζεται για να αποφύγουμε κάνα κακό
         accommodationsManager.updateAllAvgRatings(manageEvaluations.getEvaluations()); //!!!!!!!!!!!!!!
         apartment.updateAvgRatingOfAccommodation(manageEvaluations.getEvaluations());
-        System.out.println(apartment.getAvgRating());
 
         //ViewAccommodation accommodationFrame = new ViewAccommodation(apartment, simpleUser, manageEvaluations, accommodationsManager, true);
         //ViewEditableEvaluationToCreate evaluationFrame = new ViewEditableEvaluationToCreate(apartment, simpleUser, manageEvaluations);

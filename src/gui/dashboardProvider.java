@@ -48,8 +48,10 @@ public class dashboardProvider extends JFrame {
                 Accommodation newAccommodation = new Accommodation("", "Εισάγετε μια περιγραφή για το νέο σας κατάλυμα", "", loc, user);
                 ArrayList<Utility> tempUtilities = new ArrayList<>();
                 Utility tempUtility = new Utility();
-                for (int i=0; i<9; i++)
+                for (int i=0; i<9; i++) {
                     tempUtilities.add(tempUtility);
+                    tempUtility = new Utility();
+                }
                 newAccommodation.setTypesOfUtilities(tempUtilities);
                 new ViewEditableAccommodation(newAccommodation, user, evaluationsManager, accommodationsManager);
             }
