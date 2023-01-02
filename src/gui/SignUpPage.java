@@ -4,18 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 import api.*;
 
 public class SignUpPage extends JFrame{
 
-    private JRadioButton provider,simpleUser;
-    JTextField firstNameText;
-    JTextField lastNameText;
-    JTextField userNameText;
-    JPasswordField passwordText;
-    JRadioButton radioButtonProvider;
-    JRadioButton radioButtonSimpleUser;
+    private JTextField firstNameText;
+    private JTextField lastNameText;
+    private JTextField userNameText;
+    private JPasswordField passwordText;
+    private JRadioButton radioButtonProvider;
+    private JRadioButton radioButtonSimpleUser;
 
 
     public SignUpPage(ManageUsers usersManager, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager){
@@ -74,10 +74,12 @@ public class SignUpPage extends JFrame{
                     if (radioButtonSimpleUser.isSelected()) {
                         user = usersManager.createSimpleUser(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), new String(passwordText.getPassword()));
                         new dashboardSimpleUser((SimpleUser) user, evaluationsManager, usersManager, accommodationsManager);
+                        dispose();
                     }
                     else if (radioButtonProvider.isSelected()) {
                         user = usersManager.createProvider(firstNameText.getText(), lastNameText.getText(), userNameText.getText(), new String(passwordText.getPassword()));
                         new dashboardProvider((Provider) user, accommodationsManager, evaluationsManager, usersManager);
+                        dispose();
                     }
                     else
                         JOptionPane.showMessageDialog(getParent(), "Επιλέξτε το είδος χρήστη που θέλετε να δημιουργήσετε");
@@ -91,6 +93,19 @@ public class SignUpPage extends JFrame{
 
         add(generalPanel);
         add(signUpButton, BorderLayout.PAGE_END);
+
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                accommodationsManager.saveToOutputFiles();
+                evaluationsManager.saveToOutputFiles();
+                usersManager.saveToOutputFiles();
+                System.exit(0);
+            }
+        });
+
+
         setVisible(true);
     }
 }

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class ViewEvaluation extends JFrame { // θα επιμηκυνθεί με κουμπιά για να την επεξεργάζεται ο χρήστης
+public class ViewEvaluation extends JFrame {
     protected JTextField gradeField;
     protected JTextArea evaluationText;
 

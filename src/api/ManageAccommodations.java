@@ -14,23 +14,10 @@ public class ManageAccommodations implements Serializable {
         accommodations = new ArrayList<>();
     }
 
-    private void saveToOutputFiles() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
-            out.writeObject(this);
-            //out.flush();
-        } catch (IOException e1) {
-            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-        }
-
+    public void saveToOutputFiles() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
             out.writeObject(this);
             //out.flush();
-        } catch (IOException e1) {
-            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-        }
-
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
-            out.writeObject(this);
         } catch (IOException e1) {
             System.out.println("Δεν βρέθηκε αρχείο εξόδου");
         }
@@ -117,6 +104,7 @@ public class ManageAccommodations implements Serializable {
         for (Accommodation accommodation : accommodations) {
             accommodation.updateAvgRatingOfAccommodation(evaluations);
         }
+        saveToOutputFiles();
     }
 
     public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά

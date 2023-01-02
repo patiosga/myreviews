@@ -13,23 +13,10 @@ public class ManageUsers implements Serializable {
         providers = new HashSet<>();
     }
 
-    private void saveToOutputFiles() {
+    public void saveToOutputFiles() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
             out.writeObject(this);
             //out.flush();
-        } catch (IOException e1) {
-            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-        }
-
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
-            out.writeObject(this);
-            //out.flush();
-        } catch (IOException e1) {
-            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-        }
-
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
-            out.writeObject(this);
         } catch (IOException e1) {
             System.out.println("Δεν βρέθηκε αρχείο εξόδου");
         }

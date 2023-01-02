@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -88,6 +90,16 @@ public class dashboardProvider extends JFrame {
         upperPanel.add(avgRating);
         upperPanel.add(logOut);
         add(upperPanel, BorderLayout.PAGE_START);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                accommodationsManager.saveToOutputFiles();
+                evaluationsManager.saveToOutputFiles();
+                usersManager.saveToOutputFiles();
+                System.exit(0);
+            }
+        });
 
         setVisible(true);
     }

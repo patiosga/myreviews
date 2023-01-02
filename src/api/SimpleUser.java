@@ -1,7 +1,6 @@
 package api;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class SimpleUser extends User implements Serializable {
@@ -20,7 +19,7 @@ public class SimpleUser extends User implements Serializable {
         float totalSum = 0;
         int numOfEvaluations = 0;
         for (Evaluation evaluation : evaluations) {
-            if (evaluation.getUser().getUserName() == this.getUserName()) {
+            if (evaluation.getUser().getUserName().equals(this.getUserName())) {
                 totalSum += evaluation.getGrade();
                 numOfEvaluations++;
             }
@@ -33,14 +32,5 @@ public class SimpleUser extends User implements Serializable {
     }
     public float getAvgRating() {
         return avgRating;
-    }
-
-
-
-
-
-
-    public void display(){
-    //προβολή προσωπικών αξιολογήσεων στο dashboard
     }
 }

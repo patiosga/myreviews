@@ -1,7 +1,6 @@
 package api;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public abstract class User implements Serializable { //βγάζει νόημα να είναι abstract γιατί δεν πρόκειται να δημιουργηθούν αντικείμενα User
     // εδώ ίσως το αλλάξουμε ώστε να έχουμε και τα όνομα, επίθετο σε ξεχωριστές μεταβλητές αλλά μπορεί και να μη χρειαστεί αν υπάρχει καλή μέθοδος parsing για string

@@ -1,7 +1,6 @@
 package api;
 
 import java.io.Serializable;
-import java.security.SecureRandomParameters;
 
 public class Location implements Serializable {
     private String address;
@@ -21,7 +20,7 @@ public class Location implements Serializable {
         return address;
     }
 
-    public void setAddress() {
+    public void setAddress(String address) {
         this.address = address;
     }
 

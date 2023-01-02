@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 import api.*;
 
@@ -51,6 +52,17 @@ public class LoginPage extends JFrame {
             }
         });
         add(generalPanel);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                accommodationsManager.saveToOutputFiles();
+                evaluationsManager.saveToOutputFiles();
+                usersManager.saveToOutputFiles();
+                System.exit(0);
+            }
+        });
+
         setVisible(true);
     }
 

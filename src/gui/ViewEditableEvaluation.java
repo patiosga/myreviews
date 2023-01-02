@@ -45,8 +45,9 @@ public class ViewEditableEvaluation extends ViewEvaluation {
             public void actionPerformed(ActionEvent e) {
                 if (!evaluationsManager.removeEvaluation(oldEvaluation))
                     JOptionPane.showMessageDialog(getParent(), "Δεν έχει υποβληθεί η αξιολόγηση για να είναι δυνατή η διαγραφή της.");
-                else
+                else {
                     dispose();
+                }
             }
         });
 

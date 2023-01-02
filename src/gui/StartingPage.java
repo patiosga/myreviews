@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 
 public class StartingPage extends JFrame {
 
@@ -44,6 +45,18 @@ public class StartingPage extends JFrame {
         generalPanel.add(login);
         generalPanel.add(signup);
         add(generalPanel);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                accommodationsManager.saveToOutputFiles();
+                evaluationsManager.saveToOutputFiles();
+                usersManager.saveToOutputFiles();
+                System.exit(0);
+            }
+        });
+
+
         this.setVisible(true);
     }
 }

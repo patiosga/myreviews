@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -20,7 +21,7 @@ public class dashboardSimpleUser extends JFrame{
         this.user = user;
         evaluationList = new JList<>();
 
-        JPanel generalPanel = new JPanel(new GridLayout(2,1));
+        JPanel generalPanel = new JPanel(new GridLayout(1,1));
 
         setSize(1000, 800);
         setLocationRelativeTo(null);
@@ -73,9 +74,6 @@ public class dashboardSimpleUser extends JFrame{
             }
         });
 
-        JPanel searchPanel = new JPanel();
-        searchPanel.add(new JLabel("Empty for now"));
-        generalPanel.add(searchPanel);
         add(generalPanel);
 
         avgRating = new JLabel("Μέση βαθμολογία αξιολογήσεων: " + user.getAvgRating());
@@ -86,7 +84,15 @@ public class dashboardSimpleUser extends JFrame{
         add(upperPanel, BorderLayout.PAGE_START);
 
 
-        //Αναζήτηση καταλυμάτων
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                accommodationsManager.saveToOutputFiles();
+                evaluationsManager.saveToOutputFiles();
+                usersManager.saveToOutputFiles();
+                System.exit(0);
+            }
+        });
 
 
         setVisible(true);

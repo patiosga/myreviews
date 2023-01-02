@@ -76,7 +76,7 @@ public class ViewAccommodation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (evaluationList.getSelectedIndex() != -1) {
-                    ViewEvaluation view = new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()), user, evaluationsManager, accommodationsManager, true);
+                    new ViewEvaluation(evaluationsOfAccommodation.get(evaluationList.getSelectedIndex()), user, evaluationsManager, accommodationsManager, true);
                 }
             }
         });
@@ -119,7 +119,7 @@ public class ViewAccommodation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 makeEvaluationList(evaluationsManager, accommodation);
-                accommodationRating.setText("Βαθμολογία: " + Float.toString(accommodation.getAvgRating()) + " (" + Integer.toString(accommodation.getTotalEvaluations()) + ")");
+                accommodationRating.setText("Βαθμολογία: " + accommodation.getAvgRating() + " (" + accommodation.getTotalEvaluations() + ")");
                 accommodationName.setText(accommodation.getName());
                 description.setText(accommodation.getDescription());
                 town.setText(accommodation.getLocation().getTown());
@@ -141,7 +141,7 @@ public class ViewAccommodation extends JFrame {
         setVisible(true);
     }
 
-    public ViewAccommodation(SimpleUser user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager) { //Για επαναχρησιμοποίηση φόρμας σε αναζήτηση καταλυμάτων
+    public ViewAccommodation() { //Για επαναχρησιμοποίηση φόρμας σε αναζήτηση καταλυμάτων
         setSize(800, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

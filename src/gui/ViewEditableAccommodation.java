@@ -79,7 +79,6 @@ public class ViewEditableAccommodation extends ViewAccommodation {
                     }
                     dispose();
                 }
-
             }
         });
 

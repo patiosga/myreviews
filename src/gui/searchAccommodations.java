@@ -14,7 +14,7 @@ public class searchAccommodations extends ViewAccommodation {
     private ArrayList<Accommodation> results;
 
     public searchAccommodations(SimpleUser user, ManageEvaluations evaluationsManager, ManageAccommodations accommodationsManager){
-        super(user, evaluationsManager, accommodationsManager);
+        super();
 
         viewPool.setEnabled(true);
         viewBeach.setEnabled(true);
