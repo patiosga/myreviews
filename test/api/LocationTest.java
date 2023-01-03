@@ -6,13 +6,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class LocationTest {
-
-
-    Location location;
+    private Location location;
 
     @Before
     public void setUp() throws Exception {
-        location = new Location("Fagkli","Salougka", "12345");
+        location = new Location("Fagkli","Salonika", "12345");
     }
 
     @Test
@@ -24,7 +22,7 @@ public class LocationTest {
 
     @Test
     public void getTown() {
-        assertEquals("Salougka",location.getTown());
+        assertEquals("Salonika",location.getTown());
     }
 
 
@@ -35,4 +33,21 @@ public class LocationTest {
     }
 
 
+    @Test
+    public void setAddress() {
+        location.setAddress("Egnatia");
+        assertEquals("Egnatia", location.getAddress());
+    }
+
+    @Test
+    public void setTown() {
+        location.setTown("Drama");
+        assertEquals("Drama", location.getTown());
+    }
+
+    @Test
+    public void setPostCode() {
+        location.setPostCode("54321");
+        assertEquals("54321", location.getPostCode());
+    }
 }

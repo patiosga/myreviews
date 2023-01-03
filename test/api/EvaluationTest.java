@@ -7,22 +7,28 @@ import static org.junit.Assert.*;
 
 public class EvaluationTest {
 
-    Evaluation eval;
-    SimpleUser user;
-    Accommodation accom;
+    private Evaluation eval;
+    private SimpleUser user;
+    private Provider provider;
+    private Accommodation accommodation;
 
     @Before
     public void setUp() throws Exception {
-        eval = new Evaluation("mageires kai kswtika emfanzotan apo pantou",4.5f,user,accom);
+        user = new SimpleUser("John", "Papad", "user1", "pass", "simpleUser");
+        provider = new Provider("Zorz", "pap", "provider1", "pass", "provider");
+        accommodation = new Accommodation("TestAccommodation", "Testing", "Διαμέρισμα", new Location("Εγνατία", "Δράμα", "12344"), provider);
+        eval = new Evaluation("mageires kai kswtika emfanzotan apo pantou",4.5f,user,accommodation);
     }
 
     @Test
     public void getEvaluationText() {
-        assertEquals("mageires kai kswtika petagotan apo pantou",eval.getEvaluationText());
+        assertEquals("mageires kai kswtika emfanzotan apo pantou",eval.getEvaluationText());
     }
 
     @Test
     public void setEvaluationText() {
+        eval.setEvaluationText("Testing");
+        assertEquals("Testing", eval.getEvaluationText());
     }
 
     @Test
@@ -33,12 +39,20 @@ public class EvaluationTest {
 
     @Test
     public void getUser() {
-        assertEquals(user,eval.getUser());
+        assertEquals(user, eval.getUser());
     }
 
     @Test
-    public void getAccomodation() {
-        assertEquals(accom,eval.getAccommodation());
+    public void getAccommodation() {
+        assertEquals(accommodation, eval.getAccommodation());
     }
 
+    @Test
+    public void testEquals() {
+        Evaluation eval1 = new Evaluation("",4, user, accommodation);
+        assertEquals(eval1, eval);
+        SimpleUser user2 = new SimpleUser("","","user2","pass", "simpleUser");
+        Evaluation eval2 = new Evaluation("",3,user2,accommodation);
+        assertNotEquals(eval2, eval);
+    }
 }

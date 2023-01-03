@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-class UtilitiesTest {
+public class UtilitiesTest {
     Utility comforts;
 
     @Before
