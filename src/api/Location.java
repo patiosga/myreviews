@@ -2,6 +2,10 @@ package api;
 
 import java.io.Serializable;
 
+/**
+ * Η κλάση αυτη αφόρα την τοποθεσία κάποιου καταλύματος.
+ */
+
 public class Location implements Serializable {
     private String address;
     private String town;

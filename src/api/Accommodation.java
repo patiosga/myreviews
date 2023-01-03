@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+
+/**
+ * Η κλάση αυτή διαχειρίζεται τις πληροφορίες/χαρακτηριστικά ενός καταλύματος.
+ */
+
 public class Accommodation implements Serializable {
 
     private float avgRating;
@@ -92,7 +97,8 @@ public class Accommodation implements Serializable {
     }
 
     /**
-     * Σε περίπτωση μετονομασίας του καταλύματος να ανανεώνεται ο μοναδικός κωδικός του καταλύματος
+     *Η μέθοδος αυτή χρησιμοποιείται για την ανανέωση του μοναδικού κωδικού καταλύματος σε περίπτωση
+     * μετανομασίας του.
      */
     public void updateSingularId() {
         singularId = provider.getUserName().hashCode() + name.hashCode();
@@ -117,6 +123,11 @@ public class Accommodation implements Serializable {
     public void setTypesOfUtilities(ArrayList<Utility> typesOfUtilities) {
         this.typesOfUtilities = typesOfUtilities;
     }
+
+    /**
+     * Η μέθοδος αυτή ενημερώνει τον μέσο όρο βαθμολογίας ενός καταλύματος.
+     * @param evaluations Οι Βαθμολογίες του καταλύματος.
+     */
 
     public void updateAvgRatingOfAccommodation(HashSet<Evaluation> evaluations) {
         if (evaluations.size() == 0) {

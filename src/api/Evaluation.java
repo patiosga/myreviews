@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.text.*;
 import java.util.Calendar;
 
+/**
+ * Η κλάση αυτή αφόρα την αξιολόγηση κάποιου καταλύματος.
+ */
+
 public class Evaluation implements Serializable {
     private final String currentDate;
     private final SimpleUser user;

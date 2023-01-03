@@ -7,12 +7,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * Η κλάση αυτή περιέχει μεθόδους για την διαχείρηση των καταλυμάτων.
+ */
+
 public class ManageAccommodations implements Serializable {
     private ArrayList<Accommodation> accommodations;
 
     public ManageAccommodations() {
         accommodations = new ArrayList<>();
     }
+
+    /**
+     *Η μέθοδος αυτή ελέγχει αν υπάρχει κάποιο αρχείο εξόδου.
+     */
 
     public void saveToOutputFiles() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
@@ -22,6 +30,21 @@ public class ManageAccommodations implements Serializable {
             System.out.println("Δεν βρέθηκε αρχείο εξόδου");
         }
     }
+
+    /**
+     * Η μέθοδος αυτη ελέγχει εάν η λίστα των καταλυμμάτων είναι άδεια και αν περιέχεται το κατάλυμμα σε
+     * αυτήν.Εάν ισχύουν οι δύο αυτές προυποθέσεις η μέθοδος επιστρέφει false διαφορετικά προσθέτει το
+     * κατάλυμα με τις παροχές που προσφέρει.
+     * @param name Το όνομα του καταλύματος.
+     * @param description Η περίγραφη του καταλύματος.
+     * @param stayType Ο τύπος του καταλύματος.
+     * @param address Η διεύθυνση του καταλύματος.
+     * @param town Η πόλη στην οποία βρίσκεται το κατάλυμα.
+     * @param postCode Ο ταχυδρομικός κώδικας της περιοχής που βρίσκεται το κατάλυμα.
+     * @param utilities Οι παροχές που προσφέρει το κατάλυμα.
+     * @param provider Ο πάροχος του καταλύματος.
+     * @return
+     */
 
     public boolean addAccommodation(String name, String description, String stayType, String address, String town, String postCode, ArrayList<Utility> utilities, Provider provider) {
         Location location = new Location(address, town, postCode);
@@ -35,6 +58,12 @@ public class ManageAccommodations implements Serializable {
         accommodations.add(accommodation);
         return true;
     }
+
+    /**
+     * Η μέθοδος αυτή ελέγχει εάν η λίστα καταλυμάτων είναι άδεια
+     * @param accommodation
+     * @return
+     */
 
     public boolean removeAccommodation(Accommodation accommodation) {
         if (accommodations.isEmpty())
