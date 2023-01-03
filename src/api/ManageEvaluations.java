@@ -143,7 +143,7 @@ public class ManageEvaluations implements Serializable {
             else if (evaluationTextTooLong(evaluationText))
                 return "Το κείμενο της αξιολόγησης δεν πρέπει να υπερβαίνει τους 500 χαρακτήρες";
 
-            else if (evaluationText.length() == 0)
+            else if (evaluationText.trim().length() == 0) //Η μέθοδος trim() αφαιρεί όλα τα whitespaces ώστε να μην περνάει ως είσοδος το space
                 return "Το κείμενο της αξιολόγησης είναι υποχρεωτικό.";
             return null;
 

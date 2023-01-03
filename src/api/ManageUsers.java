@@ -80,7 +80,7 @@ public class ManageUsers implements Serializable {
     }
 
     public String checkSignUpInaccuracies(String firstName, String lastName, String username, String password) {
-        if (firstName.length() == 0 || lastName.length() == 0 || username.length() == 0 || password.length() == 0)
+        if (firstName.trim().length() == 0 || lastName.trim().length() == 0 || username.trim().length() == 0 || password.trim().length() == 0) //Η μέθοδος trim() αφαιρεί όλα τα whitespaces ώστε να μην περνάει ως είσοδος το space
             return "Όλα τα πεδία κειμένου είναι υποχρεωτικά για την εγγραφή";
         if (findUserWithUsername(username) != null)
             return "Το όνομα χρήστη " + username + " υπάρχει ήδη";

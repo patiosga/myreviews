@@ -112,10 +112,6 @@ public class Accommodation implements Serializable {
         return totalEvaluations;
     }
 
-    public void setTotalEvaluations(int totalEvaluations) {
-        this.totalEvaluations = totalEvaluations;
-    }
-
     public ArrayList<Utility> getTypesOfUtilities() {
         return typesOfUtilities;
     }

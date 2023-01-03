@@ -81,13 +81,14 @@ public class ManageAccommodations implements Serializable {
             return false;
         for (Accommodation accommodation1 : accommodations) {
             if (accommodation.equals(accommodation1)) {
-                accommodations.remove(accommodation1);
-                accommodation1.setName(name);
-                accommodation1.updateSingularId(); //απαραίτητο για να αποφευχθούν συγχύσεις
-                accommodation1.setDescription(description);
-                accommodation1.setStayType(stayType);
-                accommodation1.setPlace(location);
-                accommodations.add(accommodation1);
+                accommodations.remove(accommodation); // το accommodation υπάρχει οπότε η remove δεν επιστρέφει false
+                accommodation.setName(name);
+                accommodation.updateSingularId(); //απαραίτητο για να αποφευχθούν συγχύσεις
+                accommodation.setDescription(description);
+                accommodation.setStayType(stayType);
+                accommodation.setPlace(location);
+                accommodation.updateSingularId(); //Απαραίτητο σε περίπτωση που αλλάξει το όνομα του καταλύματος για να διατηρηθεί η μοναδικότητα του id
+                accommodations.add(accommodation);
                 return true;
             }
         }
@@ -97,8 +98,17 @@ public class ManageAccommodations implements Serializable {
     public boolean alterAccommodationUtilities(Accommodation accommodation , ArrayList<Utility> utilities) {
         if (!accommodationExists(accommodation))
             return false;
+        for (Accommodation accommodation1 : accommodations) {
+            if (accommodation.equals(accommodation1)) {
+                accommodations.remove(accommodation); // το accommodation υπάρχει οπότε η remove δεν επιστρέφει false
+                accommodation.setTypesOfUtilities(utilities);
+                accommodations.add(accommodation);
+                return true;
+            }
+        }
         accommodation.setTypesOfUtilities(utilities);
-        return true;
+        return false;
+
     }
 
     public ArrayList<Accommodation> getProvidersAccommodations(Provider provider) {
@@ -132,10 +142,12 @@ public class ManageAccommodations implements Serializable {
     }
 
     public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά
-        if (name.length() == 0 || stayType.length() == 0 || description.length() == 0 || town.length() == 0 || postCode.length() == 0 || address.length() == 0)
+        if (name.trim().length() == 0 || stayType.trim().length() == 0 || description.trim().length() == 0 || town.trim().length() == 0 || postCode.trim().length() == 0 || address.trim().length() == 0) //Η μέθοδος trim() αφαιρεί όλα τα whitespaces ώστε να μην περνάει ως είσοδος το space
             return "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.";
         else if (!stayType.equals("Ξενοδοχείο")  && !stayType.equals("Διαμέρισμα") && !stayType.equals("Μεζονέτα"))
-            return "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα." + stayType + ".";
+            return "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα.";
+        else if (accommodationNameExists(name))
+            return "Έχετε ήδη καταχωρήσει κατάλυμα με αυτό το όνομα παρακαλώ επιλέξτε άλλο";
         float postC;
         try {
             postC = Float.parseFloat(postCode);
@@ -145,6 +157,16 @@ public class ManageAccommodations implements Serializable {
             return "Παρακαλώ εισάγετε αριθμό στο πεδίο του ταχυδρομικού κώδικα.";
         }
         return null; //περίπτωση του όλα καλά
+    }
+
+    private boolean accommodationNameExists(String name) {
+        if (accommodations.isEmpty())
+            return false;
+        for (Accommodation accommodation : accommodations) {
+            if (accommodation.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
 
