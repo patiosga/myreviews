@@ -1,7 +1,7 @@
 package api;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class SimpleUser extends User implements Serializable {
     private float avgRating; //πρέπει να ενημερώνεται κάθε φορά που κάνει ο χρήστης νέα αξιολόγηση ή αφαιρείται μια παλιά του
@@ -11,7 +11,7 @@ public class SimpleUser extends User implements Serializable {
         avgRating = 0;
     }
 
-    public void updateAvgRatingOfUser(HashSet<Evaluation> evaluations) {
+    public void updateAvgRatingOfUser(ArrayList<Evaluation> evaluations) {
         if (evaluations.size() == 0) {
             avgRating = 0;
             return;

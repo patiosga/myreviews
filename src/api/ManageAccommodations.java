@@ -133,7 +133,7 @@ public class ManageAccommodations implements Serializable {
         return user.equals(accommodation.getProvider());
     }
 
-    public void updateAllAvgRatings(HashSet<Evaluation> evaluations) {
+    public void updateAllAvgRatings(ArrayList<Evaluation> evaluations) {
         if (evaluations.isEmpty())
             return;
         for (Accommodation accommodation : accommodations) {
@@ -180,10 +180,10 @@ public class ManageAccommodations implements Serializable {
         boolean fittingUtilities;
         for (Accommodation accommodation : accommodations) {
             fittingUtilities = true;
-            // Αν οι συμβολοσειρές είναι κενές δεν οδηγείται στην απόρριψη του καταλύματος κατά την αναζήτηση
-            fittingName = name.length() == 0 || name.equals(accommodation.getName());
-            fittingStayType = stayType.length() == 0 || stayType.equals(accommodation.getStayType());
-            fittingTown = town.length() ==0 || town.equals(accommodation.getLocation().getTown());
+            // Αν οι συμβολοσειρές είναι κενές ή έχουν μόνο whitespaces δεν οδηγείται στην απόρριψη του καταλύματος κατά την αναζήτηση
+            fittingName = name.trim().length() == 0 || name.equals(accommodation.getName());
+            fittingStayType = stayType.trim().length() == 0 || stayType.equals(accommodation.getStayType());
+            fittingTown = town.trim().length() ==0 || town.equals(accommodation.getLocation().getTown());
 
             for (int i=0; i<utilities.size() && fittingUtilities; i++) {
                 if (!utilities.get(i).getSpecifics().isEmpty())

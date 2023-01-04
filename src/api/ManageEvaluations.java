@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class ManageEvaluations implements Serializable {
 
-    private HashSet<Evaluation> evaluations;
+    private ArrayList<Evaluation> evaluations;
 
     public ManageEvaluations() {
-        evaluations = new HashSet<>();
+        evaluations = new ArrayList<>();
     }
 
     public void saveToOutputFiles() {
@@ -27,9 +28,10 @@ public class ManageEvaluations implements Serializable {
     public void removedAccommodationAlert(Accommodation accommodation) {
         if (evaluations.isEmpty())
             return;
-        for (Evaluation evaluation : evaluations) {
+        for (Iterator<Evaluation> iterator = evaluations.iterator(); iterator.hasNext();) {
+            Evaluation evaluation = iterator.next();
             if (evaluation.getAccommodation().equals(accommodation))
-                removeEvaluation(evaluation);
+                iterator.remove();
         }
     }
 
@@ -60,10 +62,13 @@ public class ManageEvaluations implements Serializable {
     public boolean removeEvaluation(Evaluation toDeleteEvaluation) {
         if (evaluations.isEmpty())
             return false;
-        if (evaluations.contains(toDeleteEvaluation)) {
-            evaluations.remove(toDeleteEvaluation);
-            updateAvgRatings(toDeleteEvaluation.getAccommodation(), toDeleteEvaluation.getUser()); //επανυπολογισμοί μέσων όρων μετά τη διαγραφή
-            return true;
+        for (Evaluation evaluation : evaluations) {
+            if (evaluation.equals(toDeleteEvaluation)) {
+                if (!evaluations.remove(toDeleteEvaluation))
+                    return false;
+                updateAvgRatings(toDeleteEvaluation.getAccommodation(), toDeleteEvaluation.getUser()); //επανυπολογισμοί μέσων όρων μετά τη διαγραφή
+                return true;
+            }
         }
         return false;
     }
@@ -91,6 +96,8 @@ public class ManageEvaluations implements Serializable {
     }
 
     public boolean alterEvaluation(Evaluation oldEvaluation, float nextGrade, String nextText) {
+        if (evaluations.isEmpty())
+            return false;
         for (Evaluation evaluation : evaluations) {
             if (oldEvaluation.equals(evaluation)) {
                 if (evaluationTextTooLong(nextText))
@@ -130,7 +137,7 @@ public class ManageEvaluations implements Serializable {
         return grade < 1 || grade > 5;
     }
 
-    public HashSet<Evaluation> getEvaluations() {
+    public ArrayList<Evaluation> getEvaluations() {
         return evaluations;
     }
 

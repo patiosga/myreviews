@@ -3,20 +3,21 @@ package api;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
 public class AccommodationTest {
     private Accommodation accommodation;
-    private HashSet<Evaluation> evaluations;
+    private ArrayList<Evaluation> evaluations;
     private Evaluation eval1;
     private Evaluation eval2;
     private Evaluation eval3;
 
     @Before
     public void setUp() throws Exception {
-        evaluations = new HashSet<>();
+        evaluations = new ArrayList<>();
         SimpleUser user = new SimpleUser("","","","","");
         Provider provider = new Provider("John", "Pap", "user1", "pass", "provider");
         accommodation = new Accommodation("Tester", "Testing", "Ξενοδοχείο", new Location("","",""), provider);

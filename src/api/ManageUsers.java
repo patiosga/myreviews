@@ -1,6 +1,7 @@
 package api;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -70,7 +71,7 @@ public class ManageUsers implements Serializable {
         return user.getPassword().equals(password);
     }
 
-    public void updateAllAvgRatings(HashSet<Evaluation> evaluations) {
+    public void updateAllAvgRatings(ArrayList<Evaluation> evaluations) {
         if (evaluations.isEmpty())
             return;
         for (SimpleUser simpleUser : simpleUsers)
