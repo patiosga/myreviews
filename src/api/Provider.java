@@ -21,6 +21,7 @@ public class Provider extends User implements Serializable {
     public void updateAvgRatingOfAllAccom(ArrayList<Evaluation> evaluations) { //πρέπει να καλείται μετά τη μέθοδο που ενημερώνει το κατάλυμα μετά από προσθήκη ή αφαίρεση αξιολόγησης
         if (evaluations.size() == 0) {
             avgRatingOfAllAccom = 0;
+            totalRatings = 0;
             return;
         }
         float totalSum = 0;

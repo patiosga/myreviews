@@ -39,45 +39,32 @@ public class ManageUsers implements Serializable {
         return null;
     }
 
-    public String getUserType(String username) {
-        return Objects.requireNonNull(findUserWithUsername(username)).getType(); // καλείται μόνο όταν υπάρχει σίγουρα το username οπότε δεν χρειάζεται έξτρα έλεγχος
-    }
-
     public boolean isSimpleUser(User user) {
         return user instanceof SimpleUser;
-    }
+    } //ελέγχει τον χρήστη που επιστρέφει η findUserWithUserName στο login
 
     public boolean isProvider(User user) {
         return user instanceof Provider;
-    }
+    } //Δε χρησιμοποιείται γιατί αν ένας χρήστης δεν είναι SimpleUser Θα είναι Provider οπότε δεν απαιτείται έξτρα έλεγχος στο authentication (αν προστεθούν και άλλοι τύποι χρηστών θα είναι απαραίτητο
 
 
     public SimpleUser createSimpleUser(String firstName, String lastName ,String userName, String password) {
         SimpleUser user = new SimpleUser(firstName, lastName, userName, password, "simpleUser");
         simpleUsers.add(user);
         return user;
-    }
+    } //Δεν ελέγχεται αν το username υπάρχει ήδη γιατί ο έλεγχος γίνεται στο checkSignUpInaccuracies
 
     public Provider createProvider(String firstName, String lastName ,String userName, String password) {
         Provider user = new Provider(firstName, lastName, userName, password, "provider");
         providers.add(user);
         return user;
-    }
+    } //Δεν ελέγχεται αν το username υπάρχει ήδη γιατί ο έλεγχος γίνεται στο checkSignUpInaccuracies
 
     public boolean authentication(String username, String password) {
         User user = findUserWithUsername(username);
         if (user == null)
             return false;
         return user.getPassword().equals(password);
-    }
-
-    public void updateAllAvgRatings(ArrayList<Evaluation> evaluations) {
-        if (evaluations.isEmpty())
-            return;
-        for (SimpleUser simpleUser : simpleUsers)
-            simpleUser.updateAvgRatingOfUser(evaluations);
-        for (Provider provider : providers)
-            provider.updateAvgRatingOfAllAccom(evaluations);
     }
 
     public String checkSignUpInaccuracies(String firstName, String lastName, String username, String password) {
