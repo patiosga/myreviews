@@ -54,7 +54,7 @@ public class ViewEditableAccommodation extends ViewAccommodation {
         submitAccommodation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String checkText = accommodationsManager.checkSubmissionInaccuracies(accommodationName.getText(), description.getText(), stayType.getText(), town.getText(), address.getText(), postCode.getText());
+                String checkText = accommodationsManager.checkSubmissionInaccuracies(accommodationName.getText(), description.getText(), stayType.getText(), town.getText(), address.getText(), postCode.getText(),true);
                 if (checkText != null)
                     JOptionPane.showMessageDialog(getParent(), checkText);
                 else {
@@ -72,12 +72,18 @@ public class ViewEditableAccommodation extends ViewAccommodation {
                         accommodationsManager.alterAccommodationDetails(accommodation, accommodationName.getText(), description.getText(),
                                 stayType.getText(), address.getText(), town.getText(), postCode.getText());
                         accommodationsManager.alterAccommodationUtilities(accommodation, eternalUtilities);
+                        dispose();
                     }
                     else {
-                        accommodationsManager.addAccommodation(accommodationName.getText(), description.getText(), stayType.getText(),
-                                address.getText(), town.getText(), postCode.getText(), eternalUtilities, provider);
+                        checkText = accommodationsManager.checkSubmissionInaccuracies(accommodationName.getText(), description.getText(), stayType.getText(), town.getText(), address.getText(), postCode.getText(),false);
+                        if (checkText == null) {
+                            accommodationsManager.addAccommodation(accommodationName.getText(), description.getText(), stayType.getText(),
+                                    address.getText(), town.getText(), postCode.getText(), eternalUtilities, provider);
+                            dispose();
+                        }
+                        else JOptionPane.showMessageDialog(getParent(), checkText);
                     }
-                    dispose();
+
                 }
             }
         });

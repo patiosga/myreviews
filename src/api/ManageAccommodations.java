@@ -194,12 +194,12 @@ public class ManageAccommodations implements Serializable {
      * @param postCode Ο ταχυδρομικός κώδικας του καταλύματος.
      * @return Κατάλληλο μήνυμα σε περίπτωση λανθασμένης καταχώρησης, διαφορετικά null.
      */
-    public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά
+    public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode, boolean editing) { //επιστρέφει null αν όλα καλά
         if (name.trim().length() == 0 || stayType.trim().length() == 0 || description.trim().length() == 0 || town.trim().length() == 0 || postCode.trim().length() == 0 || address.trim().length() == 0) //Η μέθοδος trim() αφαιρεί όλα τα whitespaces ώστε να μην περνάει ως είσοδος το space
             return "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.";
         else if (!stayType.equals("Ξενοδοχείο")  && !stayType.equals("Διαμέρισμα") && !stayType.equals("Μεζονέτα"))
             return "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα.";
-        else if (accommodationNameExists(name))
+        else if (accommodationNameExists(name) && !editing)
             return "Έχετε ήδη καταχωρήσει κατάλυμα με αυτό το όνομα παρακαλώ επιλέξτε άλλο";
         float postC;
         try {
