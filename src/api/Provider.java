@@ -39,6 +39,11 @@ public class Provider extends User implements Serializable {
         avgRatingOfAllAccom = totalSum / numOfEvaluations;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public float getAvgRatingOfAllAccom() {
         return avgRatingOfAllAccom;
     }

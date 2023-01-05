@@ -165,6 +165,11 @@ public class ManageAccommodations implements Serializable {
         return user.equals(accommodation.getProvider());
     }
 
+    /**
+     *Η μέθοδος αυτή ενημερώνει τον μέσο όρο αξιολογήσεων των καταλυμμάτων.
+     * @param evaluations Οι αξιολογήσεις.
+     */
+
     public void updateAllAvgRatings(HashSet<Evaluation> evaluations) {
         if (evaluations.isEmpty())
             return;
@@ -172,6 +177,21 @@ public class ManageAccommodations implements Serializable {
             accommodation.updateAvgRatingOfAccommodation(evaluations);
         }
     }
+
+    /**
+     * Η μέθοδος αυτή ελέγχει εάν τα πέδια για την καταχώρηση κάποιου καταλύμματος έχουν συμπληρωθεί ορθά,και επιστρέφει κατάλληλο μήνυμα.Η ο-
+     * ρθότητα καταχώρησης κρίνεται από τις πληροφορίες του καταλύμματος,των οποίων το μήκος της γραμματοσειράς πρέπει να υπερβαίνει του μηδενός,
+     * του τύπου καταλύμματος το οποίο πρεπει να αντιστοιχείται σε κάποιο από τα τρία διαθέσιμα και του ταχυδρόμικου κώδικα ο οποίος πρέπει να
+     * είναι μεγαλύτερος του μηδενός.Εάν πληρούνται αυτές οι προυποθέσεις η μέθοδος επιστρέφει null,σε διαφορετική περίπτωση επιστρέφεται κατάλληλο
+     * μήνυμα.
+     * @param name Το όνομα καταλύμματος.
+     * @param description Η περιγραφή του καταλύμματος.
+     * @param stayType Ο τύπος καταλύμματος.
+     * @param town Η πόλη του καταλύμματος.
+     * @param address  Η διεύθυνση καταλύμματος.
+     * @param postCode Ο ταχυδρομικός κώδικας του καταλύμματος.
+     * @return Κατάλληλο μήνυμα σε πέριπτωση λανθασμένης καταχώρησης,διαφορετικά null.
+     */
 
     public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά
         if (name.length() == 0 || stayType.length() == 0 || description.length() == 0 || town.length() == 0 || postCode.length() == 0 || address.length() == 0)
@@ -188,6 +208,15 @@ public class ManageAccommodations implements Serializable {
         }
         return null; //περίπτωση του όλα καλά
     }
+
+    /**
+     * Η μέθοδος αυτή χρησιμοποιείται για την αναζήτηση καταλυμμάτων
+     * @param name Tο όνομα του καταλύμματος.
+     * @param stayType Ο τύπος του καταλύμματος.
+     * @param town Η πόλη του καταλύμματος.
+     * @param utilities Οι παροχές του καταλύμματος.
+     * @return Λίστα με τα καταλύμματα.
+     */
 
 
     public ArrayList<Accommodation> searchAccommodations(String name, String stayType, String town, ArrayList<Utility> utilities) {
