@@ -3,6 +3,10 @@ package api;
 import java.io.Serializable;
 import java.util.HashSet;
 
+
+/**
+ * Η κλάσση αυτή αφορά τους παρόχους καταλυμμάτων.
+ */
 public class Provider extends User implements Serializable {
     private int totalRatings; //πρέπει να ενημερώνεται κάθε φορά που προστίθεται ή αφαιρείται αξιολόγηση
     private float avgRatingOfAllAccom;
@@ -39,14 +43,20 @@ public class Provider extends User implements Serializable {
         avgRatingOfAllAccom = totalSum / numOfEvaluations;
     }
 
+
     /**
-     *
-     * @return
+     * Η μέθοδος αυτή επιστρέφει τον μέσο όρο βαθμολόγησης όλων των καταλυμμάτων.
+     * @return Τον μέσο όρο βαθμολόγησης όλων των καταλυμμάτων.
      */
 
     public float getAvgRatingOfAllAccom() {
         return avgRatingOfAllAccom;
     }
+
+    /**
+     * Η μέθοδος αυτή επιστρέφει τον συνολικό βαθμό των αξιολογήσεων.
+     * @return Τον επιστρέφει τον συνολικό βαθμό των αξιολογήσεων.
+     */
 
     public int getTotalRatings() {
         return totalRatings;

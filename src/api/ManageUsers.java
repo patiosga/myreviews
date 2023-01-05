@@ -145,12 +145,14 @@ public class ManageUsers implements Serializable {
     }
 
     /**
-     * Η μέθοδος αυτή ελέγχει
-     * @param firstName
-     * @param lastName
-     * @param username
-     * @param password
-     * @return
+     * Η μέθοδος αυτή ελέγχει εάν τα πεδία για την εγγραφή κάποιου χρήστη,έχουν συμπληρώθει ορθά και επιστρέφει κατάλληλο μήνυμα.Η ορθότητα εγγρα-
+     * φής κρίνεται από τα στοιχέια του χρήστη,των οποίων το μήκος της γραμματοσειράς πρέπει να υπερβαίνει το μηδέν και το ειδικό όνομα χρήστη το
+     * οποίο πρέπει να είναι μοναδικό.Σε διαφορετικη περίπτωση να επιστρέφει κατάλληλο μήνυμα.
+     * @param firstName Το μικρό όνομα.
+     * @param lastName Το επώνυμο όνομα.
+     * @param username Το ειδικό όνομα.
+     * @param password Ο κωδικός.
+     * @return Null ή κατάλληλο μήνυμα.
      */
 
     public String checkSignUpInaccuracies(String firstName, String lastName, String username, String password) {
