@@ -43,7 +43,7 @@ public class ManageAccommodations implements Serializable {
      * @param postCode Ο ταχυδρομικός κώδικας της περιοχής που βρίσκεται το κατάλυμα.
      * @param utilities Οι παροχές που προσφέρει το κατάλυμα.
      * @param provider Ο πάροχος του καταλύματος.
-     * @return Επιστρέφει true ή false.
+     * @return
      */
 
     public boolean addAccommodation(String name, String description, String stayType, String address, String town, String postCode, ArrayList<Utility> utilities, Provider provider) {
@@ -60,10 +60,9 @@ public class ManageAccommodations implements Serializable {
     }
 
     /**
-     * Η μέθοδος αυτή  αφαιρεί ένα κατάλυμμα απο την λίστα καταλυμμάτων εάν η λίστα δεν είναι αδεία ή εάν αυτό περιεχέται στην λίστα καταλυμ-
-     * μάτων, σε διαφορετική περίπτωση επιστρέφει false.
-     * @param accommodation Το κατάλυμμα.
-     * @return False ή true
+     * Η μέθοδος αυτή ελέγχει εάν η λίστα καταλυμάτων είναι άδεια
+     * @param accommodation
+     * @return
      */
 
     public boolean removeAccommodation(Accommodation accommodation) {
@@ -75,21 +74,6 @@ public class ManageAccommodations implements Serializable {
         //Διαχείριση fallout των evaluations με εξτρα συνάρτηση στη ManageEvaluations
         return true;
     }
-
-    /**
-     * Η μέθοδος αυτή χρησιμοποιείται για την ανανέωση των πληροφορίων/χαρακτηριστικών ενός καταλύμματος.Εάν η λίστα είναι άδεια επιστρέφει false
-     * διαφορετικά γίνεται μία αναζήτη στην λίστα των καταλύμματων και όταν βρεθεί το κατάλυμμα που αναζητείται γίνονται οι αλλαγές στις πληροφο-
-     * ρίες/χαρακτηριστικά του.
-     *
-     * @param accommodation Το Κατάλυμμα.
-     * @param name Το όνομα καταλύμματος.
-     * @param description Η περιγραφή του καταλύμματος.
-     * @param stayType Ο τύπος καταλύμματος.
-     * @param address Η διεύθυνση καταλύμματος.
-     * @param town Η πόλη του καταλύμματος.
-     * @param postCode Ο ταχυδρομικός κώδικας του καταλύμματος.
-     * @return True ή False.
-     */
 
     public boolean alterAccommodationDetails(Accommodation accommodation, String name, String description, String stayType, String address, String town, String postCode) {
         Location location = new Location(address, town, postCode);
@@ -110,25 +94,12 @@ public class ManageAccommodations implements Serializable {
         return false;
     }
 
-    /**
-     * η Μέθοδος αυτή χρησιμοποιείται για την ανανέωση των παροχών ενός καταλύμματος.
-     * @param accommodation Το κατάλυμμα.
-     * @param utilities Οι παροχές του καταλύμματος.
-     * @return True ή False.
-     */
-
     public boolean alterAccommodationUtilities(Accommodation accommodation , ArrayList<Utility> utilities) {
         if (!accommodationExists(accommodation))
             return false;
         accommodation.setTypesOfUtilities(utilities);
         return true;
     }
-
-    /**
-     * Η μέθοδος αυτή χρησιμοποιείται για την δημιουργία μιας λίστας για τα καταλύμματα ενός παρόχου.
-     * @param provider Ο πάροχος
-     * @return Τα καταλύμματα ενός παρόχου.
-     */
 
     public ArrayList<Accommodation> getProvidersAccommodations(Provider provider) {
         ArrayList<Accommodation> providersAccommodations = new ArrayList<>();
@@ -141,34 +112,16 @@ public class ManageAccommodations implements Serializable {
         return providersAccommodations;
     }
 
-    /**
-     * Η μέθοδος αυτή ελέγχει εάν ένα κατάλυμμα υπάρχει στην λίστα.
-     * @param accommodation
-     * @return
-     */
-
     public boolean accommodationExists(Accommodation accommodation) {
         if (accommodations.isEmpty())
             return false;
         return accommodations.contains(accommodation);
     }
 
-    /**
-     * Η μέθοδος αυτή
-     * @param user
-     * @param accommodation
-     * @return
-     */
-
 
     public boolean isProvidersAccommodation(User user, Accommodation accommodation) {
         return user.equals(accommodation.getProvider());
     }
-
-    /**
-     *Η μέθοδος αυτή ενημερώνει τον μέσο όρο αξιολογήσεων των καταλυμμάτων.
-     * @param evaluations Οι αξιολογήσεις.
-     */
 
     public void updateAllAvgRatings(HashSet<Evaluation> evaluations) {
         if (evaluations.isEmpty())
@@ -177,21 +130,6 @@ public class ManageAccommodations implements Serializable {
             accommodation.updateAvgRatingOfAccommodation(evaluations);
         }
     }
-
-    /**
-     * Η μέθοδος αυτή ελέγχει εάν τα πέδια για την καταχώρηση κάποιου καταλύμματος έχουν συμπληρωθεί ορθά,και επιστρέφει κατάλληλο μήνυμα.Η ο-
-     * ρθότητα καταχώρησης κρίνεται από τις πληροφορίες του καταλύμματος,των οποίων το μήκος της γραμματοσειράς πρέπει να υπερβαίνει το μηδέν,
-     * του τύπου καταλύμματος το οποίο πρεπει να αντιστοιχείται σε κάποιο από τα τρία διαθέσιμα και του ταχυδρόμικου κώδικα ο οποίος πρέπει να
-     * είναι μεγαλύτερος του μηδενός.Εάν πληρούνται αυτές οι προυποθέσεις η μέθοδος επιστρέφει null,σε διαφορετική περίπτωση επιστρέφεται κατάλληλο
-     * μήνυμα.
-     * @param name Το όνομα καταλύμματος.
-     * @param description Η περιγραφή του καταλύμματος.
-     * @param stayType Ο τύπος καταλύμματος.
-     * @param town Η πόλη του καταλύμματος.
-     * @param address  Η διεύθυνση καταλύμματος.
-     * @param postCode Ο ταχυδρομικός κώδικας του καταλύμματος.
-     * @return Κατάλληλο μήνυμα σε πέριπτωση λανθασμένης καταχώρησης,διαφορετικά null.
-     */
 
     public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode) { //επιστρέφει null αν όλα καλά
         if (name.length() == 0 || stayType.length() == 0 || description.length() == 0 || town.length() == 0 || postCode.length() == 0 || address.length() == 0)
@@ -208,15 +146,6 @@ public class ManageAccommodations implements Serializable {
         }
         return null; //περίπτωση του όλα καλά
     }
-
-    /**
-     * Η μέθοδος αυτή χρησιμοποιείται για την αναζήτηση καταλυμμάτων
-     * @param name Tο όνομα του καταλύμματος.
-     * @param stayType Ο τύπος του καταλύμματος.
-     * @param town Η πόλη του καταλύμματος.
-     * @param utilities Οι παροχές του καταλύμματος.
-     * @return Λίστα με τα καταλύμματα.
-     */
 
 
     public ArrayList<Accommodation> searchAccommodations(String name, String stayType, String town, ArrayList<Utility> utilities) {

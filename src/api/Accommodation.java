@@ -112,10 +112,6 @@ public class Accommodation implements Serializable {
         return totalEvaluations;
     }
 
-    public void setTotalEvaluations(int totalEvaluations) {
-        this.totalEvaluations = totalEvaluations;
-    }
-
     public ArrayList<Utility> getTypesOfUtilities() {
         return typesOfUtilities;
     }
@@ -129,9 +125,10 @@ public class Accommodation implements Serializable {
      * @param evaluations Οι Βαθμολογίες του καταλύματος.
      */
 
-    public void updateAvgRatingOfAccommodation(HashSet<Evaluation> evaluations) {
+    public void updateAvgRatingOfAccommodation(ArrayList<Evaluation> evaluations) {
         if (evaluations.size() == 0) {
             avgRating = 0;
+            totalEvaluations = 0;
             return;
         }
         float totalSum = 0;

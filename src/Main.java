@@ -12,23 +12,23 @@ public class Main {
         ManageAccommodations accommodationsManager = new ManageAccommodations();
 
 
-//        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
-//            out.writeObject(usersManager);
-//        } catch (IOException e1) {
-//            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-//        }
-//
-//        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
-//            out.writeObject(evaluationsManager);
-//        } catch (IOException e1) {
-//            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-//        }
-//
-//        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
-//            out.writeObject(accommodationsManager);
-//        } catch (IOException e1) {
-//            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
-//        }
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usersManager.bin"))) {
+            out.writeObject(usersManager);
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("evaluationsManager.bin"))) {
+            out.writeObject(evaluationsManager);
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("accommodationsManager.bin"))) {
+            out.writeObject(accommodationsManager);
+        } catch (IOException e1) {
+            System.out.println("Δεν βρέθηκε αρχείο εξόδου");
+        }
 
         try (ObjectInputStream out = new ObjectInputStream(new FileInputStream("usersManager.bin"))) {
             usersManager = (ManageUsers) out.readObject();

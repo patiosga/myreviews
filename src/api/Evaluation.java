@@ -30,7 +30,7 @@ public class Evaluation implements Serializable {
         Calendar cals = Calendar.getInstance();
         currentDate = Date.format(cals.getTime());
 
-        singularId = user.hashCode() + accommodation.hashCode() + (long) grade;
+        singularId = user.getUserName().hashCode() + accommodation.hashCode();
     }
 
     public String getEvaluationText() {
