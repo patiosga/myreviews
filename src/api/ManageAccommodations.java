@@ -193,6 +193,7 @@ public class ManageAccommodations implements Serializable {
      * @param address  Η διεύθυνση καταλύματος.
      * @param postCode Ο ταχυδρομικός κώδικας του καταλύματος.
      * @return Κατάλληλο μήνυμα σε περίπτωση λανθασμένης καταχώρησης, διαφορετικά null.
+     * @param editing False αν πρόκειται για επεξεργασία καταλύματος για να μη χτυπήσει στη συνωνυμία με τον εαυτό του
      */
     public String checkSubmissionInaccuracies(String name, String description, String stayType, String town, String address, String postCode, boolean editing) { //επιστρέφει null αν όλα καλά
         if (name.trim().length() == 0 || stayType.trim().length() == 0 || description.trim().length() == 0 || town.trim().length() == 0 || postCode.trim().length() == 0 || address.trim().length() == 0) //Η μέθοδος trim() αφαιρεί όλα τα whitespaces ώστε να μην περνάει ως είσοδος το space

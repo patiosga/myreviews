@@ -9,7 +9,10 @@ import java.util.HashSet;
  * Η κλάση αυτή αφορά τους παρόχους καταλυμάτων.
  */
 public class Provider extends User implements Serializable {
-    private int totalRatings; //πρέπει να ενημερώνεται κάθε φορά που προστίθεται ή αφαιρείται αξιολόγηση
+    /**
+     * Συνολικές αξιολογήσεις καταλύματος. Πρέπει να ενημερώνεται κάθε φορά που προστίθεται ή αφαιρείται αξιολόγηση
+     */
+    private int totalRatings;
     private float avgRatingOfAllAccom;
 
     /**

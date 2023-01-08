@@ -139,7 +139,7 @@ public class Accommodation implements Serializable {
 
     /**
      * Επιστρέφει το μοναδικό id του καταλύματος που αρχικοποιείται στον κατασκευαστή
-     * @return
+     * @return μοναδικό id του καταλύματος
      */
     public long getSingularId() {
         return singularId;
