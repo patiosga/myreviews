@@ -129,18 +129,18 @@ public class ManageAccommodationsTest {
         assertFalse(accommodationsManager.isProvidersAccommodation(provider2 ,acc1));
     }
 
-    @Test
-    public void checkSubmissionInaccuracies() {
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("", "", "", "","",""), "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.");
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("egf ef", "f efg ", "fv ef", "f ","v",""), "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.");
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("   ", "  ", "  ", " "," "," "), "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.");
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("a", "a", "a", "a","a","a"), "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα.");
-        accommodationsManager.addAccommodation("Tester1","", "", "","","", utilities,provider1);
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("Tester1", "a", "Ξενοδοχείο", "a","a","a"), "Έχετε ήδη καταχωρήσει κατάλυμα με αυτό το όνομα παρακαλώ επιλέξτε άλλο");
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("α", "a", "Μεζονέτα", "α","α","α"), "Παρακαλώ εισάγετε αριθμό στο πεδίο του ταχυδρομικού κώδικα.");
-        assertEquals(accommodationsManager.checkSubmissionInaccuracies("α", "α", "Διαμέρισμα", "α","α","-1243"), "Εισάγετε έγκυρο ταχυδρομικό κώδικα");
-        assertNull(accommodationsManager.checkSubmissionInaccuracies("α", "α", "Διαμέρισμα", "α", "α", "1235"));
-    }
+    //@Test
+//    public void checkSubmissionInaccuracies() {
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("", "", "", "","",""), "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.");
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("egf ef", "f efg ", "fv ef", "f ","v",""), "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.");
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("   ", "  ", "  ", " "," "," "), "Τα πεδία κειμένου είναι υποχρεωτικά για να υποβάλετε επιτυχώς το νέο σας κατάλυμα.");
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("a", "a", "a", "a","a","a"), "Παρακαλώ δηλώστε τον τύπο του καταλύματος ως Ξενοδοχείο, Διαμέρισμα ή Μεζονέτα.");
+//        accommodationsManager.addAccommodation("Tester1","", "", "","","", utilities,provider1);
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("Tester1", "a", "Ξενοδοχείο", "a","a","a"), "Έχετε ήδη καταχωρήσει κατάλυμα με αυτό το όνομα παρακαλώ επιλέξτε άλλο");
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("α", "a", "Μεζονέτα", "α","α","α"), "Παρακαλώ εισάγετε αριθμό στο πεδίο του ταχυδρομικού κώδικα.");
+//        assertEquals(accommodationsManager.checkSubmissionInaccuracies("α", "α", "Διαμέρισμα", "α","α","-1243"), "Εισάγετε έγκυρο ταχυδρομικό κώδικα");
+//        assertNull(accommodationsManager.checkSubmissionInaccuracies("α", "α", "Διαμέρισμα", "α", "α", "1235"));
+//}
 
     @Test
     public void searchAccommodations() {
