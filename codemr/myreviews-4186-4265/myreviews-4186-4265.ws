@@ -1,0 +1,1 @@
+{"MyReviews":{"name":"MyReviews","packages":{"gui":{"packageName":"gui","isAll":false,"classes":["Lgui.GuiFake"]},"api":{"packageName":"api","isAll":false,"classes":["Lapi.User","Lapi.Utilities","Lapi.Accomodation","Lapi.ManageEvaluations","Lapi.ManageUsers","Lapi.Location","Lapi.Provider","Lapi.Evaluation","Lapi.SimpleUser"]}}}}
